@@ -1,5 +1,6 @@
 package com.action.user;
 
+import java.util.Date;
 import java.util.Map;
 
 import com.bean.User;
@@ -54,19 +55,21 @@ public class EnrollAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		if (service.usernameExsit(username)) {
-			addFieldError("message", "用户名早就被人家用了！");
+			addFieldError("message", "??????????????????????????????????????????????????????????????????");
 			return INPUT;
 		}
 		User user = new User();
-		user.setAdmin(false);
+		//user.setAdmin(false);
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setEmail(email);
+		Date time = new Date();
+		user.setTime(time);
 		service.save(user);
 		Map session = ActionContext.getContext().getSession();
 		session.put("username", username);
 		session.put("userid", user.getUserid());
-		session.put("admin", 0);
+		session.put("time", time.toString());
 		return SUCCESS;
 	}
 }

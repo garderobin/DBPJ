@@ -1,15 +1,14 @@
 package com.bean;
 
-import java.util.Set;
+import java.util.Date;
 
 public class User {
 	private Integer userid;
 	private String username;
 	private String password;
 	private String email;
-	private String note;
-	private Boolean admin;
-	private Set<Paragraph> paragraphs;
+	private Date time ;
+	
 	
 	public User(){}
 
@@ -45,29 +44,15 @@ public class User {
 		this.email = email;
 	}
 
-	public String getNote() {
-		return note;
+	public Date getTime() {
+		return time;
 	}
 
-	public void setNote(String note) {
-		this.note = note;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
-	public Boolean getAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(Boolean admin) {
-		this.admin = admin;
-	}
-
-	public Set<Paragraph> getParagraphs() {
-		return paragraphs;
-	}
-
-	public void setParagraphs(Set<Paragraph> paragraphs) {
-		this.paragraphs = paragraphs;
-	}
+	
 	
 	
 	
