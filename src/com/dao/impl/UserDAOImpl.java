@@ -54,7 +54,8 @@ public class UserDAOImpl implements UserDAO {
 		session.flush();
 		session.close();
 	}
-
+	
+	/*
 	@Override
 	public String find_note_of_user(Integer userid) {
 		Session session = sessionFactory.openSession();
@@ -80,4 +81,5 @@ public class UserDAOImpl implements UserDAO {
 			return (User)list.get(0);
 		}
 	}
+	*/
 }

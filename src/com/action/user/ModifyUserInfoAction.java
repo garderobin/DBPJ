@@ -59,22 +59,7 @@ public class ModifyUserInfoAction extends ActionSupport {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String execute() throws Exception {
-		Map session = ActionContext.getContext().getSession();
-		if (service.checkUser((String)session.get("username"), confirm_password)) {
-			addFieldError("message", "旧密码打错了！");
-			return INPUT;
-		}
-		if (service.usernameExsit(username)) {
-			addFieldError("message", "用户名早就被人家用了！");
-			return INPUT;
-		}
-		User user = service.find_user_by_userid((Integer)session.get("userid"));
-		user.setUsername(username);
-		session.put("username", username);
-		user.setEmail(email);
-		user.setPassword(password);
-		service.update(user);
-		return SUCCESS;
+		return null;
 	}
 	
 }
