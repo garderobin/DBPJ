@@ -1,9 +1,9 @@
 package com.bean;
 import java.util.Date;
-public class Follow {
+public class comment {
 	private String username;
-	private Integer bid;
-	private String stream;
+	private Integer pinid;
+	private String comment;
 	private Date time;
 	public String getUsername() {
 		return username;
@@ -11,17 +11,17 @@ public class Follow {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public Integer getBid() {
-		return bid;
+	public Integer getPinid() {
+		return pinid;
 	}
-	public void setBid(Integer bid) {
-		this.bid = bid;
+	public void setPinid(Integer pinid) {
+		this.pinid = pinid;
 	}
-	public String getStream() {
-		return stream;
+	public String getComment() {
+		return comment;
 	}
-	public void setStream(String stream) {
-		this.stream = stream;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	public Date getTime() {
 		return time;
@@ -29,6 +29,5 @@ public class Follow {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-	
 
 }
