@@ -8,7 +8,7 @@
     <class name="com.bean.Picture" table="picture" catalog="pinterest">
         <id name="picnum" type="java.lang.Integer">
             <column name="picnum" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
         <property name="url" type="java.lang.String">
             <column name="URL" length="40" />

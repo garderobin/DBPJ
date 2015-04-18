@@ -7,10 +7,10 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
-	private Date time ;
-	
-	
-	public User(){}
+	private Date time;
+
+	public User() {
+	}
 
 	public Integer getUserid() {
 		return userid;
@@ -51,10 +51,5 @@ public class User {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	
-	
-	
-	
 
 }

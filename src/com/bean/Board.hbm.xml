@@ -8,7 +8,7 @@
     <class name="com.bean.Board" table="board" catalog="pinterest">
         <id name="bid" type="java.lang.Integer">
             <column name="bid" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
         <many-to-one name="user" class="com.bean.User" fetch="select">
             <column name="username" length="20" not-null="true" />

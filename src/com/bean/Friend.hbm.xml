@@ -7,15 +7,18 @@
 <hibernate-mapping>
     <class name="com.bean.Friend" table="friend" catalog="pinterest">
         <composite-id name="id" class="com.bean.FriendId">
-            <key-many-to-one name="user" class="com.bean.User">
-                <column name="asker" length="20" />
-            </key-many-to-one>
-            <key-many-to-one name="user_1" class="com.bean.User">
-                <column name="answer" length="20" />
-            </key-many-to-one>
+            <key-property name="user1" type="java.lang.String">
+                <column name="user1" length="20" />
+            </key-property>
+            <key-property name="user2" type="java.lang.Integer">
+                <column name="user2" />
+            </key-property>
         </composite-id>
-        <property name="time" type="java.sql.Timestamp">
-            <column name="time" length="0" not-null="true" />
-        </property>
+        <many-to-one name="user1" class="com.bean.User" update="false" insert="false" fetch="select">
+            <column name="user1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user2" class="com.bean.User" update="false" insert="false" fetch="select">
+            <column name="user1" length="20" not-null="true" />
+        </many-to-one>        
     </class>
 </hibernate-mapping>
