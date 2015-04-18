@@ -39,5 +39,14 @@ public class UserServiceImpl implements UserService {
 			return false;
 	}	
 	
+	@Override
+	public boolean usernameExsit(String username) {
+		User user = this.userDao.findUserByUsername(username);
+		if (user == null ) {
+			return false;
+		}
+		return true;
+	}
+	
 	
 }

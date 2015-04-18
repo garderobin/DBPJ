@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.ArrayList;
+
 import com.bean.User;
 
 public interface UserService {
@@ -10,5 +12,7 @@ public interface UserService {
 	
 	public boolean checkUser(String username, String password);
 
+	public boolean usernameExsit(String username);
 	
+	//public ArrayList<User> findFriendsByUsername(String username);
 }
