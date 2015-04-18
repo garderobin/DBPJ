@@ -31,14 +31,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean checkUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+		User user = this.userDao.findUserByUsername(username);
+		if (user != null && user.getPassword().equals(password)) {
+			return true;
+		}
+		else
+			return false;
+	}	
+	
 	@Override
 	public boolean usernameExsit(String username) {
-		// TODO Auto-generated method stub
-		return false;
+		User user = this.userDao.findUserByUsername(username);
+		if (user == null ) {
+			return false;
+		}
+		return true;
 	}
 	
 	

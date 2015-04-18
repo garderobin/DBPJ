@@ -53,7 +53,7 @@ public class EnrollAction extends ActionSupport {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public String execute() throws Exception {
+	public String execute() throws Exception {		
 		if (service.usernameExsit(username)) {
 			addFieldError("message", "??????????????????????????????????????????????????????????????????");
 			return INPUT;
@@ -64,7 +64,7 @@ public class EnrollAction extends ActionSupport {
 		user.setPassword(password);
 		user.setEmail(email);
 		Date time = new Date();
-		user.setTime(time);
+		user.setTime(time);		
 		service.save(user);
 		Map session = ActionContext.getContext().getSession();
 		session.put("username", username);
