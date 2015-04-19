@@ -16,13 +16,13 @@
         <property name="sourceUrl" type="java.lang.String">
             <column name="sourceURL" length="40" />
         </property>
-        <set name="pins" inverse="true">
+        <set name="pins" table="Pin" inverse="true">
             <key>
                 <column name="picnum" not-null="true" />
             </key>
             <one-to-many class="com.bean.Pin" />
         </set>
-        <set name="likeses" inverse="true">
+        <set name="likes" table="Likes" inverse="true">
             <key>
                 <column name="picnum" not-null="true" />
             </key>

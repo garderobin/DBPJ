@@ -1,6 +1,8 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Pin {
 	private Integer pinid;
@@ -9,6 +11,8 @@ public class Pin {
 	private String note;
 	private Date time;
 	private Boolean repin;
+	private Set<Comment> comments = 
+			new HashSet<Comment>(0);
 
 	public Integer getPinid() {
 		return pinid;
@@ -58,4 +62,13 @@ public class Pin {
 		this.repin = repin;
 	}
 
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	
 }

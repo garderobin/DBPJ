@@ -10,7 +10,7 @@
             <column name="bid" />
             <generator class="native" />
         </id>
-        <many-to-one name="user" class="com.bean.User" fetch="select">
+        <many-to-one name="username" class="com.bean.User" fetch="select">
             <column name="username" length="20" not-null="true" />
         </many-to-one>
         <property name="bname" type="java.lang.String">
@@ -19,13 +19,13 @@
         <property name="time" type="java.sql.Timestamp">
             <column name="time" length="0" not-null="true" />
         </property>
-        <set name="pins" inverse="true">
+        <set name="pins" table="Pin" inverse="true">
             <key>
                 <column name="bid" not-null="true" />
             </key>
             <one-to-many class="com.bean.Pin" />
         </set>
-        <set name="follows" inverse="true">
+        <set name="follows" table="Follow" inverse="true">
             <key>
                 <column name="bid" not-null="true" />
             </key>
