@@ -8,7 +8,7 @@
     <class name="com.bean.Picture" table="picture" catalog="pinterest">
         <id name="picnum" type="java.lang.Integer">
             <column name="picnum" />
-            <generator class="identity" />
+            <generator class="native" />
         </id>
         <property name="url" type="java.lang.String">
             <column name="URL" length="40" />
@@ -16,13 +16,13 @@
         <property name="sourceUrl" type="java.lang.String">
             <column name="sourceURL" length="40" />
         </property>
-        <set name="pins" inverse="true">
+        <set name="pins" table="Pin" inverse="true">
             <key>
                 <column name="picnum" not-null="true" />
             </key>
             <one-to-many class="com.bean.Pin" />
         </set>
-        <set name="likeses" inverse="true">
+        <set name="likes" table="Likes" inverse="true">
             <key>
                 <column name="picnum" not-null="true" />
             </key>

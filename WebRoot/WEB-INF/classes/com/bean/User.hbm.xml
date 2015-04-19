@@ -8,7 +8,7 @@
     <class name="com.bean.User" table="user" catalog="pinterest">
         <id name="username" type="java.lang.String">
             <column name="username" length="20" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="password" type="java.lang.String">
             <column name="password" length="20" />
@@ -25,15 +25,15 @@
             </key>
             <one-to-many class="com.bean.Follow" />
         </set>
-        <set name="likeses" inverse="true">
+        <set name="likes" inverse="true">
             <key>
                 <column name="username" length="20" not-null="true" />
             </key>
             <one-to-many class="com.bean.Likes" />
         </set>
-        <set name="friendsForAsker" inverse="true">
+        <set name="friendsForUser1" inverse="true">
             <key>
-                <column name="asker" length="20" not-null="true" />
+                <column name="user1" length="20" not-null="true" />
             </key>
             <one-to-many class="com.bean.Friend" />
         </set>
@@ -43,9 +43,9 @@
             </key>
             <one-to-many class="com.bean.Comment" />
         </set>
-        <set name="friendsForAnswer" inverse="true">
+        <set name="friendsForUser2" inverse="true">
             <key>
-                <column name="answer" length="20" not-null="true" />
+                <column name="user2" length="20" not-null="true" />
             </key>
             <one-to-many class="com.bean.Friend" />
         </set>
