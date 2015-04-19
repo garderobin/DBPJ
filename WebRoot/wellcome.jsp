@@ -71,8 +71,8 @@
 			</section>
             <p class="codrops-demos">
            	   <form action="login" method="post">
-			  		用户名: <input type="text" name="username" />
-  					密码: <input type="text" name="password" />
+			  		Username: <input type="text" name="username" />
+  					Password: <input type="text" name="password" />
   					
 		  			<input class="submit" type="submit" value="登录" />
 		  			<a href="#load_change_rule" data-toggle="modal"><input class="submit" type="button" value="注册" /></a>
@@ -83,7 +83,7 @@
     <div class="modal hide fade" id="load_change_rule">
   		<div class="modal-header">
   			<a href="#" class="close" data-dismiss="modal">X</a>
-  			<h4>User Register</h4>
+  			<h4>Sign Up</h4>
    	    </div>
    	    <form action = "enroll" class="form-horizontal" method="post">
   		<div class="modal-body">

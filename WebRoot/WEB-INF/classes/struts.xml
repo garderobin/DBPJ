@@ -16,7 +16,17 @@
 			<result name="input">/wellcome.jsp</result>
 		</action>
 		-->
-		
+		<!-- 
+		<action name="login" class="Login">
+			<result name="success">/Article_List.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		 -->		
+		<action name="login" class="loginAction">
+			<result name="success">/helloworld.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="login">/test.jsp</result>
+		</action>
 		<action name="logout" class="logoutAction">
 			<result name="success">/wellcome.jsp</result>
 		</action>
@@ -32,11 +42,6 @@
 		<action name="enrollAction" class="EnrollAction">
 			<result name="success">/login.jsp</result>
 			<result name="input">/enroll.jsp</result>
-		</action>
-		
-		<action name="login" class="Login">
-			<result name="success">/Article_List.jsp</result>
-			<result name="input">/login.jsp</result>
 		</action>
 		
 	</package>	
