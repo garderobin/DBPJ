@@ -1,6 +1,8 @@
 package com.bean;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class User {
 	private Integer userid;
@@ -8,6 +10,12 @@ public class User {
 	private String password;
 	private String email;
 	private Date time;
+	private Set<Board> boards = new HashSet<Board>(0);
+	private Set<Likes> likes = new HashSet<Likes>(0);
+	private Set<Comment> comments = new HashSet<Comment>(0);
+	private Set<Follow> follows = new HashSet<Follow>(0);
+	private Set<Friend> friendsForUser1 = new HashSet<Friend>(0);
+	private Set<Friend> friendsForUser2 = new HashSet<Friend>(0);
 
 	public User() {
 	}
@@ -52,4 +60,53 @@ public class User {
 		this.time = time;
 	}
 
+	public Set<Board> getBoards() {
+		return boards;
+	}
+
+	public void setBoards(Set<Board> boards) {
+		this.boards = boards;
+	}
+
+	public Set<Likes> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(Set<Likes> likes) {
+		this.likes = likes;
+	}
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Set<Follow> getFollows() {
+		return follows;
+	}
+
+	public void setFollows(Set<Follow> follows) {
+		this.follows = follows;
+	}
+
+	public Set<Friend> getFriendsForUser1() {
+		return friendsForUser1;
+	}
+
+	public void setFriendsForUser1(Set<Friend> friendsForUser1) {
+		this.friendsForUser1 = friendsForUser1;
+	}
+
+	public Set<Friend> getFriendsForUser2() {
+		return friendsForUser2;
+	}
+
+	public void setFriendsForUser2(Set<Friend> friendsForUser2) {
+		this.friendsForUser2 = friendsForUser2;
+	}
+
+	
 }

@@ -2,11 +2,24 @@ package com.bean;
 
 import java.util.Date;
 
-public class Comment {
+public class Comment{
+	/**
+	 * 
+	 */
+	private Integer cid;
 	private String username;
 	private Integer pinid;
 	private String comment;
 	private Date time;
+	
+	
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
+	}
 
 	public String getUsername() {
 		return username;
@@ -40,4 +53,7 @@ public class Comment {
 		this.time = time;
 	}
 
+
+
+	
 }

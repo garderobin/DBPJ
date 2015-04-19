@@ -25,19 +25,17 @@
             </key>
             <one-to-many class="com.bean.Follow" />
         </set>
-        <set name="likeses" inverse="true">
+        <set name="likes" inverse="true">
             <key>
                 <column name="username" length="20" not-null="true" />
             </key>
             <one-to-many class="com.bean.Likes" />
         </set>
-        <set name="usersForUser2" inverse="true" table="friend" catalog="pinterest">
+        <set name="friendsForUser1" inverse="true">
             <key>
                 <column name="user1" length="20" not-null="true" />
             </key>
-            <many-to-many entity-name="com.bean.User">
-                <column name="user2" length="20" not-null="true" />
-            </many-to-many>
+            <one-to-many class="com.bean.Friend" />
         </set>
         <set name="comments" inverse="true">
             <key>
@@ -45,13 +43,11 @@
             </key>
             <one-to-many class="com.bean.Comment" />
         </set>
-        <set name="usersForUser1" table="friend" catalog="pinterest">
+        <set name="friendsForUser2" inverse="true">
             <key>
                 <column name="user2" length="20" not-null="true" />
             </key>
-            <many-to-many entity-name="com.bean.User">
-                <column name="user1" length="20" not-null="true" />
-            </many-to-many>
+            <one-to-many class="com.bean.Friend" />
         </set>
         <set name="boards" inverse="true">
             <key>

@@ -6,7 +6,7 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.Likes" table="likes" catalog="pinterest">
-        <composite-id name="id" class="com.bean.LikesId">
+        <composite-id>
             <key-property name="username" type="java.lang.String">
                 <column name="username" length="20" />
             </key-property>
@@ -14,10 +14,10 @@
                 <column name="picnum" />
             </key-property>
         </composite-id>
-        <many-to-one name="user" class="com.bean.User" update="false" insert="false" fetch="select">
+        <many-to-one name="username" class="com.bean.User" update="false" insert="false" fetch="select">
             <column name="username" length="20" not-null="true" />
         </many-to-one>
-        <many-to-one name="picture" class="com.bean.Picture" update="false" insert="false" fetch="select">
+        <many-to-one name="picnum" class="com.bean.Picture" update="false" insert="false" fetch="select">
             <column name="picnum" not-null="true" />
         </many-to-one>
         <property name="time" type="java.sql.Timestamp">

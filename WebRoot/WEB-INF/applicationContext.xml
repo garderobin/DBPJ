@@ -55,12 +55,6 @@
 		</property>
 	</bean>
 	
-	<bean id="loginAction" class="com.action.user.LoginAction" scope="prototype">
-		<property name="service">
-			<ref bean="userService"></ref>
-		</property>
-	</bean>
-	
 	<bean id="pinDAO" class="com.dao.impl.PinDAOImpl" scope="singleton">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory"></ref>
@@ -72,6 +66,12 @@
 			<ref bean="pinDAO"></ref>
 		</property>
 	</bean>
+	
+	<bean id="loginAction" class="com.action.user.LoginAction" scope="prototype">
+		<property name="service">
+			<ref bean="userService"></ref>
+		</property>
+	</bean>	
 	
 	<bean id="listPinAction" class="com.action.pin.ListPinAction" scope="prototype">
 		<property name="service">

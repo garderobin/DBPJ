@@ -6,7 +6,7 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.Follow" table="follow" catalog="pinterest">
-        <composite-id name="id" class="com.bean.FollowId">
+        <composite-id>
             <key-property name="username" type="java.lang.String">
                 <column name="username" length="20" />
             </key-property>
@@ -14,10 +14,10 @@
                 <column name="bid" />
             </key-property>
         </composite-id>
-        <many-to-one name="board" class="com.bean.Board" update="false" insert="false" fetch="select">
+        <many-to-one name="bid" class="com.bean.Board" update="false" insert="false" fetch="select">
             <column name="bid" not-null="true" />
         </many-to-one>
-        <many-to-one name="user" class="com.bean.User" update="false" insert="false" fetch="select">
+        <many-to-one name="username" class="com.bean.User" update="false" insert="false" fetch="select">
             <column name="username" length="20" not-null="true" />
         </many-to-one>
         <property name="stream" type="java.lang.String">
