@@ -1,11 +1,13 @@
 package com.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.bean.Friend;
 import com.bean.User;
 import com.dao.UserDAO;
 
@@ -22,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	
+	@Override
 	@SuppressWarnings("rawtypes")
 	public User findUserByUsername(String username){
 		
@@ -39,6 +41,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
 	public void saveUser(User user)
 	{
 		Session session = sessionFactory.openSession();
@@ -47,6 +50,7 @@ public class UserDAOImpl implements UserDAO {
 		session.close();
 	}
 
+	@Override
 	public void updateUser(User user)
 	{
 		Session session = sessionFactory.openSession();
@@ -54,6 +58,31 @@ public class UserDAOImpl implements UserDAO {
 		session.flush();
 		session.close();
 	}
+
+	@Override
+	public ArrayList<User> findFriendsByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addFriend(String user1, String user2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteFriend(String user1, String user2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Friend findFriendship(String user1, String user2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 	/*
 	@Override
