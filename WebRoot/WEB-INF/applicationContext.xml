@@ -50,7 +50,7 @@
 	</bean>
 	
 	<bean id="userService" class="com.service.impl.UserServiceImpl">
-		<property name="userDao">
+		<property name="userDAO">
 			<ref bean="userDAO"></ref>
 		</property>
 	</bean>
