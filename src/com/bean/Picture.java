@@ -2,25 +2,31 @@ package com.bean;
 
 public class Picture {
 	private Integer picnum;
-	private String URL;
-	private String sourceURL;
-	public Integer getPicnum() {
+	private String url;
+	private String sourceUrl; 
+	
+	Integer getPicnum() {
 		return picnum;
 	}
+
 	public void setPicnum(Integer picnum) {
 		this.picnum = picnum;
 	}
-	public String getURL() {
-		return URL;
+
+	public String getUrl() {
+		return url;
 	}
-	public void setURL(String uRL) {
-		URL = uRL;
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
-	public String getSourceURL() {
-		return sourceURL;
+
+	public String getSourceUrl() {
+		return sourceUrl;
 	}
-	public void setSourceURL(String sourceURL) {
-		this.sourceURL = sourceURL;
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
 	}
 
 }

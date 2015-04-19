@@ -7,13 +7,19 @@
 <hibernate-mapping>
     <class name="com.bean.Follow" table="follow" catalog="pinterest">
         <composite-id name="id" class="com.bean.FollowId">
-            <key-many-to-one name="user" class="com.bean.User">
+            <key-property name="username" type="java.lang.String">
                 <column name="username" length="20" />
-            </key-many-to-one>
-            <key-many-to-one name="board" class="com.bean.Board">
+            </key-property>
+            <key-property name="bid" type="java.lang.Integer">
                 <column name="bid" />
-            </key-many-to-one>
+            </key-property>
         </composite-id>
+        <many-to-one name="board" class="com.bean.Board" update="false" insert="false" fetch="select">
+            <column name="bid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="com.bean.User" update="false" insert="false" fetch="select">
+            <column name="username" length="20" not-null="true" />
+        </many-to-one>
         <property name="stream" type="java.lang.String">
             <column name="stream" length="20" />
         </property>

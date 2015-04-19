@@ -7,13 +7,19 @@
 <hibernate-mapping>
     <class name="com.bean.Comment" table="comment" catalog="pinterest">
         <composite-id name="id" class="com.bean.CommentId">
-            <key-many-to-one name="user" class="com.bean.User">
+            <key-property name="username" type="java.lang.String">
                 <column name="username" length="20" />
-            </key-many-to-one>
-            <key-many-to-one name="pin" class="com.bean.Pin">
+            </key-property>
+            <key-property name="pinid" type="java.lang.Integer">
                 <column name="pinid" />
-            </key-many-to-one>
+            </key-property>
         </composite-id>
+        <many-to-one name="user" class="com.bean.User" update="false" insert="false" fetch="select">
+            <column name="username" length="20" not-null="true" />
+        </many-to-one>
+        <many-to-one name="pin" class="com.bean.Pin" update="false" insert="false" fetch="select">
+            <column name="pinid" not-null="true" />
+        </many-to-one>
         <property name="comment" type="java.lang.String">
             <column name="comment" length="100" not-null="true" />
         </property>

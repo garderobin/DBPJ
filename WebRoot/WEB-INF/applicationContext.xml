@@ -6,7 +6,7 @@
 	
 	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/storyfm"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/pinterest"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
@@ -29,10 +29,13 @@
 			<list>
 				
 				<value>com/bean/User.hbm.xml</value>
-				<value>com/bean/Journal.hbm.xml</value>
-				<value>com/bean/Article.hbm.xml</value>
-				<value>com/bean/Chapter.hbm.xml</value>
-				<value>com/bean/Paragraph.hbm.xml</value>
+				<value>com/bean/Board.hbm.xml</value>
+				<value>com/bean/Follow.hbm.xml</value>
+				<value>com/bean/Friend.hbm.xml</value>
+				<value>com/bean/Likes.hbm.xml</value>
+				<value>com/bean/Picture.hbm.xml</value>
+				<value>com/bean/Pin.hbm.xml</value>
+				<value>com/bean/Comment.hbm.xml</value>			
 				
 			</list>
 			 
@@ -58,50 +61,50 @@
 		</property>
 	</bean>
 	
-	<bean id="journalDAO" class="com.dao.impl.JournalDAOImpl" scope="singleton">
+	<bean id="pinDAO" class="com.dao.impl.PinDAOImpl" scope="singleton">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory"></ref>
 		</property>
 	</bean>
 	
-	<bean id="journalService" class="com.service.impl.JournalServiceImpl">
-		<property name="journalDAO">
-			<ref bean="journalDAO"></ref>
+	<bean id="pinService" class="com.service.impl.PinServiceImpl">
+		<property name="pinDAO">
+			<ref bean="pinDAO"></ref>
 		</property>
 	</bean>
 	
-	<bean id="listJournalAction" class="com.action.journal.ListJournalAction" scope="prototype">
+	<bean id="listPinAction" class="com.action.pin.ListPinAction" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
 	
-	<bean id="addJournalAction" class="com.action.journal.AddJournalAction" scope="prototype">
+	<bean id="addPinAction" class="com.action.pin.AddPinAction" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="deleteJournalAction" class="com.action.journal.DeleteJournalAction" scope="prototype">
+	<bean id="deletePinAction" class="com.action.pin.DeletePinAction" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="editJournalAction" class="com.action.journal.EditJournalAction" scope="prototype">
+	<bean id="editPinAction" class="com.action.pin.EditPinAction" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="showArticleAction" class="com.action.journal.ShowArticleAction" scope="prototype">
+	<bean id="showArticleAction" class="com.action.pin.ShowArticleAction" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 		<property name="userService">
 			<ref bean="userService"></ref>
 		</property>
 	</bean>
-	<bean id="addParagraphAction" class="com.action.journal.AddParagraph" scope="prototype">
+	<bean id="addParagraphAction" class="com.action.pin.AddParagraph" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
 	<bean id="saveNoteAction" class="com.action.user.saveNoteAction" scope="prototype">
@@ -116,8 +119,8 @@
 		</property>
 	</bean>
 	<bean id="userManageAction" class="com.action.user.UserManageAction" scope="prototype">
-		<property name="journalService">
-			<ref bean="journalService"></ref>
+		<property name="pinService">
+			<ref bean="pinService"></ref>
 		</property>
 		<property name="userService">
 			<ref bean="userService"></ref>
@@ -128,19 +131,19 @@
 			<ref bean="userService"></ref>
 		</property>
 	</bean>
-	<bean id="showParagraphAction" class="com.action.journal.showParagraph" scope="prototype">
+	<bean id="showParagraphAction" class="com.action.pin.showParagraph" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="modifyParagraphAction" class="com.action.journal.modifyParagraphAction" scope="prototype">
+	<bean id="modifyParagraphAction" class="com.action.pin.modifyParagraphAction" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="deleteParagraphAction" class="com.action.journal.DeleteParagraphAction" scope="prototype">
+	<bean id="deleteParagraphAction" class="com.action.pin.DeleteParagraphAction" scope="prototype">
 		<property name="service">
-			<ref bean="journalService"></ref>
+			<ref bean="pinService"></ref>
 		</property>
 	</bean>
 	<!-- 
