@@ -15,7 +15,21 @@ public class LoginAction extends ActionSupport {
 	private String password;
 	private UserService service;
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public String execute() throws Exception {
+		if (this.service.checkUser(username, password)) {
+			Map session = ActionContext.getContext().getSession();
+			session.put("username", username);			
+			return SUCCESS;
+		}
+		else {
+			addFieldError("message", "Login Action Failed!");
+			return INPUT;
+		}
 	
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -28,9 +42,5 @@ public class LoginAction extends ActionSupport {
 		this.service = service;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public String execute() throws Exception {
-		return null;
-	}
+	
 }
