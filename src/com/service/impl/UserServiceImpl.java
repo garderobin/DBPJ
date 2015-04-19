@@ -5,33 +5,33 @@ import com.dao.UserDAO;
 import com.service.UserService;
 
 public class UserServiceImpl implements UserService {
-	private UserDAO userDao;
+	private UserDAO userDAO;
 
-	public UserDAO getUserDao()
+	public UserDAO getUserDAO()
 	{
-		return userDao;
+		return userDAO;
 	}
 
-	public void setUserDao(UserDAO userDao)
+	public void setUserDAO(UserDAO userDAO)
 	{
-		this.userDao = userDao;
+		this.userDAO = userDAO;
 	}
 
 	@Override
 	public void save(User user)
 	{
-		this.userDao.saveUser(user);
+		this.userDAO.saveUser(user);
 	}
 
 	@Override
 	public void update(User user)
 	{
-		this.userDao.updateUser(user);
+		this.userDAO.updateUser(user);
 	}
 
 	@Override
 	public boolean checkUser(String username, String password) {
-		User user = this.userDao.findUserByUsername(username);
+		User user = this.userDAO.findUserByUsername(username);
 		if (user != null && user.getPassword().equals(password)) {
 			return true;
 		}
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public boolean usernameExsit(String username) {
-		User user = this.userDao.findUserByUsername(username);
+		User user = this.userDAO.findUserByUsername(username);
 		if (user == null ) {
 			return false;
 		}
