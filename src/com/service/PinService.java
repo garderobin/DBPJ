@@ -1,5 +1,9 @@
 package com.service;
 
-public class PinService {
+import com.bean.Pin;
 
+public interface PinService {
+	
+	public void save(Pin pin);
+	
 }

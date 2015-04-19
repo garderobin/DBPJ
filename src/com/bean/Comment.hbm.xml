@@ -6,18 +6,14 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.Comment" table="comment" catalog="pinterest">
-        <composite-id name="id" class="com.bean.CommentId">
-            <key-property name="username" type="java.lang.String">
-                <column name="username" length="20" />
-            </key-property>
-            <key-property name="pinid" type="java.lang.Integer">
-                <column name="pinid" />
-            </key-property>
-        </composite-id>
-        <many-to-one name="user" class="com.bean.User" update="false" insert="false" fetch="select">
+        <id name="cid" type="java.lang.Integer">
+            <column name="cid" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="username" class="com.bean.User" fetch="select">
             <column name="username" length="20" not-null="true" />
         </many-to-one>
-        <many-to-one name="pin" class="com.bean.Pin" update="false" insert="false" fetch="select">
+        <many-to-one name="pinid" class="com.bean.Pin" fetch="select">
             <column name="pinid" not-null="true" />
         </many-to-one>
         <property name="comment" type="java.lang.String">
