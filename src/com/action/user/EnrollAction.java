@@ -68,7 +68,6 @@ public class EnrollAction extends ActionSupport {
 		service.save(user);
 		Map session = ActionContext.getContext().getSession();
 		session.put("username", username);
-		session.put("userid", user.getUserid());
 		session.put("time", time.toString());
 		return SUCCESS;
 	}
