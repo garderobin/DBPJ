@@ -15,8 +15,7 @@ public interface UserDAO {
 	//Before insertion , check whether the friendship already exists.
 	public void addFriend(String user1, String user2);
 	
-	//Before deletion , check whether the friendship already exists.
-	//Or you can 
+	//Before deletion , check whether the friendship already exists. 
 	public void deleteFriend(String user1, String user2);
 	
 	/**
