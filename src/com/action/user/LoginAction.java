@@ -18,16 +18,19 @@ public class LoginAction extends ActionSupport {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String execute() throws Exception {
-		if (this.service.checkUser(username, password)) {
+		switch(this.service.checkUser(username, password)) {
+		case 0:
+			addFieldError("message", "Username not exists. Please sign up first!");
+			return LOGIN;
+		case 1:
+			addFieldError("message", "Username and password mismatch.");
+			return INPUT;
+		case 2:
 			Map session = ActionContext.getContext().getSession();
 			session.put("username", username);			
 			return SUCCESS;
-		}
-		else {
-			addFieldError("message", "Login Action Failed!");
-			return INPUT;
-		}
-	
+		}		
+		return SUCCESS;
 	}
 
 	public void setUsername(String username) {
