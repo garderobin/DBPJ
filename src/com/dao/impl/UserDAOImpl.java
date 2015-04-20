@@ -71,7 +71,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public ArrayList<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
-		String hql = "select new user(username, password, email, time) from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
+		String hql = "select new User(username, password, email, time) from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
 		Query query = session.createQuery(hql);
 		ArrayList<User> list = (ArrayList<User>)query.list();
 		session.close();
