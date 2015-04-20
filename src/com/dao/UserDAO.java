@@ -10,13 +10,15 @@ public interface UserDAO {
 	
 	public void updateUser(User user);
 	
+	public void deleteUser(User user);
+	
 	public User findUserByUsername(String username);	
 	
 	//Before insertion , check whether the friendship already exists.
-	public void addFriend(String user1, String user2);
+	public void addFriend(Friend friend);
 	
 	//Before deletion , check whether the friendship already exists. 
-	public void deleteFriend(String user1, String user2);
+	public void deleteFriend(Friend friend);
 	
 	/**
 	 * Check whether two users are already friends.

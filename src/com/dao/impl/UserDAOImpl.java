@@ -58,11 +58,52 @@ public class UserDAOImpl implements UserDAO {
 		session.flush();
 		session.close();
 	}
+	
+	@Override
+	public void deleteUser(User user)
+	{
+		Session session = sessionFactory.openSession();
+		session.delete(user);
+		session.flush();
+		session.close();
+	}
 
 	@Override
 	public ArrayList<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
-		String hql = "select User user from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
+		String hql = "select new user(username, password, email, time) from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
+		Query query = session.createQuery(hql);
+		ArrayList<User> list = (ArrayList<User>)query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+
+	@Override
+	public void addFriend(Friend friend) {
+		Session session = sessionFactory.openSession();
+		session.save(friend);
+		session.flush();
+		session.close();
+		
+	}
+
+	@Override
+	public void deleteFriend(Friend friend) {
+		Session session = sessionFactory.openSession();
+		session.delete(friend);
+		session.flush();
+		session.close();		
+	}
+
+	@Override
+	public Friend findFriendship(String user1, String user2) {
+		Session session = sessionFactory.openSession();
+		String hql = "from Friend friend where (friend.user1 = '" + user1 + "' and friend.user2 = '" + user2 + "') or (friend.user2 = '" + user1 + "' and friend.user1 = '" + user2 + "')";
 		Query query = session.createQuery(hql);
 		List list = query.list();
 		session.close();
@@ -70,26 +111,8 @@ public class UserDAOImpl implements UserDAO {
 			return  null;
 		}
 		else {
-			return (ArrayList<User>)list.get(0);
+			return (Friend)list.get(0);
 		}
-	}
-
-	@Override
-	public void addFriend(String user1, String user2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteFriend(String user1, String user2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Friend findFriendship(String user1, String user2) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	
