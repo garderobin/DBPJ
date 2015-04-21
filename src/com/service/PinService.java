@@ -6,7 +6,7 @@ import com.util.ErrorType;
 
 public interface PinService {
 	
-    public ErrorType add(Board board);
+    public ErrorType addBoard(Board board);
 
 
 	

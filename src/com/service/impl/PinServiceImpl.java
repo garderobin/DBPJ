@@ -19,7 +19,7 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
-	public ErrorType add(Board board){
+	public ErrorType addBoard(Board board){
 		String username = board.getUsername();
 		String bname = board.getBname();
 		List<Board> board1 = this.pinDAO.findBoardByUsernameBname(username, bname);
