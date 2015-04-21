@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
 import com.bean.Friend;
 import com.bean.User;
 import com.dao.UserDAO;
@@ -115,6 +114,39 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
+	/*
+	
+	@Override
+	public void addActivatedUser(ActivatedUser user){
+		Session session = sessionFactory.openSession();
+		session.save(user);
+		session.flush();
+		session.close();
+	}
+	
+	@Override
+	public void deleteActivatedUser(ActivatedUser user){
+		Session session = sessionFactory.openSession();
+		session.delete(user);
+		session.flush();
+		session.close();
+	}
+	
+	@Override
+	public ActivatedUser findActivatedUserByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "from ActivatedUser activateduser where activateduser.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return (ActivatedUser)list.get(0);
+		}
+	}
+	*/
 	
 	/*
 	@Override

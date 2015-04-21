@@ -1,5 +1,6 @@
 package com.dao;
 import java.util.ArrayList;
+import java.util.List;
 import com.bean.*;
 
 public interface PinDAO {
@@ -9,6 +10,7 @@ public interface PinDAO {
 	public void updateBoard(Board board);
 	public Board findBoardByBid(Integer bid);
 	public ArrayList<Board> findBoardByUser(String username);
+	public List<Board> findBoardByUsernameBname(String username, String bname); //List
 	public ArrayList<Board> findBoardByFollow(String username);
 	public void addPicture(Picture picture);
 	public void deletePicture(Picture picture);

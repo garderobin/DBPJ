@@ -2,8 +2,7 @@ package com.dao;
 
 import java.util.ArrayList;
 
-import com.bean.Friend;
-import com.bean.User;
+import com.bean.*;
 
 public interface UserDAO {
 	public void saveUser(User user);
@@ -30,5 +29,9 @@ public interface UserDAO {
 
 	//See Java API document for the usage for ArrayList.
 	public ArrayList<User> findFriendsByUsername(String username);
+	
+	//public void addActivatedUser(ActivatedUser user);
+	//public void deleteActivatedUser(ActivatedUser user);
+	//public ActivatedUser findActivatedUserByUsername(String username);
 	
 }

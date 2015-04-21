@@ -79,6 +79,21 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
+	public List<Board> findBoardByUsernameBname(String username, String bname){
+		Session session = sessionFactory.openSession();
+		String hql = "from Board board where board.username = '" + username + "' and board.bname = '" + bname + "'";
+		Query query = session.createQuery(hql);
+		List<Board> list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
 	public ArrayList<Board> findBoardByFollow(String username){
 		Session session = sessionFactory.openSession();
 		String hql = "select new Board(bid, board.username, bname, board.time) from Board board join Follow follow where follow.username = '" + username + "' and board.bid = follow.bid";
