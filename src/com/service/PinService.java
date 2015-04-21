@@ -1,9 +1,13 @@
 package com.service;
 
-import com.bean.Pin;
+import java.util.ArrayList;
+import com.bean.*;
+import com.util.ErrorType;
 
 public interface PinService {
 	
-	public void save(Pin pin);
+    public ErrorType addBoard(Board board);
+
+
 	
 }

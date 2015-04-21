@@ -18,7 +18,7 @@ public class LoginAction extends ActionSupport {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String execute() throws Exception {
-		switch(this.service.checkUser(username, password)) {
+		switch(this.service.loginUser(username, password)) {
 		case 0:
 			addFieldError("message", "Username not exists. Please sign up first!");
 			return LOGIN;
