@@ -40,7 +40,6 @@ public interface UserService {
 
 	public ErrorType signInUser(User user);
 
-	public ErrorType logoutByUsername(String username);
 	
 	
 }

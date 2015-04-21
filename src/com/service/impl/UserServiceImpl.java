@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 		this.userDAO.updateUser(user);
 	}
 
-	/*@Override
+	@Override
 	public int loginUser(String username, String password) {
 		User user = this.userDAO.findUserByUsername(username);
 		if (user == null){
@@ -46,15 +46,10 @@ public class UserServiceImpl implements UserService {
 			return 1;
 		}
 		else {
-			Date now = new Date();
-			ActivatedUser user1 = new ActivatedUser();
-			user1.setUsername(username);
-			user1.setTime(now);
-			this.userDAO.addActivatedUser(user1);
 		   return 2;	
 		}
 			
-	}*/	
+	}	
 	
 	@Override
 	public boolean usernameExsit(String username) {
@@ -105,17 +100,6 @@ public class UserServiceImpl implements UserService {
 		}
 		return ErrorType.USERNAME_EXISTED;
 	}
-	/*
-	@Override
-	public ErrorType logoutByUsername(String username){
-		ActivatedUser user1 = this.userDAO.findActivatedUserByUsername(username);
-		if (user1 == null){
-			return ErrorType.ALREADY_LOGED_OUT;
-		}
-		else{
-			this.userDAO.deleteActivatedUser(user1);
-			return ErrorType.NO_ERROR;
-		}
-	}*/
+
 
 }
