@@ -32,14 +32,12 @@ public interface UserService {
 	 */
 	public boolean checkFriendshipExist(String user1, String user2);
 	
-	public ErrorType addFriend(Friend friend);
+	public ErrorType addFriend(String user1, String user2);
 	
-	public ErrorType deleteFriend(Friend friend);
+	public ErrorType deleteFriend(String user1, String user2);
 	
 	public ArrayList<User> findFriendsByUsername(String username);
 
-	public ErrorType signInUser(User user);
-
-	
+	public ErrorType signInUser(String username, String password, String email);
 	
 }

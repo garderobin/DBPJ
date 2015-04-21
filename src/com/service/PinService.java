@@ -5,8 +5,8 @@ import com.bean.*;
 import com.util.ErrorType;
 
 public interface PinService {
-	
-    public ErrorType addBoard(Board board);
+
+    public ErrorType addBoard(String username, String bname);
 
 
 	
