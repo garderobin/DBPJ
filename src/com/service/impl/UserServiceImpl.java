@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	public ErrorType addFriend(String user1, String user2) {
 		Friend friendship = this.userDAO.findFriendship(user1, user2);
 		if (friendship == null) {
-			//this.userDAO.addFriend(user1, user2);
+			this.userDAO.addFriend(user1, user2);
 			return ErrorType.FRIENDSHIP_EXISTED;
 		}
 		return ErrorType.NO_ERROR;
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ErrorType deleteFriend(String user1, String user2) {
 		try {
-			//this.userDAO.deleteFriend(user1, user2);
+			this.userDAO.deleteFriend(user1, user2);
 		} catch (HibernateException he) {
 			return ErrorType.DELETE_ERROR;
 		} //addFriend and Delete Friend use two different error-handling methods.
