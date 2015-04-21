@@ -38,15 +38,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int loginUser(String username, String password) {
+	public ErrorType loginUser(String username, String password) {
 		User user = this.userDAO.findUserByUsername(username);
 		if (user == null){
-			return 0;
+			return ErrorType.USER_NOT_EXIST;
 		} else if (!user.getPassword().equals(password)) {
-			return 1;
+			return ErrorType.PASSWORD_NOT_MATCH;
 		}
 		else {
-		   return 2;	
+		   return ErrorType.NO_ERROR;	
 		}
 			
 	}	

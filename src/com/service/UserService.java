@@ -20,7 +20,7 @@ public interface UserService {
 	 *          2 - successful login record found.
 	 * TODO: change return type into ErrorType.
 	 */
-	public int loginUser(String username, String password);
+	public ErrorType loginUser(String username, String password);
 
 	public boolean usernameExsit(String username);
 	
