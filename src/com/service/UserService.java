@@ -2,7 +2,7 @@ package com.service;
 
 import java.util.ArrayList;
 
-import com.bean.User;
+import com.bean.*;
 import com.util.ErrorType;
 
 public interface UserService {
@@ -20,7 +20,7 @@ public interface UserService {
 	 *          2 - successful login record found.
 	 * TODO: change return type into ErrorType.
 	 */
-	public int checkUser(String username, String password);
+	public ErrorType loginUser(String username, String password);
 
 	public boolean usernameExsit(String username);
 	
@@ -37,4 +37,9 @@ public interface UserService {
 	public ErrorType deleteFriend(String user1, String user2);
 	
 	public ArrayList<User> findFriendsByUsername(String username);
+
+	public ErrorType signInUser(String username, String password, String email);
+
+	
+	
 }

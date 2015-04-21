@@ -3,6 +3,7 @@ package com.service.impl;
 import com.bean.Pin;
 import com.dao.PinDAO;
 import com.service.PinService;
+import com.util.ErrorType;
 
 public class PinServiceImpl implements PinService {
 	
@@ -16,11 +17,8 @@ public class PinServiceImpl implements PinService {
 		this.pinDAO = pinDAO;
 	}
 	
-
-	@Override
-	public void save(Pin pin) {
-		// TODO Auto-generated method stub
-		
+	public ErrorType addBoard(String username, String bname){
+		return ErrorType.NO_ERROR;
 	}
 
 }
