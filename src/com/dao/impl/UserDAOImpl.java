@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import com.bean.Friend;
 import com.bean.User;
 import com.dao.UserDAO;
@@ -67,21 +68,40 @@ public class UserDAOImpl implements UserDAO {
 		session.close();
 	}
 
+	/*
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
 		String hql = "select new User(username, password, email, time) from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
 		Query query = session.createQuery(hql);
-		ArrayList<User> list = (ArrayList<User>)query.list();
+		List<User> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
 		}
 		else {
-			return list;
+			return (ArrayList<User>) list;
 		}
 	}
-
+	*/
+	@Override
+	public List<User> findFriendsByUsername(String username) {
+		Session session = sessionFactory.openSession();
+		String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
+		//String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = :username and friend.user2 = user.username) or (friend.user2 = :username and friend.user1 = user.username)";
+		
+		Query query = session.createQuery(hql);
+		List<User> list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return  list;
+		}
+	}
+	
 	@Override
 	public void addFriend(Friend friend) {
 		Session session = sessionFactory.openSession();
@@ -104,7 +124,7 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.openSession();
 		String hql = "from Friend friend where (friend.user1 = '" + user1 + "' and friend.user2 = '" + user2 + "') or (friend.user2 = '" + user1 + "' and friend.user1 = '" + user2 + "')";
 		Query query = session.createQuery(hql);
-		List list = query.list();
+		List<Friend> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;

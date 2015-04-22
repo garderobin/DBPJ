@@ -18,7 +18,7 @@ public class TestUserDAOImpl extends BaseSpringContextCommon {
     @Test   
     public final void testSave() {  
     	User user = new User();
-    	user.setUsername("myusername");
+    	user.setUsername("tousername");
         user.setEmail("myemail");      
         user.setPassword("myjassword"); 
         user.setTime(new Date());

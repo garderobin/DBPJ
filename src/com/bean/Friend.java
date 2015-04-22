@@ -1,62 +1,42 @@
 package com.bean;
 
-import java.io.Serializable;
 
-public class Friend implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3739651636980475697L;
-	private String user1;
-	private String user2;
-	public String getUser1() {
-		return user1;
-	}
-	public void setUser1(String user1) {
-		this.user1 = user1;
-	}
-	public String getUser2() {
-		return user2;
-	}
-	public void setUser2(String user2) {
-		this.user2 = user2;
+public class Friend {
+	
+	private PK_Friend pk_friend;
+	
+	public Friend() {
+		
 	}
 	
-	@Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((user1 == null) ? 0 : user1.hashCode());
-        result = prime * result + ((user2 == null) ? 0 : user2.hashCode());
-        return result;
-    }
+	public Friend(PK_Friend pk_friend) {
+		this.pk_friend = pk_friend;
+	}
 
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Friend other = (Friend) obj;
-        if (user1 == null)
-        {
-            if (other.user1 != null)
-                return false;
-        }
-        else if (!user1.equals(other.user1))
-            return false;
-        if (user2 == null)
-        {
-            if (other.user2 != null)
-                return false;
-        }
-        else if (!user2.equals(other.user2))
-            return false;
-        return true;
-    }
+	public Friend(User user1, User user2) {
+		this.pk_friend = new PK_Friend(user1, user2);
+	}
+	public PK_Friend getPk_friend() {
+		return pk_friend;
+	}
 
+	public void setPk_friend(PK_Friend pk_friend) {
+		this.pk_friend = pk_friend;
+	}
+	
+	public User getUser1() {
+		return this.pk_friend.getUser1();
+	}
+
+	public void setUser1(User user1) {
+		this.pk_friend.setUser1(user1);
+	}
+
+	public User getUser2() {
+		return this.pk_friend.getUser2();
+	}
+
+	public void setUser2(User user2) {
+		this.pk_friend.setUser2(user2);
+	}
 }
