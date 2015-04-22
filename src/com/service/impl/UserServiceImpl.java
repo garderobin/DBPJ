@@ -67,8 +67,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ErrorType addFriend(Friend friend) {
-		Friend friendship = this.userDAO.findFriendship(friend.getUser1(), friend.getUser2());
+	public ErrorType addFriend(String user1, String user2) {
+		Friend friend = new Friend();
+		friend.setUser1(user1);
+		friend.setUser2(user2);
+		Friend friendship = this.userDAO.findFriendship(user1, user2);
 		if (friendship == null) {
 			this.userDAO.addFriend(friend);
 			return ErrorType.NO_ERROR;			
@@ -77,7 +80,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ErrorType deleteFriend(Friend friend) {
+	public ErrorType deleteFriend(String user1, String user2) {
+		Friend friend = new Friend();
+		friend.setUser1(user1);
+		friend.setUser2(user2);
 		try {
 			this.userDAO.deleteFriend(friend);
 		} catch (HibernateException he) {
@@ -92,14 +98,18 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public ErrorType signInUser(User user){
-		User user1 = this.userDAO.findUserByUsername(user.getUsername());
+	public ErrorType signInUser(String username, String password, String email){
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setTime(new Date());
+		User user1 = this.userDAO.findUserByUsername(username);
 		if(user1 == null){
 			this.userDAO.saveUser(user);
 			return ErrorType.NO_ERROR;
 		}
 		return ErrorType.USERNAME_EXISTED;
 	}
-
 
 }

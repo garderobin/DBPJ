@@ -10,9 +10,9 @@ public interface PinDAO {
 	public void updateBoard(Board board);
 	public Board findBoardByBid(Integer bid);
 	public ArrayList<Board> findBoardByUser(String username);
-	public List<Board> findBoardByUsernameBname(String username, String bname); //List
+	public Board findBoardByUsernameBname(String username, String bname); //List
 	public ArrayList<Board> findBoardByFollow(String username);
-	public void addPicture(Picture picture);
+	public Integer addPicture(Picture picture);
 	public void deletePicture(Picture picture);
 	public void updatePicture(Picture picture);
 	public ArrayList<Picture> findPictureByUser(String username);

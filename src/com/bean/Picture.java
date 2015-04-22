@@ -13,7 +13,7 @@ public class Picture {
 	private Set<Likes> likes = 
 			new HashSet<Likes>(0);
 	
-	Integer getPicnum() {
+	public Integer getPicnum() {
 		return picnum;
 	}
 

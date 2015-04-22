@@ -6,8 +6,7 @@ import com.util.ErrorType;
 
 public interface PinService {
 	
-    public ErrorType addBoard(Board board);
-
-
-	
+    public ErrorType addBoard(String username, String bname);
+    public ErrorType deleteBoard(Integer bid);
+    public ErrorType addPicture(Integer bid, String url, String sourceUrl);	
 }

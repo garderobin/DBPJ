@@ -79,17 +79,17 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public List<Board> findBoardByUsernameBname(String username, String bname){
+	public Board findBoardByUsernameBname(String username, String bname){
 		Session session = sessionFactory.openSession();
 		String hql = "from Board board where board.username = '" + username + "' and board.bname = '" + bname + "'";
 		Query query = session.createQuery(hql);
-		List<Board> list = query.list();
+		List list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
 		}
 		else {
-			return list;
+			return (Board) list.get(0);
 		}
 	}
 	
@@ -109,11 +109,12 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public void addPicture(Picture picture){
+	public Integer addPicture(Picture picture){
 		Session session = sessionFactory.openSession();
-		session.save(picture);
+		Integer picnum = (Integer) session.save(picture);
 		session.flush();
 		session.close();
+		return picnum;
 	}
 	
 	@Override

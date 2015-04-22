@@ -19,13 +19,13 @@ public class LoginAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		switch(this.service.loginUser(username, password)) {
-		case 0:
+		case USER_NOT_EXIST:
 			addFieldError("message", "Username not exists. Please sign up first!");
 			return LOGIN;
-		case 1:
+		case PASSWORD_NOT_MATCH:
 			addFieldError("message", "Username and password mismatch.");
 			return INPUT;
-		case 2:
+		case NO_ERROR:
 			Map session = ActionContext.getContext().getSession();
 			session.put("username", username);			
 			return SUCCESS;
