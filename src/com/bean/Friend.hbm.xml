@@ -6,19 +6,21 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.Friend" table="friend" catalog="pinterest">
-        <composite-id>
-            <key-property name="user1" type="java.lang.String">
+        <composite-id name="pk_friend" class="com.bean.PK_Friend">
+            <key-many-to-one name="user1" class="com.bean.User">
                 <column name="user1" length="20" />
-            </key-property>
-            <key-property name="user2" type="java.lang.String">
+            </key-many-to-one>
+            <key-many-to-one name="user2" class="com.bean.User">
                 <column name="user2" length="20" />
-            </key-property>
+            </key-many-to-one>
         </composite-id>
+        <!-- 
         <many-to-one name="user1" class="com.bean.User" update="false" insert="false" fetch="select">
             <column name="user1" length="20" not-null="true" />
         </many-to-one>
         <many-to-one name="user2" class="com.bean.User" update="false" insert="false" fetch="select">
             <column name="user2" length="20" not-null="true" />
         </many-to-one>
+         -->
     </class>
 </hibernate-mapping>

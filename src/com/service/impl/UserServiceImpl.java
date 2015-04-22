@@ -62,12 +62,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ArrayList<User> findFriendsByUsername(String username) {
+		/* TODO
 		ArrayList<User> friends = this.userDAO.findFriendsByUsername(username);
-		return friends;
+		return friends;*/
+		return null;
 	}
 
 	@Override
 	public ErrorType addFriend(String user1, String user2) {
+		/* TODO
 		Friend friend = new Friend();
 		friend.setUser1(user1);
 		friend.setUser2(user2);
@@ -76,11 +79,13 @@ public class UserServiceImpl implements UserService {
 			this.userDAO.addFriend(friend);
 			return ErrorType.NO_ERROR;			
 		}
+		*/
 		return ErrorType.FRIENDSHIP_EXISTED;				
 	}
 
 	@Override
 	public ErrorType deleteFriend(String user1, String user2) {
+		/* TODO
 		Friend friend = new Friend();
 		friend.setUser1(user1);
 		friend.setUser2(user2);
@@ -89,6 +94,7 @@ public class UserServiceImpl implements UserService {
 		} catch (HibernateException he) {
 			return ErrorType.DELETE_ERROR;
 		} //addFriend and Delete Friend use two different error-handling methods.
+		*/
 		return ErrorType.NO_ERROR;
 	}
 
