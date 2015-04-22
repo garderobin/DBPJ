@@ -2,12 +2,14 @@
 <classpath>
 	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="con" path="com.genuitec.runtime.library/com.genuitec.hibernate_tools"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/dt/Workspaces/MyEclipse 10/junit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dt/Workspaces/MyEclipse 10/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
