@@ -88,7 +88,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
-		String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
+		String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = '" + username + "' and friend.pk_friend.user2 = user.username) or (friend.pk_friend.user2 = '" + username + "' and friend.pk_friend.user1 = user.username)";
 		//String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = :username and friend.user2 = user.username) or (friend.user2 = :username and friend.user1 = user.username)";
 		
 		Query query = session.createQuery(hql);

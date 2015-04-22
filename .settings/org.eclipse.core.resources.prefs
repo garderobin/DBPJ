@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
-encoding//WebRoot/Article.jsp=UTF-8
+encoding//WebRoot/journal/Article.jsp=UTF-8
+encoding//WebRoot/journal/paragraph.jsp=UTF-8
+encoding//WebRoot/journal/user.jsp=UTF-8
 encoding//WebRoot/js/HTMLMaker.js=UTF-8
-encoding//WebRoot/paragraph.jsp=UTF-8
-encoding//WebRoot/user.jsp=UTF-8
 encoding//src/com/action/user/EnrollAction.java=UTF-8
 encoding//src/com/action/user/LoginAction.java=UTF-8
