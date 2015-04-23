@@ -88,8 +88,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
-		String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = '" + username + "' and friend.pk_friend.user2 = user.username) or (friend.pk_friend.user2 = '" + username + "' and friend.pk_friend.user1 = user.username)";
-		//String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = :username and friend.user2 = user.username) or (friend.user2 = :username and friend.user1 = user.username)";
+		//String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = '" + username + "' and friend.pk_friend.user2 = user.username) or (friend.pk_friend.user2 = '" + username + "' and friend.pk_friend.user1 = user.username)";
+		//String hql = "select new User(u.username, u.password, u.email, u.time) from Friend f join User u where (f.user1 = '" + username + "' and f.user2 = u.username) or (f.user2 = '" + username + "' and f.user1 = u.username)";
+		//String hql = "select new User(u.username, u.password, u.email, u.time) from Friend f join f.user1 u1 join f.user2 u2 where (f.user1 = '" + username + "' and f.user2 = u2.username) or (f.user2 = '" + username + "' and f.user1 = u1.username)";
+		//String hql = "select new User(u.username, u.password, u.email, u.time) from User u join u.friendsForUser1 f1 join u.friendsForUser2 f2 where u.username = '" + username + "' and f1.user1 = u.username";
+		String hql = "select new User(u.username, u.password, u.email, u.time) from User u join u.friendsForUser1 f1 join u.friendsForUser2 f2 where" + 
+				" (f1.user2 = '" + username + "' and f1.user1 = u.username) or" + 
+				" (f2.user1 = '" + username + "' and f2.user2 = u.username)";
 		
 		Query query = session.createQuery(hql);
 		List<User> list = query.list();
@@ -111,11 +116,24 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
+	/*
 	@Override
 	public void deleteFriend(Friend friend) {
 		Session session = sessionFactory.openSession();
 		session.delete(friend);
 		session.flush();
+		session.close();		
+	}*/
+	
+	@Override
+	public void deleteFriend(Friend friend) {
+		String user1 = friend.getUser1().getUsername();
+		String user2 = friend.getUser2().getUsername();
+		Session session = sessionFactory.openSession();
+		String hql = "delete from Friend f where (user1 = '" + user1 + "' and user2 = '" + user2 + 
+				"') or (user1 = '" + user2 + "' and user2 = '" + user1 + "')";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
 		session.close();		
 	}
 
@@ -133,66 +151,18 @@ public class UserDAOImpl implements UserDAO {
 			return (Friend)list.get(0);
 		}
 	}
-	
-	/*
-	
+
 	@Override
-	public void addActivatedUser(ActivatedUser user){
-		Session session = sessionFactory.openSession();
-		session.save(user);
-		session.flush();
-		session.close();
-	}
-	
-	@Override
-	public void deleteActivatedUser(ActivatedUser user){
-		Session session = sessionFactory.openSession();
-		session.delete(user);
-		session.flush();
-		session.close();
-	}
-	
-	@Override
-	public ActivatedUser findActivatedUserByUsername(String username){
-		Session session = sessionFactory.openSession();
-		String hql = "from ActivatedUser activateduser where activateduser.username = '" + username + "'";
-		Query query = session.createQuery(hql);
-		List list = query.list();
-		session.close();
-		if (list.isEmpty()) {
-			return  null;
-		}
-		else {
-			return (ActivatedUser)list.get(0);
-		}
-	}
-	*/
-	
-	/*
-	@Override
-	public String find_note_of_user(Integer userid) {
-		Session session = sessionFactory.openSession();
-		String hql = "select note from User user where userid = " + userid;
-		Query query = session.createQuery(hql);
-		String res = (String)query.uniqueResult();
-		session.close();
-		return res;
+	public void deleteFriendByUsernames(String username1, String username2) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public User findUserByUserid(Integer userid) {
-		Session session = sessionFactory.openSession();
-		String hql = "from User user where user.userid = '" + userid + "'";
-		Query query = session.createQuery(hql);
-		List list = query.list();
-		session.close();
-		if (list.isEmpty()) {
-			return  null;
-		}
-		else {
-			return (User)list.get(0);
-		}
+	public void deleteFriendByIdFriend(int idfriend) {
+		// TODO Auto-generated method stub
+		
 	}
-	*/
+	
+	
 }
