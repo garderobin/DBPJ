@@ -1,39 +1,43 @@
 package com.bean;
 
+import java.io.Serializable;
 
-public class Friend {
-	
-	private int idfriend;
+
+
+public class PK_Friend implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8885712732104710160L;
 	private User user1;
 	private User user2;
 	
-	public Friend() {
+	public PK_Friend() {
 		
 	}
 	
-	public Friend(User user1, User user2) {
+	public PK_Friend(User user1, User user2) {
 		this.user1 = user1;
 		this.user2 = user2;
 	}
 	
-	public int getIdfriend() {
-		return idfriend;
-	}
-	public void setIdfriend(int idfriend) {
-		this.idfriend = idfriend;
-	}
 	public User getUser1() {
 		return user1;
 	}
+
 	public void setUser1(User user1) {
 		this.user1 = user1;
 	}
+
 	public User getUser2() {
 		return user2;
 	}
+
 	public void setUser2(User user2) {
 		this.user2 = user2;
 	}
+	
 
 	@Override
 	public int hashCode() {
@@ -52,7 +56,7 @@ public class Friend {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Friend other = (	Friend) obj;
+		PK_Friend other = (PK_Friend) obj;
 		if (user1 == null) {
 			if (other.user1 != null)
 				return false;
@@ -65,5 +69,5 @@ public class Friend {
 			return false;
 		return true;
 	}
-	
+
 }

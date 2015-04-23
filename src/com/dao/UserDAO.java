@@ -20,6 +20,9 @@ public interface UserDAO {
 	//Before deletion , check whether the friendship already exists. 
 	public void deleteFriend(Friend friend);
 	
+	public void deleteFriendByUsernames(String username1, String username2);
+	
+	public void deleteFriendByIdFriend(int idfriend);
 	/**
 	 * Check whether two users are already friends.
 	 * @param user1
