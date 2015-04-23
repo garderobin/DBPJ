@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.bean.Friend;
-import com.bean.PK_Friend;
 import com.bean.User;
 import com.dao.UserDAO;
 
@@ -74,7 +73,7 @@ public class UserDAOImplTest extends BaseSpringContextCommon {
 		Friend friend2 = userDAO.findFriendship("none", "none");
 		assertEquals(null, friend2);
 	}
-	
+
 	
 	@Test
 	public void testAddFriend() throws ParseException {		
@@ -98,17 +97,29 @@ public class UserDAOImplTest extends BaseSpringContextCommon {
 		Friend friendship = new Friend(user1, user2);
 		userDAO.deleteFriend(friendship); // TODO try to delete friend with user not exists.
 	}
-	
+
+
 	@Test
-	public void testDeleteFriendByIdFriend(int idfriend) {
-		//TODO
+	public void testDeleteFriendByIdFriend() {
+		int idfriend = 3;
+		Friend friend = userDAO.findFriendByIdfriend(idfriend);		
+		userDAO.deleteFriend(friend);
 	}
 	
+	
 	@Test
-	public void testDeleteFriendByUsernames(String username1, String username2) {
-		//TODO
+	public void testFindFriendByIdfriend() {
+		int idfriend = 3;
+		Friend friend = userDAO.findFriendByIdfriend(idfriend);		
+		assertEquals("myusername", friend.getUser1().getUsername());
 	}
 	
+	
+	@Test
+	public void testDeleteFriendByUsernames() {
+		userDAO.deleteFriendByUsernames("myusername", "tousername");
+	}
+
 	
 
 }

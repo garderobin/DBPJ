@@ -35,6 +35,8 @@ public interface UserDAO {
 	//public ArrayList<User> findFriendsByUsername(String username);
 	public List<User> findFriendsByUsername(String username);
 	
+	public Friend findFriendByIdfriend(int Idfriend);
+	
 	//public void addActivatedUser(ActivatedUser user);
 	//public void deleteActivatedUser(ActivatedUser user);
 	//public ActivatedUser findActivatedUserByUsername(String username);

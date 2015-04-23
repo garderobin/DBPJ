@@ -1,6 +1,7 @@
 package com.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bean.*;
 import com.util.ErrorType;
@@ -36,8 +37,9 @@ public interface UserService {
 	
 	public ErrorType deleteFriend(String user1, String user2);
 	
-	public ArrayList<User> findFriendsByUsername(String username);
+	public List<User> findFriendsByUsername(String username);
 
 	public ErrorType signInUser(String username, String password, String email);
+
 	
 }

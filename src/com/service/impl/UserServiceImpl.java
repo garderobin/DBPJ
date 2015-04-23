@@ -61,54 +61,49 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ArrayList<User> findFriendsByUsername(String username) {
-		/* TODO
-		ArrayList<User> friends = this.userDAO.findFriendsByUsername(username);
-		return friends;*/
-		return null;
+	public List<User> findFriendsByUsername(String username) {
+		List<User> friends = this.userDAO.findFriendsByUsername(username);
+		return friends;
 	}
 
 	@Override
 	public ErrorType addFriend(String user1, String user2) {
-		/* TODO
 		Friend friend = new Friend();
-		friend.setUser1(user1);
-		friend.setUser2(user2);
+		User u1 = this.userDAO.findUserByUsername(user1);
+		User u2 = this.userDAO.findUserByUsername(user2);
+		friend.setUser1(u1);
+		friend.setUser2(u2);
 		Friend friendship = this.userDAO.findFriendship(user1, user2);
 		if (friendship == null) {
 			this.userDAO.addFriend(friend);
 			return ErrorType.NO_ERROR;			
 		}
-		*/
 		return ErrorType.FRIENDSHIP_EXISTED;				
 	}
-
+    
+	//OK:
 	@Override
 	public ErrorType deleteFriend(String user1, String user2) {
-		/* TODO
-		Friend friend = new Friend();
-		friend.setUser1(user1);
-		friend.setUser2(user2);
 		try {
-			this.userDAO.deleteFriend(friend);
+			this.userDAO.deleteFriendByUsernames(user1,user2);
 		} catch (HibernateException he) {
 			return ErrorType.DELETE_ERROR;
 		} //addFriend and Delete Friend use two different error-handling methods.
-		*/
 		return ErrorType.NO_ERROR;
 	}
 
 	@Override
 	public boolean checkFriendshipExist(String user1, String user2) {
 		return (this.userDAO.findFriendship(user1, user2) != null);
-	}	
-
+	}
+	
 	@Override
 	public ErrorType signInUser(String username, String password, String email){
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setEmail(email);
+		user.setTime(new Date());
 		User user1 = this.userDAO.findUserByUsername(username);
 		if(user1 == null){
 			this.userDAO.saveUser(user);
@@ -116,6 +111,5 @@ public class UserServiceImpl implements UserService {
 		}
 		return ErrorType.USERNAME_EXISTED;
 	}
-
 
 }

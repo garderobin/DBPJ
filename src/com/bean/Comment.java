@@ -7,8 +7,8 @@ public class Comment{
 	 * 
 	 */
 	private Integer cid;
-	private String username;
-	private Integer pinid;
+	private User user ;
+	private Pin pin;
 	private String comment;
 	private Date time;
 	
@@ -21,20 +21,21 @@ public class Comment{
 		this.cid = cid;
 	}
 
-	public String getUsername() {
-		return username;
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Integer getPinid() {
-		return pinid;
+	public Pin getPin() {
+		return pin;
 	}
 
-	public void setPinid(Integer pinid) {
-		this.pinid = pinid;
+	public void setPin(Pin pin) {
+		this.pin = pin;
 	}
 
 	public String getComment() {
@@ -53,7 +54,35 @@ public class Comment{
 		this.time = time;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((pin == null) ? 0 : pin.hashCode());
+		return result;
+	}
 
-
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Comment other = (	Comment) obj;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		if (pin == null) {
+			if (other.pin != null)
+				return false;
+		} else if (!pin.equals(other.pin))
+			return false;
+		return true;
+	}
 	
 }
