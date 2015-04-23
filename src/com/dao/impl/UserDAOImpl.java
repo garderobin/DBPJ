@@ -68,30 +68,9 @@ public class UserDAOImpl implements UserDAO {
 		session.close();
 	}
 
-	/*
-	@SuppressWarnings("unchecked")
-	@Override
-	public ArrayList<User> findFriendsByUsername(String username) {
-		Session session = sessionFactory.openSession();
-		String hql = "select new User(username, password, email, time) from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
-		Query query = session.createQuery(hql);
-		List<User> list = query.list();
-		session.close();
-		if (list.isEmpty()) {
-			return  null;
-		}
-		else {
-			return (ArrayList<User>) list;
-		}
-	}
-	*/
 	@Override
 	public List<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
-		//String hql = "select username, password, email, time from Friend friend join User user where (friend.user1 = '" + username + "' and friend.pk_friend.user2 = user.username) or (friend.pk_friend.user2 = '" + username + "' and friend.pk_friend.user1 = user.username)";
-		//String hql = "select new User(u.username, u.password, u.email, u.time) from Friend f join User u where (f.user1 = '" + username + "' and f.user2 = u.username) or (f.user2 = '" + username + "' and f.user1 = u.username)";
-		//String hql = "select new User(u.username, u.password, u.email, u.time) from Friend f join f.user1 u1 join f.user2 u2 where (f.user1 = '" + username + "' and f.user2 = u2.username) or (f.user2 = '" + username + "' and f.user1 = u1.username)";
-		//String hql = "select new User(u.username, u.password, u.email, u.time) from User u join u.friendsForUser1 f1 join u.friendsForUser2 f2 where u.username = '" + username + "' and f1.user1 = u.username";
 		String hql = "select new User(u.username, u.password, u.email, u.time) from User u join u.friendsForUser1 f1 join u.friendsForUser2 f2 where" + 
 				" (f1.user2 = '" + username + "' and f1.user1 = u.username) or" + 
 				" (f2.user1 = '" + username + "' and f2.user2 = u.username)";
@@ -116,14 +95,6 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
-	/*
-	@Override
-	public void deleteFriend(Friend friend) {
-		Session session = sessionFactory.openSession();
-		session.delete(friend);
-		session.flush();
-		session.close();		
-	}*/
 	
 	@Override
 	public void deleteFriend(Friend friend) {
@@ -154,14 +125,22 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void deleteFriendByUsernames(String username1, String username2) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.openSession();
+		String hql = "delete from Friend f where (user1 = '" + username1 + "' and user2 = '" + username2 + 
+				"') or (user1 = '" + username2 + "' and user2 = '" + username1 + "')";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+		session.close();
 		
 	}
 
 	@Override
 	public void deleteFriendByIdFriend(int idfriend) {
-		// TODO Auto-generated method stub
-		
+		Session session = sessionFactory.openSession();
+		String hql = "delete from Friend f where (idfriend = '" + idfriend + "')";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+		session.close();		
 	}
 	
 	
