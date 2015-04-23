@@ -119,7 +119,7 @@ public class UserDAOImpl implements UserDAO {
 			return  null;
 		}
 		else {
-			return (Friend)list.get(0);
+			return (Friend) list.get(0);
 		}
 	}
 	
@@ -127,7 +127,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	
 	
-	/*
+	
 	@Override
 	public void deleteFriendByUsernames(String username1, String username2) {
 		Session session = sessionFactory.openSession();
@@ -146,6 +146,20 @@ public class UserDAOImpl implements UserDAO {
 		Query query = session.createQuery(hql);
 		query.executeUpdate();
 		session.close();		
+	}
+	
+	public Friend findFriendByIdfriend(int idfriend){
+		Session session = sessionFactory.openSession();
+		String hql = "from Friend f where (f.idfriend = '" + idfriend + "')";
+		Query query = session.createQuery(hql);
+		List<Friend> list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return (Friend) list.get(0);
+		}
 	}
 	
 	
