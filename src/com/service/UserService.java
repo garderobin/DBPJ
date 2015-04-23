@@ -41,5 +41,4 @@ public interface UserService {
 	public ErrorType signInUser(String username, String password, String email);
 
 	
-	
 }

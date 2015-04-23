@@ -6,19 +6,15 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.Follow" table="follow" catalog="dttest1">
-        <composite-id>
-            <key-property name="username" type="java.lang.String">
-                <column name="username" length="20" />
-            </key-property>
-            <key-property name="bid" type="java.lang.Integer">
-                <column name="bid" />
-            </key-property>
-        </composite-id>
-        <many-to-one name="bid" class="com.bean.Board" update="false" insert="false" fetch="select">
-            <column name="bid" not-null="true" />
+        <id name="idfollow" type="java.lang.Integer">
+            <column name="idfollow" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="board" class="com.bean.Board" fetch="select">
+            <column name="bid" />
         </many-to-one>
-        <many-to-one name="username" class="com.bean.User" update="false" insert="false" fetch="select">
-            <column name="username" length="20" not-null="true" />
+        <many-to-one name="user" class="com.bean.User" fetch="select">
+            <column name="username" length="20" />
         </many-to-one>
         <property name="stream" type="java.lang.String">
             <column name="stream" length="20" />

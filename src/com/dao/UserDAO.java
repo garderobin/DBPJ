@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.bean.*;
 
@@ -19,6 +20,9 @@ public interface UserDAO {
 	//Before deletion , check whether the friendship already exists. 
 	public void deleteFriend(Friend friend);
 	
+	public void deleteFriendByUsernames(String username1, String username2);
+	
+	public void deleteFriendByIdFriend(int idfriend);
 	/**
 	 * Check whether two users are already friends.
 	 * @param user1
@@ -28,7 +32,8 @@ public interface UserDAO {
 	public Friend findFriendship(String user1, String user2);
 
 	//See Java API document for the usage for ArrayList.
-	public ArrayList<User> findFriendsByUsername(String username);
+	//public ArrayList<User> findFriendsByUsername(String username);
+	public List<User> findFriendsByUsername(String username);
 	
 	//public void addActivatedUser(ActivatedUser user);
 	//public void deleteActivatedUser(ActivatedUser user);

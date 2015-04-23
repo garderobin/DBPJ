@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import com.bean.Friend;
 import com.bean.User;
 import com.dao.UserDAO;
@@ -68,20 +69,23 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public ArrayList<User> findFriendsByUsername(String username) {
+	public List<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
-		String hql = "select new User(username, password, email, time) from Friend friend join User user where (friend.user1 = '" + username + "' and friend.user2 = user.username) or (friend.user2 = '" + username + "' and friend.user1 = user.username)";
+		String hql = "select new User(u.username, u.password, u.email, u.time) from User u join u.friendsForUser1 f1 join u.friendsForUser2 f2 where" + 
+				" (f1.user2 = '" + username + "' and f1.user1 = u.username) or" + 
+				" (f2.user1 = '" + username + "' and f2.user2 = u.username)";
+		
 		Query query = session.createQuery(hql);
-		ArrayList<User> list = (ArrayList<User>)query.list();
+		List<User> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
 		}
 		else {
-			return list;
+			return  list;
 		}
 	}
-
+	
 	@Override
 	public void addFriend(Friend friend) {
 		Session session = sessionFactory.openSession();
@@ -91,11 +95,16 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
+	
 	@Override
 	public void deleteFriend(Friend friend) {
+		String user1 = friend.getUser1().getUsername();
+		String user2 = friend.getUser2().getUsername();
 		Session session = sessionFactory.openSession();
-		session.delete(friend);
-		session.flush();
+		String hql = "delete from Friend f where (user1 = '" + user1 + "' and user2 = '" + user2 + 
+				"') or (user1 = '" + user2 + "' and user2 = '" + user1 + "')";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
 		session.close();		
 	}
 
@@ -104,7 +113,7 @@ public class UserDAOImpl implements UserDAO {
 		Session session = sessionFactory.openSession();
 		String hql = "from Friend friend where (friend.user1 = '" + user1 + "' and friend.user2 = '" + user2 + "') or (friend.user2 = '" + user1 + "' and friend.user1 = '" + user2 + "')";
 		Query query = session.createQuery(hql);
-		List list = query.list();
+		List<Friend> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -119,64 +128,25 @@ public class UserDAOImpl implements UserDAO {
 	
 	
 	/*
-	
 	@Override
-	public void addActivatedUser(ActivatedUser user){
+	public void deleteFriendByUsernames(String username1, String username2) {
 		Session session = sessionFactory.openSession();
-		session.save(user);
-		session.flush();
-		session.close();
-	}
-	
-	@Override
-	public void deleteActivatedUser(ActivatedUser user){
-		Session session = sessionFactory.openSession();
-		session.delete(user);
-		session.flush();
-		session.close();
-	}
-	
-	@Override
-	public ActivatedUser findActivatedUserByUsername(String username){
-		Session session = sessionFactory.openSession();
-		String hql = "from ActivatedUser activateduser where activateduser.username = '" + username + "'";
+		String hql = "delete from Friend f where (user1 = '" + username1 + "' and user2 = '" + username2 + 
+				"') or (user1 = '" + username2 + "' and user2 = '" + username1 + "')";
 		Query query = session.createQuery(hql);
-		List list = query.list();
+		query.executeUpdate();
 		session.close();
-		if (list.isEmpty()) {
-			return  null;
-		}
-		else {
-			return (ActivatedUser)list.get(0);
-		}
-	}
-	*/
-	
-	/*
-	@Override
-	public String find_note_of_user(Integer userid) {
-		Session session = sessionFactory.openSession();
-		String hql = "select note from User user where userid = " + userid;
-		Query query = session.createQuery(hql);
-		String res = (String)query.uniqueResult();
-		session.close();
-		return res;
+		
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public User findUserByUserid(Integer userid) {
+	public void deleteFriendByIdFriend(int idfriend) {
 		Session session = sessionFactory.openSession();
-		String hql = "from User user where user.userid = '" + userid + "'";
+		String hql = "delete from Friend f where (idfriend = '" + idfriend + "')";
 		Query query = session.createQuery(hql);
-		List list = query.list();
-		session.close();
-		if (list.isEmpty()) {
-			return  null;
-		}
-		else {
-			return (User)list.get(0);
-		}
+		query.executeUpdate();
+		session.close();		
 	}
-	*/
+	
+	
 }

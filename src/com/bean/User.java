@@ -28,6 +28,13 @@ public class User {
 */
 	public User() {
 	}
+	
+	public User(String username, String password, String email, Date time) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.time = time;
+	}
 
 	public String getUsername() {
 		return username;
