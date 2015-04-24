@@ -1,5 +1,8 @@
 <h1>开发日志</h1>
-<p>LP: 提醒：把WebRoot/WEB-INF/classes/com/bean下面的内容全部删光。我们的项目跑不起来org.hibernate.MappingException: entity class not found 是因为这个目录下面的历史文件大小写与我们现在的版本不匹配（comment和likes),我们改成大写以后只会生成Comment.class和Likes.class而不会覆盖comment.class和likes.class，而hibernate不识别大小写。切记class文件全都不必保存。
+<p>LP: 2015-04-24 03:00
+提醒：把WebRoot/WEB-INF/classes/com/bean下面的内容全部删光。我们的项目跑不起来org.hibernate.MappingException: entity class not found 是因为这个目录下面的历史文件大小写与我们现在的版本不匹配（comment和likes),我们改成大写以后只会生成Comment.class和Likes.class而不会覆盖comment.class和likes.class，而hibernate不识别大小写。切记class文件全都不必保存。
+</p>
+<p>页面间简单传值已经实现。下一步要做Ajax.</p>
 <p>LP: 2015-04-18 11:41 pm</p>
 <p>已完成：登录功能。框架已能正常使用。<br/>
 测试方法：先在本地数据库中user表里插入一条数据，在主界面登录以后能看到This is my JSP page.<br/>
