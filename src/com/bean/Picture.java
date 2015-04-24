@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Picture {
-	private Integer picnum;
+	private int picnum;
 	private String url;
 	private String sourceUrl; 
 	private Set<Pin> pins = 
@@ -13,11 +13,24 @@ public class Picture {
 	private Set<Likes> likes = 
 			new HashSet<Likes>(0);
 	
-	public Integer getPicnum() {
+    public Picture(){
+    	
+    }
+    public Picture(int picnum, String url, String sourceUrl){
+    	this.picnum = picnum;
+    	this.url = url;
+    	this.sourceUrl = sourceUrl;
+    }
+    public Picture(String url, String sourceUrl){
+    	this.url = url;
+    	this.sourceUrl = sourceUrl;
+    }
+    
+	public int getPicnum() {
 		return picnum;
 	}
 
-	public void setPicnum(Integer picnum) {
+	public void setPicnum(int picnum) {
 		this.picnum = picnum;
 	}
 

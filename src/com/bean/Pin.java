@@ -5,39 +5,55 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Pin {
-	private Integer pinid;
-	private Integer bid;
-	private Integer picnum;
+	private int pinid;
+	private Board board;
+	private Picture picture;
 	private String note;
 	private Date time;
-	private Boolean repin;
+	private int repin;
 	private Set<Comment> comments = 
 			new HashSet<Comment>(0);
 
-	public Integer getPinid() {
+	public Pin(){
+		
+	}
+	public Pin(int pinid, Board board, Picture picture, String note, Date time, int repin){
+		this.pinid = pinid;
+		this.board = board;
+		this.picture = picture;
+		this.note = note;
+		this.time = time;
+		this.repin = repin;
+	}
+	public Pin(Board board, Picture picture, String note, Date time, int repin){
+		this.board = board;
+		this.picture = picture;
+		this.note = note;
+		this.time = time;
+		this.repin = repin;
+	}
+
+	public int getPinid() {
 		return pinid;
 	}
 
-	public void setPinid(Integer pinid) {
+	public void setPinid(int pinid) {
 		this.pinid = pinid;
 	}
 
-	public Integer getBid() {
-		return bid;
-	}
 
-	public void setBid(Integer bid) {
-		this.bid = bid;
+	public Board getBoard() {
+		return board;
 	}
-
-	public Integer getPicnum() {
-		return picnum;
+	public void setBoard(Board board) {
+		this.board = board;
 	}
-
-	public void setPicnum(Integer picnum) {
-		this.picnum = picnum;
+	public Picture getPicture() {
+		return picture;
 	}
-
+	public void setPicture(Picture picture) {
+		this.picture = picture;
+	}
 	public String getNote() {
 		return note;
 	}
@@ -54,14 +70,13 @@ public class Pin {
 		this.time = time;
 	}
 
-	public Boolean getRepin() {
+
+	public int getRepin() {
 		return repin;
 	}
-
-	public void setRepin(Boolean repin) {
+	public void setRepin(int repin) {
 		this.repin = repin;
 	}
-
 	public Set<Comment> getComments() {
 		return comments;
 	}

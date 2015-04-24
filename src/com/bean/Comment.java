@@ -6,21 +6,37 @@ public class Comment{
 	/**
 	 * 
 	 */
-	private Integer cid;
+	private int cid;
 	private User user ;
 	private Pin pin;
 	private String comment;
 	private Date time;
 	
 	
-	public Integer getCid() {
+    public Comment(){
+    	
+    }
+    public Comment(int cid, User user, Pin pin, String comment, Date time){
+    	this.cid = cid;
+    	this.user = user;
+    	this.pin = pin;
+    	this.comment = comment;
+    	this.time = time;
+    }
+    public Comment(User user, Pin pin, String comment, Date time){
+    	this.user = user;
+    	this.pin = pin;
+    	this.comment = comment;
+    	this.time = time;
+    }
+
+	public int getCid() {
 		return cid;
 	}
 
-	public void setCid(Integer cid) {
+	public void setCid(int cid) {
 		this.cid = cid;
 	}
-
 
 	public User getUser() {
 		return user;

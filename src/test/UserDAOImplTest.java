@@ -26,10 +26,10 @@ public class UserDAOImplTest extends BaseSpringContextCommon {
 	
 	@Test
 	public void testFindUserByUsername() {
-		String username = "abcd";
-		assertEquals("abcd@gmail.com", userDAO.findUserByUsername(username).getEmail());
+		String username = "dongtao";
+		assertEquals("dongtao@hotmail.com", userDAO.findUserByUsername(username).getEmail());
 	}
-
+/*
 	@Test
 	public void testSaveUser() {
 		User user = new User();
@@ -120,6 +120,6 @@ public class UserDAOImplTest extends BaseSpringContextCommon {
 		userDAO.deleteFriendByUsernames("myusername", "tousername");
 	}
 
-	
+*/	
 
 }

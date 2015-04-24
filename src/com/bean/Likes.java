@@ -8,6 +8,21 @@ public class Likes{
 	private Picture picture;
 	private Date time;
 	
+	public Likes(){
+		
+	}
+	public Likes(int idlikes, User user, Picture picture, Date time){
+		this.idlikes = idlikes;
+		this.user = user;
+		this.picture = picture;
+		this.time = time;
+	}
+	public Likes(User user, Picture picture, Date time){
+		this.user = user;
+		this.picture = picture;
+		this.time = time;
+	}
+	
 	public int getIdlikes() {
 		return idlikes;
 	}

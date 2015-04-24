@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Board {
-	private Integer bid;
-	private String username;
+	private int bid;
+	private User user;
 	private String bname;
 	private Date time;
 	private Set<Pin> pins = 
@@ -14,20 +14,39 @@ public class Board {
 	private Set<Follow> follows = 
 			new HashSet<Follow>(0);
 
-	public Integer getBid() {
+    public Board() {
+		
+	}
+	
+	public Board(int bid, User user, String bname, Date time) {
+		this.bid = bid;
+		this.user = user;
+		this.bname = bname;
+		this.time = time;		
+	}
+	
+	public Board(User user, String bname, Date time) {
+		this.user = user;
+		this.bname = bname;
+		this.time = time;		
+	}
+
+
+
+	public int getBid() {
 		return bid;
 	}
 
-	public void setBid(Integer bid) {
+	public void setBid(int bid) {
 		this.bid = bid;
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getBname() {
@@ -62,5 +81,30 @@ public class Board {
 		this.follows = follows;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+    @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Board other = (	Board) obj;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
 }
+	
+
