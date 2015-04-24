@@ -60,3 +60,10 @@ $(function() {
 
 
 });
+
+$(document).ready(function(){
+    $("#addPinMenuButton").click(function(){
+    	alert("Hello!");
+        $("#addPinMenuContent").slideToggle();
+    });
+});

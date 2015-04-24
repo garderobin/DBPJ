@@ -3,9 +3,7 @@ package com.bean;
 import java.util.Date;
 
 public class Comment{
-	/**
-	 * 
-	 */
+
 	private int cid;
 	private User user ;
 	private Pin pin;

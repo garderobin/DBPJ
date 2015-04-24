@@ -8,9 +8,9 @@
 	<context:annotation-config />  -->
 	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3307/dttest1"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/pinterest"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="111314"></property>
+		<property name="password" value="root"></property>
 	</bean>
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource">
@@ -33,11 +33,11 @@
 				<value>com/bean/User.hbm.xml</value>
 				<value>com/bean/Board.hbm.xml</value>
 				<value>com/bean/Follow.hbm.xml</value>
-				<value>com/bean/Friend.hbm.xml</value>
-				<value>com/bean/Likes.hbm.xml</value>
+				<value>com/bean/Friend.hbm.xml</value>				
 				<value>com/bean/Picture.hbm.xml</value>
 				<value>com/bean/Pin.hbm.xml</value>
-				<value>com/bean/Comment.hbm.xml</value>			
+				<value>com/bean/Comment.hbm.xml</value>	
+				<value>com/bean/Likes.hbm.xml</value>
 				
 			</list>
 			 

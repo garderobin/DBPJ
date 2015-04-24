@@ -8,10 +8,8 @@ public class Picture {
 	private int picnum;
 	private String url;
 	private String sourceUrl; 
-	private Set<Pin> pins = 
-			new HashSet<Pin>(0);
-	private Set<Likes> likes = 
-			new HashSet<Likes>(0);
+	private Set<Pin> pins = new HashSet<Pin>(0);	
+	private Set<Likes> likes = new HashSet<Likes>(0);
 	
     public Picture(){
     	
@@ -58,6 +56,7 @@ public class Picture {
 		this.pins = pins;
 	}
 
+	
 	public Set<Likes> getLikes() {
 		return likes;
 	}
@@ -65,6 +64,6 @@ public class Picture {
 	public void setLikes(Set<Likes> likes) {
 		this.likes = likes;
 	}
-
+	
 	
 }
