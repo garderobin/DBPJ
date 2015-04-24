@@ -1,4 +1,7 @@
 <h1>开发日志</h1>
+<p>LP: 2015-04-24 5:11 pm
+repin这个属性的用法必须改。否则无法统计转发数量。
+</p>
 <p>LP: 2015-04-24 03:00
 提醒：把WebRoot/WEB-INF/classes/com/bean下面的内容全部删光。我们的项目跑不起来org.hibernate.MappingException: entity class not found 是因为这个目录下面的历史文件大小写与我们现在的版本不匹配（comment和likes),我们改成大写以后只会生成Comment.class和Likes.class而不会覆盖comment.class和likes.class，而hibernate不识别大小写。切记class文件全都不必保存。
 </p>
