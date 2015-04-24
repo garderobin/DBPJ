@@ -23,15 +23,14 @@ public class PinServiceImpl implements PinService {
 	
 	@Override
 	public ErrorType addBoard(String username, String bname){
-		Board board = new Board();
-		board.setUsername(username);
+/*  	Board board = new Board();
+		board.setUsern(username);
 		board.setBname(bname);
 		board.setTime(new Date());
-		Board board1 = this.pinDAO.findBoardByUsernameBname(username, bname);
-		if(board1 == null){
+		Board board1 = this.pinDAO.findBoardByUsernameBname(username, bname);		if(board1 == null){
 			this.pinDAO.addBoard(board);
 			return ErrorType.NO_ERROR;
-		}
+		}*/
 		return ErrorType.BNAME_EXISTED;
 	}
 	

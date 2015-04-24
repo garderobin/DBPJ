@@ -8,12 +8,12 @@
     <class name="com.bean.Pin" table="pin" catalog="dttest1">
         <id name="pinid" type="java.lang.Integer">
             <column name="pinid" />
-            <generator class="native" />
+            <generator class="identity" />
         </id>
-        <many-to-one name="bid" class="com.bean.Board" fetch="select">
+        <many-to-one name="board" class="com.bean.Board" fetch="select">
             <column name="bid" not-null="true" />
         </many-to-one>
-        <many-to-one name="picnum" class="com.bean.Picture" fetch="select">
+        <many-to-one name="picture" class="com.bean.Picture" fetch="select">
             <column name="picnum" not-null="true" />
         </many-to-one>
         <property name="note" type="java.lang.String">
@@ -22,7 +22,10 @@
         <property name="time" type="java.sql.Timestamp">
             <column name="time" length="0" not-null="true" />
         </property>
-        <set name="comments" table="Comment" inverse="true">
+        <property name="repin" type="java.lang.Integer">
+            <column name="repin" />
+        </property>
+        <set name="comments" inverse="true">
             <key>
                 <column name="pinid" not-null="true" />
             </key>

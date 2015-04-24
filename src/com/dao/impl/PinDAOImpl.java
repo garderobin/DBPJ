@@ -49,7 +49,7 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public Board findBoardByBid(Integer bid){
+	public Board findBoardByBid(int bid){
 		Session session = sessionFactory.openSession();
 		String hql = "from Board board where board.bid = '" + bid + "'";
 		Query query = session.createQuery(hql);
@@ -64,11 +64,11 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<Board> findBoardByUser(String username){
+	public List<Board> findBoardByUsername(String username){
 		Session session = sessionFactory.openSession();
-		String hql = "from Board board where board.username = '" + username + "'";
+		String hql = "from Board board where board.user.username = '" + username + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<Board> list = (ArrayList<Board>)query.list();
+		List<Board> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -81,7 +81,7 @@ public class PinDAOImpl implements PinDAO{
 	@Override
 	public Board findBoardByUsernameBname(String username, String bname){
 		Session session = sessionFactory.openSession();
-		String hql = "from Board board where board.username = '" + username + "' and board.bname = '" + bname + "'";
+		String hql = "from Board board where board.user.username = '" + username + "' and board.bname = '" + bname + "'";
 		Query query = session.createQuery(hql);
 		List list = query.list();
 		session.close();
@@ -94,11 +94,12 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<Board> findBoardByFollow(String username){
+	public List<Board> findBoardByFollow(String username){
 		Session session = sessionFactory.openSession();
-		String hql = "select new Board(bid, board.username, bname, board.time) from Board board join Follow follow where follow.username = '" + username + "' and board.bid = follow.bid";
+		String hql = "select new Board(board.bid, board.user, board.bname, board.time) from Board board join board.follows follow "
+				+ "where (follow.user.username = '" + username + "')";
 		Query query = session.createQuery(hql);
-		ArrayList<Board> list = (ArrayList<Board>)query.list();
+		List<Board> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -109,12 +110,11 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public Integer addPicture(Picture picture){
+	public void addPicture(Picture picture){
 		Session session = sessionFactory.openSession();
-		Integer picnum = (Integer) session.save(picture);
+		session.save(picture);
 		session.flush();
 		session.close();
-		return picnum;
 	}
 	
 	@Override
@@ -134,11 +134,28 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<Picture> findPictureByUser(String username){
+	public Picture findPictureByPicnum(int picnum){
 		Session session = sessionFactory.openSession();
-		String hql = "select new Picture(picnum, url, sourceurl) from Board board join Pin pin join Picture picture where board.username = '" + username + "' and board.bid = pin.bid and pin.picnum = picture.picnum";
+		String hql = "from Picture picture where picture.picnum = '" + picnum + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<Picture> list = (ArrayList<Picture>)query.list();
+		List list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return (Picture) list.get(0);
+		}
+	}
+	
+	@Override
+	public List<Picture> findPictureByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "select new Picture(picture.picnum, picture.url, picture.sourceUrl) " +
+				"from Board board join board.pins pin1 , Picture picture join picture.pins pin2 " +
+				"where board.user.username = '" + username + "'and pin1.pinid = pin2.pinid";
+		Query query = session.createQuery(hql);
+		List<Picture> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -149,11 +166,12 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<Picture> findPictureByBoard(Integer bid){
+	public List<Picture> findPictureByBid(int bid){
 		Session session = sessionFactory.openSession();
-		String hql = "select new Picture(picnum, url, sourceurl) from Pin pin join Picture picture where pin.bid = '" + bid + "' and pin.picnum = picture.picnum";
+		String hql = "select new Picture(picture.picnum, picture.url, picture.sourceUrl) from Picture picture join picture.pins pin" +
+				" where pin.bid = '" + bid + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<Picture> list = (ArrayList<Picture>)query.list();
+		List<Picture> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -164,11 +182,11 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<Picture> findPictureByLikes(String username){
+	public List<Picture> findPictureByLikes(String username){
 		Session session = sessionFactory.openSession();
-		String hql = "select new Picture(picnum, url, sourceurl) from Likes likes join Picture picture where likes.username = '" + username + "' and likes.picnum = picture.picnum";
+		String hql = "select new Picture(picture.picnum, picture.url, picture.sourceUrl) from Picture picture join picture.likes likes where likes.user.username = '" + username + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<Picture> list = (ArrayList<Picture>)query.list();
+		List<Picture> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -204,6 +222,21 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
+	public Pin findPinByPinid(int pinid){
+		Session session = sessionFactory.openSession();
+		String hql = "from Pin pin where pin.pinid = '" + pinid + "'";
+		Query query = session.createQuery(hql);
+		List<Pin> list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return (Pin) list.get(0);
+		}
+	}
+	
+	@Override
 	public void addFollow(Follow follow){
 		Session session = sessionFactory.openSession();
 		session.save(follow);
@@ -228,11 +261,12 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<User> findUserByFollow(Integer bid){
+	public List<User> findUserByFollow(int bid){
 		Session session = sessionFactory.openSession();
-		String hql = "select new User(user.username, password, email, time) from Follow follow join User user where follow.bid = '" + bid + "' and follow.username = user.username";
+		String hql = "select new User(user.username, user.password, user.email, user.time) " +
+				"from User user join user.follows follow where follow.board.bid = '" + bid + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<User> list = (ArrayList<User>)query.list();
+		List<User> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -243,11 +277,11 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	
-	public ArrayList<Follow> findFollowByUser(String username){
+	public List<Follow> findFollowByUsername(String username){
 		Session session = sessionFactory.openSession();
-		String hql = "from Follow follow where follow.username = '" + username + "'";
+		String hql = "from Follow follow where follow.user.username = '" + username + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<Follow> list = (ArrayList<Follow>)query.list();
+		List<Follow> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -283,11 +317,11 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<Comment> findCommentByUser(String username){
+	public List<Comment> findCommentByUsername(String username){
 		Session session = sessionFactory.openSession();
-		String hql = "from Comment comment where comment.username = '" + username + "'";
+		String hql = "from Comment comment where comment.user.username = '" + username + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<Comment> list = (ArrayList<Comment>)query.list();
+		List<Comment> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;
@@ -298,11 +332,57 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	public ArrayList<Comment> findCommentByPin(Integer pinid){
+	public List<Comment> findCommentByPinid(int pinid){
 		Session session = sessionFactory.openSession();
-		String hql = "from Comment comment where comment.pinid = '" + pinid + "'";
+		String hql = "from Comment comment where comment.pin.pinid = '" + pinid + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<Comment> list = (ArrayList<Comment>)query.list();
+		List<Comment> list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
+	public void addLikes(Likes likes){
+		Session session = sessionFactory.openSession();
+		session.save(likes);
+		session.flush();
+		session.close();
+	}
+	
+	@Override
+	public void deleteLikes(Likes likes){
+		Session session = sessionFactory.openSession();
+		session.delete(likes);
+		session.flush();
+		session.close();
+	}
+	
+	@Override
+	public List<Likes> findLikesByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "from Likes likes where likes.user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+		List<Likes> list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
+	public List<Likes> findLikesByPicnum(int picnum){
+		Session session = sessionFactory.openSession();
+		String hql = "from Likes likes where likes.picture.picnum = '" + picnum + "'";
+		Query query = session.createQuery(hql);
+		List<Likes> list = query.list();
 		session.close();
 		if (list.isEmpty()) {
 			return  null;

@@ -10,7 +10,7 @@
             <column name="bid" />
             <generator class="native" />
         </id>
-        <many-to-one name="username" class="com.bean.User" fetch="select">
+        <many-to-one name="user" class="com.bean.User" fetch="select">
             <column name="username" length="20" not-null="true" />
         </many-to-one>
         <property name="bname" type="java.lang.String">

@@ -12,6 +12,25 @@ public class Follow {
 	private String stream;
 	private Date time;
 	
+	public Follow(){
+		
+	}
+	public Follow(int idfollow, User user, Board board, String stream, Date time){
+		this.idfollow = idfollow;
+		this.user = user;
+		this.board = board;
+		this.stream = stream;
+		this.time = time;
+	}
+	
+	public Follow(User user, Board board, String stream, Date time){
+		this.user = user;
+		this.board = board;
+		this.stream = stream;
+		this.time = time;
+	}
+	
+	
 	public int getIdfollow() {
 		return idfollow;
 	}
