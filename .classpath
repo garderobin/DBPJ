@@ -18,6 +18,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="lib" path="C:/Users/dt/Workspaces/MyEclipse 10/junit.jar"/>
 	<classpathentry kind="lib" path="C:/Users/dt/Workspaces/MyEclipse 10/org.hamcrest.core_1.3.0.v201303031735.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
