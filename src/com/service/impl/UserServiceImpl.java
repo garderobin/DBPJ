@@ -1,7 +1,7 @@
 package com.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.hibernate.HibernateException;
@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findFriendsByUsername(String username) {
-		List<User> friends = this.userDAO.findFriendsByUsername(username);
+	public ArrayList<User> findFriendsByUsername(String username) {
+		ArrayList<User> friends = this.userDAO.findFriendsByUsername(username);
 		return friends;
 	}
 

@@ -33,7 +33,7 @@ public interface UserDAO {
 
 	//See Java API document for the usage for ArrayList.
 	//public ArrayList<User> findFriendsByUsername(String username);
-	public List<User> findFriendsByUsername(String username);
+	public ArrayList<User> findFriendsByUsername(String username);
 	
 	public Friend findFriendByIdfriend(int Idfriend);
 	

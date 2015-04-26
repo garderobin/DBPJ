@@ -7,7 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,16 @@ public class UserDAOImplTest extends BaseSpringContextCommon {
 	
 	@Test
 	public void testFindUserByUsername() {
-		String username = "dongtao";
-		assertEquals("dongtao@hotmail.com", userDAO.findUserByUsername(username).getEmail());
+		String username = "assa";
+		User user = userDAO.findUserByUsername(username);
+		if(user == null)
+			assertEquals(null, user);
+		else
+		    assertEquals("dongtao@hotmail.com", user.getEmail());
 	}
-/*
+	
+
+    /*
 	@Test
 	public void testSaveUser() {
 		User user = new User();
@@ -55,17 +63,40 @@ public class UserDAOImplTest extends BaseSpringContextCommon {
 		userDAO.deleteUser(user2); //TODO test cascade deletion.
 	}
 	
-	
-	
+	*/
+	/*
 	@Test
 	public void testFindFriendsByUsername() {
-		String username = "test";
-		List<User> friends = userDAO.findFriendsByUsername(username);
-		assertEquals(2, friends.size());		
+		String username = "Allen";
+		ArrayList<User> friends = userDAO.findFriendsByUsername(username);
+		assertEquals(4, friends.size());
+		User friend1 = friends.get(0);
+		User friend2 = friends.get(1);
+		User friend3 = friends.get(2);
+		User friend4 = friends.get(3);
+		assertEquals("Barry", friend1.getUsername());
+		assertEquals("cousername",friend2.getUsername());
+		assertEquals("lirong", friend3.getUsername());
+		assertEquals("Tom ",friend4.getUsername());
+	}
+	
+	 Another method!!!!!
+	*/
+	@Test
+	public void testFindFriendsByUsername() {
+		String username = "Allen";
+		ArrayList<User> friends = userDAO.findFriendsByUsername(username);
+		assertEquals(4, friends.size());
+		ArrayList<String> exp = new ArrayList<String>(Arrays.asList("Barry", "Tom", "lirong", "cousername"));
+		boolean equals = true;
+		for(User user: friends) {
+			equals &= (exp.contains(user.getUsername()));
+		}
+		assertTrue(equals);
 	}
 	
 	
-	
+	/*
 	@Test
 	public void testFindFriendship() {
 		Friend friend = userDAO.findFriendship("abcd", "test");

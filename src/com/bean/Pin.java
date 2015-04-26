@@ -69,8 +69,7 @@ public class Pin {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-
+ 
 	public int getRepin() {
 		return repin;
 	}
