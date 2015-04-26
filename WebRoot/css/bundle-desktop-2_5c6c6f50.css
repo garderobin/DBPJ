@@ -1239,7 +1239,7 @@
 
 .standardForm>h2, .standardForm .formSectionHeading, .loginForm>h2,
 .loginForm .formSectionHeading, .trademarkForm>h2, .trademarkForm .formSectionHeading {
-    font-family: 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', sans-serif;
+    font-family: 'Helvetica', 'ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3', 'Hiragino Kaku Gothic Pro', 'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', 'ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯', sans-serif;
     font-weight: bold;
     color: #333;
     font-size: 20px;
@@ -2011,7 +2011,7 @@ html {
 }
 
 html, body {
-    font-family: 'Helvetica Neue', 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', arial, sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', 'ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3', 'Hiragino Kaku Gothic Pro', 'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', 'ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯', arial, sans-serif;
     color: #211922;
     font-size: 12px;
     height: 100%;
@@ -2070,7 +2070,7 @@ ul li {
 }
 
 .errorMessage .back, .errorMessage .retry {
-    font-family: 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', sans-serif;
+    font-family: 'Helvetica', 'ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3', 'Hiragino Kaku Gothic Pro', 'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', 'ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯', sans-serif;
     font-weight: bold;
     color: #d62229;
     display: block;
@@ -2145,7 +2145,7 @@ a:hover {
 .sectionTitle {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', sans-serif;
+    font-family: 'Helvetica', 'ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3', 'Hiragino Kaku Gothic Pro', 'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', 'ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯', sans-serif;
     font-weight: bold;
     color: #444;
     font-size: 13px;
@@ -2410,14 +2410,14 @@ fieldset {
 }
 
 button, input, select, textarea {
-    font-family: 'Helvetica Neue', 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', arial, sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', 'ãƒ’ãƒ©ã‚®ãƒŽè§’ã‚´ Pro W3', 'Hiragino Kaku Gothic Pro', 'ãƒ¡ã‚¤ãƒªã‚ª', 'Meiryo', 'ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯', arial, sans-serif;
     font-size: 100%;
     margin: 0;
     vertical-align: middle;
 }
 
 button, input {
-    *overflow: visible;
+    overflow: visible;
     line-height: normal;
 }
 
@@ -7196,5 +7196,4 @@ a.mapbox-icon-twitter {
 .jcrop-holder img, img.jcrop-preview {
     max-width: none;
 }
-
 

@@ -4395,13 +4395,13 @@ body.userEducationGuideZoomedIn .App{background-color:#e9e9e9;height:100%;overfl
 .PaddedPin .visualSearchObjectTagClickTarget:active .visualSearchObjectTag{background:#b00;}
 .PaddedPin:hover .visualSearchObjectTag{opacity:0.67;}
 .Pin{font-size:11px;position:relative;}
-.Pin.summary{display:inline-block;}
+ .Pin.summary{display:inline-block;}
 .Pin.summary .recommendationReason{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-family:'Helvetica','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ','Meiryo','ＭＳ Ｐゴシック',sans-serif;border-top:1px solid #e7e7e7;color:#999;font-size:11px;font-weight:normal;line-height:13px;margin:0;padding:10px 10px 9px;}
 .Pin.summary .recommendationReason.promoted{color:#767676;font-size:13px;}
 .Pin.summary .recommendationReason a{color:#b7b7b7;}
 .Pin.summary .recommendationReason a:hover{color:#8a8a8a;}
 .Pin.summary .recommendationReasonWrapper{position:relative;}
-.Pin.summary .recommendationReasonWrapper .moreInfo{position:absolute;right:10px;top:10px;}
+.Pin.summary .recommendationReasonWrapper .moreInfo{position:absolute;right:10px;top:10px;} 
 .Pin .pinAttribution{white-space:nowrap;overflow:hidden;-ms-text-overflow:ellipsis;text-overflow:ellipsis;font-family:'Helvetica','ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ','Meiryo','ＭＳ Ｐゴシック',sans-serif;color:#666;}
 .Pin .pinAttribution span,.Pin .pinAttribution a{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:#a7a7a7;font-weight:bold;}
 .Pin .pinAttribution img{height:16px;margin-right:2px;position:relative;width:16px;}
@@ -4449,6 +4449,7 @@ body.userEducationGuideZoomedIn .App{background-color:#e9e9e9;height:100%;overfl
 .Pin.detailed .pinDescription{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;border-top:1px solid #e3e3e3;font-size:17px;line-height:23px;}
 .Pin.detailed .pinDescription.withStats{padding-bottom:14px;}
 .Pin.detailed .pinSource a{color:#cb2027;}
+ 
 .Pin.summary{background:#fff;-webkit-box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.22);box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.22);border-radius:6px;width:236px;}
 .Pin.summary .hoverMask{-webkit-transition:background 0.04s linear;transition:background 0.04s linear;border-radius:6px 6px 0 0;-webkit-box-shadow:none;box-shadow:none;bottom:0;left:0;position:absolute;right:0;top:0;z-index:100;}
 .ielt10 .Pin.summary .hoverMask{display:none !important;}
@@ -4627,7 +4628,7 @@ body.userEducationGuideZoomedIn .App{background-color:#e9e9e9;height:100%;overfl
 @media (-webkit-min-device-pixel-ratio: 1.5),(min-resolution: 144dpi){.Pin.summary.placeSummary.mapFocus .pinWrapper .pinLocationMeta .locationExtended .address .addressIcon{background-image:url('/webapp/style/sprites/webapp-common-main-2x.b6ef40d4.png');background-position:-261px -54px;background-size:271px 229px;}
 }.Pin.summary.placeSummary.mapFocus .pinWrapper .pinLocationMeta .locationExtended .contact .contactIcon{width:11px;height:10px;background:url('/webapp/style/sprites/webapp-common-main-1x.fa6d86ef.png') -310px -112px no-repeat;float:left;margin:3px -11px 0 0;}
 @media (-webkit-min-device-pixel-ratio: 1.5),(min-resolution: 144dpi){.Pin.summary.placeSummary.mapFocus .pinWrapper .pinLocationMeta .locationExtended .contact .contactIcon{background-image:url('/webapp/style/sprites/webapp-common-main-2x.b6ef40d4.png');background-position:-218px -88px;background-size:271px 229px;}
-}.Pin.summary.placeSummary.hidden{display:none;}
+}.Pin.summary.placeSummary.hidden{display:none;} 
 .placeBoard .Pin.mapFocus{-webkit-box-shadow:0 0 5px 3px #cb2027;box-shadow:0 0 5px 3px #cb2027;}
 .Pin.boardPinsGrid .hoverMask,.Pin.visualObjectGrid .hoverMask,.Pin.plainImageGrid .hoverMask{-webkit-transition:background 0.04s linear;transition:background 0.04s linear;border-radius:'2px';-webkit-box-shadow:'0 0 rgba(#000, 0.33)';box-shadow:'0 0 rgba(#000, 0.33)';bottom:0;left:0;position:absolute;right:0;top:0;z-index:100;}
 .ielt10 .Pin.boardPinsGrid .hoverMask,.ielt10 .Pin.visualObjectGrid .hoverMask,.ielt10 .Pin.plainImageGrid .hoverMask{display:none !important;}

@@ -2152,6 +2152,11 @@
     height: 54px;
     position: fixed;
     z-index: 670;
+    
+    left: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 
 .Header .TypeaheadField .Typeahead {
@@ -2344,7 +2349,7 @@
 }
 
 .AboutLinks li a {
-    font-family: 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', sans-serif;
+    font-family: 'Helvetica', '������������������ Pro W3', 'Hiragino Kaku Gothic Pro', '������������', 'Meiryo', '������ ���������������', sans-serif;
     display: inline-block;
     color: #999;
     padding: 0 !important;
@@ -4107,7 +4112,7 @@
 }
 
 .UnauthBanner {
-    font-family: 'Helvetica Neue', 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', arial, sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', '������������������ Pro W3', 'Hiragino Kaku Gothic Pro', '������������', 'Meiryo', '������ ���������������', arial, sans-serif;
     font-weight: bold;
     height: auto;
     left: 0;
@@ -4525,7 +4530,7 @@
 }
 
 .UnauthHomePage .inspiredSearchPinCaption {
-    font-family: 'Helvetica Neue', 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', arial, sans-serif;
+    font-family: 'Helvetica Neue', 'Helvetica', '������������������ Pro W3', 'Hiragino Kaku Gothic Pro', '������������', 'Meiryo', '������ ���������������', arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #fff;
@@ -4717,7 +4722,7 @@
 }
 
 .UnauthHomePage.register .inspiredSearchPinCaption .title {
-    font-family: 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', sans-serif;
+    font-family: 'Helvetica', '������������������ Pro W3', 'Hiragino Kaku Gothic Pro', '������������', 'Meiryo', '������ ���������������', sans-serif;
     font-weight: bold;
     font-size: 28px;
 }
@@ -5734,7 +5739,7 @@
 }
 
 .BoardInvite .inviteTypeWrapper .inviteTypeName {
-    font-family: 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', sans-serif;
+    font-family: 'Helvetica', '������������������ Pro W3', 'Hiragino Kaku Gothic Pro', '������������', 'Meiryo', '������ ���������������', sans-serif;
     display: inline-block;
     vertical-align: middle;
     color: #666;
@@ -6597,7 +6602,7 @@
     overflow: hidden;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
-    font-family: 'Helvetica', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'Meiryo', 'ＭＳ Ｐゴシック', sans-serif;
+    font-family: 'Helvetica', '������������������ Pro W3', 'Hiragino Kaku Gothic Pro', '������������', 'Meiryo', '������ ���������������', sans-serif;
     font-weight: bold;
     color: #777;
     display: block;

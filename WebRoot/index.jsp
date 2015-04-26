@@ -3,26 +3,64 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE>
 <html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+    <title>nyupinterest</title>
+	
+	<link href="css/bundle-desktop-1_a3436a78.css" rel="stylesheet" type="text/css">
+	<link href="css/bundle-desktop-2_994eb744.css" rel="stylesheet" type="text/css"> 
+	<link href="css/bundle-desktop-2_5c6c6f50.css" rel="stylesheet" type="text/css"> 
+	<link href="css/bundle-desktop-2_442c9884.css" rel="stylesheet" type="text/css">
+	<!-- <link href="css/bundle-desktop-1_7e764a10.css" rel="stylesheet" type="text/css"> -->
+    <link href="css/bundle-desktop-main_db38bc94.css" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link href="css/bootstrap.css" rel="stylesheet"> -->
+	<link href="css/dbcommon.css" rel="stylesheet" type="text/css">
+   	<script src="js/jquery.min.js"></script>
+   	<script src="js/bootstrap.js"></script>
+   	<script src="js/common.js"></script>
+   	<script src="js/jquery.masonry.min.js"></script>
+    <script src="js/modernizr-transitions.js"></script>
 
-  </head>
-  
+  </head>  
   <body>
-    This is my JSP page. <br>
+  	<jsp:include page="./modules/header.jsp" />
+	<jsp:include page="./modules/footer.jsp"/>
+	<div class="appContent">
+		<div class="mainContainer" style="background-color:#e9e9e9">
+			<div class="Module Nags centeredWithinWrapper" style="height:54px"></div>
+			<div class="HomePage Module">
+				<div class="AuthHomePage Module">
+					<div class="HeroBasicWrapper Module"></div>
+					<div class="Grid Module hasFooter" style="background-color:#e9e9e9">
+						<div class="GridItems Module centeredWithinWrapper padItems variableHeightLayout" id="masonryContainer">
+							<!-- The height is not static. It seems to related to the screen condition. -->
+							<jsp:include page="./pinSummary.jsp" />
+						</div>
+						<div class="GridFooter Module centeredWithinWrapper showGridLoading" style="display:block">
+							<div class="gridError" style="display:none">
+								<button class="Button btn rounded large">
+									<span>Whoops! Something went wrong</span>
+									"Try again."
+								</button>
+							</div>
+							<div class="gridLoading">
+								<span class="gridFooterLogoIcon"></span>
+								<span class="gridFooterSpinner"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="appendedContainer"></div>
+			<div class="Module Toasts"></div>
+		</div>
+	</div>
+    
   </body>
 </html>

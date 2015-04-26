@@ -36,8 +36,8 @@
 				<value>com/bean/Friend.hbm.xml</value>				
 				<value>com/bean/Picture.hbm.xml</value>
 				<value>com/bean/Pin.hbm.xml</value>
-				<value>com/bean/Comment.hbm.xml</value>	
 				<value>com/bean/Likes.hbm.xml</value>
+				<value>com/bean/Comment.hbm.xml</value>					
 				
 			</list>
 			 
@@ -66,6 +66,9 @@
 	<bean id="pinService" class="com.service.impl.PinServiceImpl">
 		<property name="pinDAO">
 			<ref bean="pinDAO"></ref>
+		</property>
+		<property name="userDAO">
+			<ref bean="userDAO"></ref>
 		</property>
 	</bean>
 	

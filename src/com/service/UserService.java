@@ -1,8 +1,6 @@
 package com.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import com.bean.*;
 import com.util.ErrorType;
 
@@ -12,15 +10,6 @@ public interface UserService {
 
 	public void update(User user);	
 	
-	/**
-	 * Check whether the User can login.
-	 * @param username
-	 * @param password
-	 * @return 	0 - username not exists.
-	 * 			1 - username and password mismatch
-	 *          2 - successful login record found.
-	 * TODO: change return type into ErrorType.
-	 */
 	public ErrorType loginUser(String username, String password);
 
 	public boolean usernameExsit(String username);

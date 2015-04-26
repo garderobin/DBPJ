@@ -27,7 +27,7 @@
     
         <div class="container">
 			<header>
-				<h1>SFAPU <span>BuLaBuLa</span> System</h1>
+				<h1>Tao <span>Pinterest</span> Jasmine</h1>
 			</header>
 			<section class="pe-container">
 				<ul id="pe-thumbs" class="pe-thumbs">
