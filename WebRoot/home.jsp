@@ -19,10 +19,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link href="./css/bundle-desktop-1_a3436a78.css" rel="stylesheet" type="text/css">
+	<link href="./css/bundle-desktop-2_994eb744.css" rel="stylesheet" type="text/css">
+	<link href="./css/bundle-desktop-2_5c6c6f50.css" rel="stylesheet" type="text/css">
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/bootstrap.css" rel="stylesheet">
+   	<script src="./js/jquery.min.js"></script>
+   	<script src="./js/bootstrap.js"></script>
+   	<script src="../js/navbar.js"></script>
 
-  </head>
-  
+  </head>  
   <body>
-    This is my JSP page. <br>
+  	<jsp:include page="./modules/header.html" />
+	<jsp:include page="./modules/footer.html"/>
+	<jsp:include page="./modules/addPin.html"/>
+	<div class="appContent">
+		<div class="mainContainer">
+			<div class="HomePage Module">
+				
+			</div>
+		</div>
+	</div>
+    
   </body>
 </html>

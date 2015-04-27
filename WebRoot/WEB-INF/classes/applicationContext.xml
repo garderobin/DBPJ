@@ -67,6 +67,9 @@
 		<property name="pinDAO">
 			<ref bean="pinDAO"></ref>
 		</property>
+		<property name="userDAO">
+			<ref bean="userDAO"></ref>
+		</property>
 	</bean>
 	
 	<bean id="loginAction" class="com.action.user.LoginAction" scope="prototype">
