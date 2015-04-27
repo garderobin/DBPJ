@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="US-ASCII"%>
+s<%@ page language="java" import="java.util.*" pageEncoding="US-ASCII"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'module_pin_detailed.jsp' starting page</title>
+    <title>My JSP 'module_add_pin_from_board.jsp' starting page</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">

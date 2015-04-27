@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  
 <header>
     <div class=" Header Module" data-component-type="">
-    	<div class="headerBackground">
+    	<div class="headerBackground" id="headerBackground">
     	</div>
     	<div class="headerContainer centeredWithinWrapper" id="headerContainer">
     		<div class="rightHeaderContent">
@@ -64,15 +64,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <span class="accessibilityText">Home</span>                    
                     <span class="glyphicon glyphicon-search" style="font-size:22px; color:gray"></span>                    
                 </a>
-                <button class="btn Button DropdownButton Module btn categoriesHeader" 
-                	data-element-type="" href="" type="button"> <!-- href TODO -->
+                <!-- <div class="btn-group">  -->
+                <button class="btn Button DropdownButton Module btn categoriesHeader dropdown-toogle" 
+                	data-element-type="" data-toogle="dropdown" aria-expanded="false" type="button"> <!-- href TODO -->
         			<em></em>
 					<span class="accessibilityText">Categories</span>
                     <span class="glyphicon  glyphicon-menu-hamburger" 
                     	style="font-size:18px;color:gray;"></span>
-                    <span class="caret" style="color:gray;"></span> 
-                                       
-                </button>                
+                    <span class="caret" style="color:gray;"></span>                                      
+                </button>   
+                <!-- <ul class="dropdown-menu" role="menu"> Problem! not function now.
+                	<li><a>About</a></li>
+                	<li><a>Help</a></li>
+                </ul>  -->  
+                <!-- </div>         --> 
                 <div class="Module SearchForm buttonOnRight guided tokenized" data-component-type="">
                 	<form action="" method="POST" name="search">
                     	<div class="Module TypeaheadField buttonOnRight guided">

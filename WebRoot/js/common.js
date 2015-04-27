@@ -19,17 +19,35 @@ $(function(){
         itemSelector : '.masonryItem',
         columnWidth:236,
         gutterWidth:10,
-        isFitWidth:true,
+        isFitWidth:true
 //        isAnimated:true
       });
     });
   
-   console.log('hi!');
-   var $headerbackground = $('#masonryContainer')
-   var $col_count = $container.attr('-webkit-column-count');
-   console.log("column-" + $col_count);
+    $('#headerContainer').width($container.width());
     
 });
+
+$(window).resize(function() {
+	$('#headerContainer').width($('#headerBackground').width());
+});
+
+$(function(){
+
+    var $smallContainer = $('#masonrySmall');
+  
+    $smallContainer.imagesLoaded( function(){
+    	$smallContainer.masonry({
+        itemSelector : '.masonrySmallItem',
+        columnWidth:70,
+        gutterWidth:2,
+        isFitWidth:true
+//        isAnimated:true
+      });
+    });
+    
+});
+
 //$(function() {
 //
 //	// Do our DOM lookups beforehand

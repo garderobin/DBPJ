@@ -1,0 +1,52 @@
+@CHARSET "US-ASCII";
+
+.centeredWithinWrapper {
+    /* width: 1250px; */
+    width:auto;
+    float:none;
+    margin: 0 auto;
+}
+
+#addPinMenuContent {
+	 display:none; 
+	 padding-left:70%; 
+	 padding-bottom:20%; 
+}
+
+#masonryContainer {
+  /* background: #EEE; */
+  margin: 0 auto;
+}
+
+#masonryContainer .masonrItem {
+  /* width:  60px;
+  height: 60px;*/
+  /* float: left; 
+  margin-bottom: 10px; */
+  /* background: #D26;
+  border: 2px solid #333;
+  border-color: hsla(0, 0%, 0%, 0.5);
+  border-radius: 5px; */
+  margin-bottom: 10px;
+  padding: 5px;
+  background: #D8D5D2;
+  font-size: 11px;
+  line-height: 1.4em;
+  /* float: left; */
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+#masonrySmall {
+  /* background: #EEE; */
+  margin: 0 auto;
+}
+
+#masonrySmall .masonrySmallItem {
+   margin-bottom: 2px; 
+  /*  padding: 5px;  */
+
+  /* float: left; */
+
+}
