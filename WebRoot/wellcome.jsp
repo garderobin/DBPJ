@@ -12,8 +12,8 @@
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/style3.css" />
        
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-	    <link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css">   	
+        <link href="css/bootstrap-2.3.2.css" rel="stylesheet" type="text/css">
+	    <link href="css/bootstrap-responsive-2.3.2.css" rel="stylesheet" type="text/css">   	
 	    <link rel="stylesheet" type="text/css" href="css/style4.css" />  	
 		<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
@@ -27,7 +27,7 @@
     
         <div class="container">
 			<header>
-				<h1>SFAPU <span>BuLaBuLa</span> System</h1>
+				<h1>Tao <span>Pinterest</span> Jasmine</h1>
 			</header>
 			<section class="pe-container">
 				<ul id="pe-thumbs" class="pe-thumbs">
@@ -74,8 +74,8 @@
 			  		Username: <input type="text" name="username" />
   					Password: <input type="text" name="password" />
   					
-		  			<input class="submit" type="submit" value="登录" />
-		  			<a href="#load_change_rule" data-toggle="modal"><input class="submit" type="button" value="注册" /></a>
+		  			<input class="submit" type="submit" value=" Log in " />
+		  			<a href="#load_change_rule" data-toggle="modal"><input class="submit" type="button" value=" Sign up " /></a>
 				</form>
             </p>
         </div>

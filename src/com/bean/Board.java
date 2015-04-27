@@ -9,12 +9,10 @@ public class Board {
 	private User user;
 	private String bname;
 	private Date time;
-	private Set<Pin> pins = 
-			new HashSet<Pin>(0);
-	private Set<Follow> follows = 
-			new HashSet<Follow>(0);
+	private Set<Pin> pins = new HashSet<Pin>(0);
+	private Set<Follow> follows = new HashSet<Follow>(0);
 
-    public Board() {
+	public Board() {
 		
 	}
 	
@@ -30,8 +28,6 @@ public class Board {
 		this.bname = bname;
 		this.time = time;		
 	}
-
-
 
 	public int getBid() {
 		return bid;

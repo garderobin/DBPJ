@@ -23,7 +23,8 @@
 		</action>
 		 -->		
 		<action name="login" class="loginAction">
-			<result name="success">/helloworld.jsp</result>
+			<!-- <result name="success">/index.jsp</result> -->
+			<result name="success">/appendedContainer.jsp</result>
 			<result name="input">/error.jsp</result>
 			<result name="login">/test.jsp</result>
 		</action>

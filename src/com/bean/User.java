@@ -15,18 +15,10 @@ public class User {
 	private Set<Follow> follows = new HashSet<Follow>(0);
 	private Set<Friend> friendsForUser1 = new HashSet<Friend>(0);
 	private Set<Friend> friendsForUser2 = new HashSet<Friend>(0);
-	//private Set<ActivatedUser> activateduser = new HashSet<ActivatedUser>(0);
 
-	/*
-	public Set<ActivatedUser> getActivateduser() {
-		return activateduser;
-	}
-
-	public void setActivateduser(Set<ActivatedUser> activateduser) {
-		this.activateduser = activateduser;
-	}
-*/
+	
 	public User() {
+		
 	}
 	
 	public User(String username, String password, String email, Date time) {
@@ -116,5 +108,6 @@ public class User {
 		this.friendsForUser2 = friendsForUser2;
 	}
 
+	
 	
 }

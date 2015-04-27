@@ -24,13 +24,17 @@ table {
 fieldset,img { 
 	border:0;
 }
-input.button{
+input.submit{
 	border: 1px solid #b0b0b0;
 	padding: 3px 5px 4px;
 	color: #F0F0F0;
 	width: 190px;
 	background-color: #5693ca;
 	height: 25px;
+	
+	/*newly added in 2015-04-24*/
+	margin-bottom:10px;
+	padding-bottom:4px;
 }
 input.button[disabled='disabled']{
 	border: 1px solid #b0b0b0;
