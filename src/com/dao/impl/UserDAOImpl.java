@@ -1,5 +1,6 @@
 package com.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -25,13 +26,16 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	@SuppressWarnings("rawtypes")
-	public User findUserByUsername(String username) {		
+	public User findUserByUsername(String username){
+		
 		Session session = sessionFactory.openSession();
 		String hql = "from User user where user.username = '" + username + "'";
 		Query query = session.createQuery(hql);
 		List list = query.list();
 		session.close();
 		if (list.isEmpty()) {
+			
+			
 			return  null;
 		}
 		else {
@@ -66,18 +70,23 @@ public class UserDAOImpl implements UserDAO {
 		session.close();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> findFriendsByUsername(String username) {
+	public ArrayList<User> findFriendsByUsername(String username) {
 		Session session = sessionFactory.openSession();
+		String hql = "from User u " +
+				"where u.username in (select u1.username from User u1 join u1.friendsForUser1 f1 where f1.user2 = '" + username + "') or " +
+				      "u.username in (select u2.username from User u2 join u2.friendsForUser2 f2 where f2.user1 = '" + username + "')";
 		
-//		String hql = "from User u" +  
-//				" where u.username in (select f1.user1 from Friend f1 where f1.user2 = '" + username + "')"  +
-//				" or u.username in (select f2.user2 from Friend f2 where f2.user1 = '" + username + "')";
-//		Query query = session.createQuery(hql);
-//		List<User> list = query.list();
-//		session.close();
-		
+		Query query = session.createQuery(hql);
+		ArrayList<User> list = (ArrayList<User>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return  list;
+		}
+		/*  Another method!!!!
 		String hql1 = "select u from User u join u.friendsForUser1 f1 where f1.user2 = '" + username + "'";
 		String hql2 = "select u from User u join u.friendsForUser2 f2 where f2.user1 = '" + username + "'";
 		Query query1 = session.createQuery(hql1);
@@ -93,6 +102,7 @@ public class UserDAOImpl implements UserDAO {
 		else {			
 			return  list;
 		}
+		*/
 	}
 	
 	@Override
@@ -117,7 +127,6 @@ public class UserDAOImpl implements UserDAO {
 		session.close();		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Friend findFriendship(String user1, String user2) {
 		Session session = sessionFactory.openSession();
@@ -132,7 +141,12 @@ public class UserDAOImpl implements UserDAO {
 			return (Friend) list.get(0);
 		}
 	}
-
+	
+	//test
+	
+	
+	
+	
 	@Override
 	public void deleteFriendByUsernames(String username1, String username2) {
 		Session session = sessionFactory.openSession();
@@ -153,7 +167,6 @@ public class UserDAOImpl implements UserDAO {
 		session.close();		
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Friend findFriendByIdfriend(int idfriend){
 		Session session = sessionFactory.openSession();
 		String hql = "from Friend f where (f.idfriend = '" + idfriend + "')";

@@ -5,15 +5,14 @@ import static org.junit.Assert.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.bean.Friend;
 import com.bean.User;
 import com.bean.Board;
 import com.bean.Picture;
@@ -65,7 +64,7 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	
 	
 	@Test
-	public void testDeleteBoard() throws ParseException {
+	public void testupdateBoard() throws ParseException {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");		
 		Date time = format.parse("2015-04-23 14:54:19");
 		String username = "dongtao";
@@ -100,18 +99,21 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 		String username = "dongtao";
 		String bname = "cat";
 		Board board = pinDAO.findBoardByUsernameBname(username, bname);
-		assertEquals(1,board.getBid());
+		assertEquals("cat",board.getBname());
 	}
-	
+
 	
 	@Test
 	public void testFindBoardByFollow(){
 		String username = "Tom";
-		List<Board> boards = pinDAO.findBoardByFollow(username);
-		Board board = boards.get(0);
-		assertEquals(1,board.getBid());
+		ArrayList<Board> boards = pinDAO.findBoardByFollow(username);
+		if(boards.get(0)!=null){
+			Board board = boards.get(0);
+		    assertEquals(1,board.getBid());
+		}
+		else
+			assertEquals(null, boards.get(0));
 	}
-	
 	
 	@Test 
 	public void testAddPicture(){
@@ -122,21 +124,16 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 		picture.setSourceUrl(sourceUrl);
         pinDAO.addPicture(picture);
 	}
-	
+	*/
 	
 	@Test 
 	public void testDeletePicture(){
-		int picnum = 2;
-		String url = "url1";
-		String sourceUrl = "sourceUrl1";
-		Picture picture = new Picture();
-		picture.setPicnum(picnum);
-		picture.setUrl(url);
-		picture.setSourceUrl(sourceUrl);
+		int picnum = 3;
+		Picture picture = pinDAO.findPictureByPicnum(picnum);
         pinDAO.deletePicture(picture);
 	}
 	
-	
+	/*
 	@Test 
 	public void testFindPictureByPicnum(){
 		int picnum = 1;
@@ -148,7 +145,7 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	@Test
 	public void testFindPictureByUsername(){
 		String username = "dongtao";
-		List<Picture> pictures = pinDAO.findPictureByUsername(username);
+		ArrayList<Picture> pictures = pinDAO.findPictureByUsername(username);
 		Picture picture = pictures.get(1);
 		assertEquals(3, picture.getPicnum());
 	}
@@ -157,7 +154,7 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	@Test
 	public void testFindPictureByBid(){
 		int bid = 2;
-		List<Picture> pictures = pinDAO.findPictureByBid(bid);
+		ArrayList<Picture> pictures = pinDAO.findPictureByBid(bid);
 		Picture picture = pictures.get(0);
 		assertEquals(3, picture.getPicnum());
 	}
@@ -166,7 +163,7 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	@Test
 	public void testFindPictureByLikes(){
 		String username = "dongtao";
-		List<Picture> pictures = pinDAO.findPictureByLikes(username);
+		ArrayList<Picture> pictures = pinDAO.findPictureByLikes(username);
 		Picture picture = pictures.get(0);
 		assertEquals("presentURL", picture.getUrl());		
 	}
@@ -241,7 +238,7 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	
 	
 	@Test
-	public void testAddFollow(){
+	public void deleteAddFollow(){
 		int idfollow = 2;
 		String username = "dongtao";
 		User user = userDAO.findUserByUsername(username);
@@ -262,7 +259,7 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	@Test
 	public void testFindUserByFollow(){
 		int bid = 1;
-		List<User> users = pinDAO.findUserByFollow(bid);
+		ArrayList<User> users = pinDAO.findUserByFollow(bid);
 		User user = users.get(0);
 		assertEquals("Tom", user.getUsername());
 	}
@@ -271,7 +268,7 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	@Test
 	public void testFindFollowByUsername(){
 		String username = "Tom";
-		List<Follow> follows = pinDAO.findFollowByUsername(username);
+		ArrayList<Follow> follows = pinDAO.findFollowByUsername(username);
 		Follow follow = follows.get(0);
 		assertEquals("Animal", follow.getStream());
 	}
@@ -314,21 +311,22 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 	@Test 
 	public void testFindCommentByUsername(){
 		String username = "dongtao";
-		List<Comment> comments = pinDAO.findCommentByUsername(username);
+		ArrayList<Comment> comments = pinDAO.findCommentByUsername(username);
 		Comment comment = comments.get(0);
 		assertEquals("aavvee", comment.getComment());
 	}
-	*/
+	
 	
 	@Test
 	public void testFindCommentByPinid(){
 		int pinid = 3;
-		List<Comment> comments = pinDAO.findCommentByPinid(pinid);
+		ArrayList<Comment> comments = pinDAO.findCommentByPinid(pinid);
 		Comment comment = comments.get(0);
 		assertEquals("dongtao", comment.getUser().getUsername());
 	}
 	
-	/*
+	
+	
 	@Test
 	public void testAddLikes(){
 		Date time = new Date();
@@ -359,116 +357,17 @@ public class PinDAOImplTest extends BaseSpringContextCommon {
 		likes.setIdlikes(idlikes);
 		pinDAO.deleteLikes(likes);		
 	}
-	*/
 	
-	/*
 	@Test public void testFindLikesByUsername(){
 		String username = "dongtao";
 		Likes likes = (Likes) pinDAO.findLikesByUsername(username).get(0);
 		assertEquals(1, likes.getPicture().getPicnum());
 	}
-    */
-	
-	/*
+
 	@Test public void testFindLikesByPicnum(){
 		int picnum = 1;
 		Likes likes = (Likes) pinDAO.findLikesByPicnum(picnum).get(0);
 		assertEquals("dongtao", likes.getUser().getUsername());
 	}
     */
-	
-	//Above is OK
-/*
-	@Test
-	public void testSaveUser() {
-		User user = new User();
-    	user.setUsername("20140422");
-        user.setEmail("myemail");      
-        user.setPassword("myjassword"); 
-        user.setTime(new Date());
-        userDAO.saveUser(user);
-	}
-
-	@Test
-	public void testUpdateUser() {		
-		User user = userDAO.findUserByUsername("myusername");
-		user.setEmail("20140422@gmail.com");
-        userDAO.updateUser(user);
-        assertEquals("20140422@gmail.com", userDAO.findUserByUsername("myusername").getEmail());
-	}
-	
-	
-	@Test
-	public void testDeleteUser() {
-		User user2 = userDAO.findUserByUsername("deleteAlone");
-		userDAO.deleteUser(user2); //TODO test cascade deletion.
-	}
-	
-	
-	
-	@Test
-	public void testFindFriendsByUsername() {
-		String username = "test";
-		List<User> friends = userDAO.findFriendsByUsername(username);
-		assertEquals(2, friends.size());		
-	}
-	
-	
-	
-	@Test
-	public void testFindFriendship() {
-		Friend friend = userDAO.findFriendship("abcd", "test");
-		assertNotEquals(null, friend);
-		Friend friend2 = userDAO.findFriendship("none", "none");
-		assertEquals(null, friend2);
-	}
-
-	
-	@Test
-	public void testAddFriend() throws ParseException {		
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");		
-		User user1 = new User("myusername", "myjassword", 
-				"mynewemail@gmail.com", format.parse("2015-04-19 22:46:47"));
-		User user2 = new User("tousername", "myjassword", 
-				"myemail", format.parse("2015-04-21 03:46:42"));				
-		Friend friendship = new Friend(user1, user2);
-		userDAO.addFriend(friendship); // TODO try to add friend with user not exists.
-	}
-	
-	
-	@Test
-	public void testDeleteFriend() throws ParseException {		
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");		
-		User user1 = new User("myusername", "myjassword", 
-				"mynewemail@gmail.com", format.parse("2015-04-19 22:46:47"));
-		User user2 = new User("tousername", "myjassword", 
-				"myemail", format.parse("2015-04-21 03:46:42"));				
-		Friend friendship = new Friend(user1, user2);
-		userDAO.deleteFriend(friendship); // TODO try to delete friend with user not exists.
-	}
-
-
-	@Test
-	public void testDeleteFriendByIdFriend() {
-		int idfriend = 3;
-		Friend friend = userDAO.findFriendByIdfriend(idfriend);		
-		userDAO.deleteFriend(friend);
-	}
-	
-	
-	@Test
-	public void testFindFriendByIdfriend() {
-		int idfriend = 3;
-		Friend friend = userDAO.findFriendByIdfriend(idfriend);		
-		assertEquals("myusername", friend.getUser1().getUsername());
-	}
-	
-	
-	@Test
-	public void testDeleteFriendByUsernames() {
-		userDAO.deleteFriendByUsernames("myusername", "tousername");
-	}
-
-*/	
-
 }

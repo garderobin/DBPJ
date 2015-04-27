@@ -1,15 +1,15 @@
 package com.service.impl;
 
-import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.hibernate.HibernateException;
 
-import com.bean.Friend;
-import com.bean.User;
+import com.util.ErrorType;
+import com.bean.*;
 import com.dao.UserDAO;
 import com.service.UserService;
-import com.util.ErrorType;
 
 public class UserServiceImpl implements UserService {
 
@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findFriendsByUsername(String username) {
-		List<User> friends = this.userDAO.findFriendsByUsername(username);
+	public ArrayList<User> findFriendsByUsername(String username) {
+		ArrayList<User> friends = this.userDAO.findFriendsByUsername(username);
 		return friends;
 	}
 
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 			this.userDAO.deleteFriendByUsernames(user1,user2);
 		} catch (HibernateException he) {
 			return ErrorType.DELETE_ERROR;
-		} 
+		} //addFriend and Delete Friend use two different error-handling methods.
 		return ErrorType.NO_ERROR;
 	}
 
@@ -112,5 +112,4 @@ public class UserServiceImpl implements UserService {
 		return ErrorType.USERNAME_EXISTED;
 	}
 
-	
 }
