@@ -31,12 +31,8 @@ public interface PinService {
     public ArrayList<Comment> findCommentByUsername(String username);
     public ArrayList<Comment> findCommentByPinid(int pinid);
     public ErrorType addLikes(String username, int picnum);
-    /*		
-	
-		
-	
-	public void deleteLikes(Likes likes);
-	public ArrayList<Likes> findLikesByUsername(String username);
-	public ArrayList<Likes> findLikesByPicnum(int picnum);
-	*/
+    public ErrorType deleteLikes(int idlikes);
+    public ArrayList<Likes> findLikesByUsername(String username);
+    public ArrayList<Likes> findLikesByPicnum(int picnum);
+    
 }
