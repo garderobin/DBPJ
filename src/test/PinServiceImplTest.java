@@ -177,20 +177,20 @@ public class PinServiceImplTest extends BaseSpringContextCommon{
 		ErrorType error = pinService.updatePin(pinid, note);
 		assertEquals(ErrorType.NO_ERROR, error);
 	}
+	*/
 	
-	
-	@Test
+    @Test
 	public void testFindPinByPinid(){
 		int pinid = 14;
 		Pin pin = pinService.findPinByPinid(pinid);
 		if(pin == null)
 			assertEquals(null, pin);
 		else
-			assertEquals("556677", pin.getNote());
+			assertEquals("556677", pin.getDiscription());
 	}
 	
-	
-	@Test
+	/*
+    @Test
 	public void testAddFollow(){
 		String username = "dongtao";
 		int bid = 23;
@@ -266,7 +266,34 @@ public class PinServiceImplTest extends BaseSpringContextCommon{
 		ErrorType error = pinService.addLikes(username, picnum);
 		assertEquals(ErrorType.NO_ERROR, error);
 	}
+	
+	
+	@Test
+	public void testDeleteLike(){
+		int idlikes = 6;
+		ErrorType error = pinService.deleteLikes(idlikes);
+		assertEquals(ErrorType.NO_ERROR, error);
+	}
+	
+	
+	@Test
+	public void testFindLikesByUsername(){
+		String username = "Allen";
+		ArrayList<Likes> likes = pinService.findLikesByUsername(username);
+		if(likes == null)
+			assertEquals(null, likes);
+		else
+			assertEquals(5, likes.get(0).getPicture().getPicnum());
+	}
 	*/
 	
-	
+	@Test
+	public void testFindLikesByPicnum(){
+		int picnum = 5;
+		ArrayList<Likes> likes = pinService.findLikesByPicnum(picnum);
+		if(likes == null)
+			assertEquals(null, likes);
+		else
+			assertEquals(2, likes.size());
+	}
 }

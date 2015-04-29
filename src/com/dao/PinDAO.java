@@ -37,6 +37,7 @@ public interface PinDAO {
 	public ArrayList<Comment> findCommentByPinid(int pinid);	
 	public void addLikes(Likes likes);
 	public void deleteLikes(Likes likes);
+	public Likes findLikesByIdlikes(int idlikes);
 	public Likes findLikesByUsernamePicnum(String username, int picnum);
 	public ArrayList<Likes> findLikesByUsername(String username);
 	public ArrayList<Likes> findLikesByPicnum(int picnum);

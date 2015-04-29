@@ -420,6 +420,21 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
+	public Likes findLikesByIdlikes(int idlikes){
+		Session session = sessionFactory.openSession();
+		String hql = "from Likes likes where likes.idlikes = '" + idlikes + "'";
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return (Likes) list.get(0);
+		}
+	}
+	
+	@Override
 	public Likes findLikesByUsernamePicnum(String username, int picnum){
 		Session session = sessionFactory.openSession();
 		String hql = "from Likes likes where likes.user.username = '" + username + "' and likes.picture.picnum = '" + picnum + "'";
