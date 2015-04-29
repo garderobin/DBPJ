@@ -24,7 +24,22 @@ $(function(){
       });
     });
   
-    $('#headerContainer').width($container.width());
+//    var $container2 = $('.#masonryBoard');
+//    
+//    $container2.imagesLoaded( function(){
+//      $container2.masonry({
+//        itemSelector : '.masonryItem',
+//        columnWidth:236,
+//        gutterWidth:10,
+//        isFitWidth:true
+////        isAnimated:true
+//      });
+//    });
+    
+    //$('#headerContainer').width($container.width());
+    $('#headerContainer').width($('#headerBackground').width());
+    
+    //masonryBoard
     
 });
 
