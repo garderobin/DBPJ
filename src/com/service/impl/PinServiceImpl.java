@@ -173,7 +173,7 @@ public class PinServiceImpl implements PinService {
 		    	return ErrorType.PICTURE_NOT_EXISTED;
 		    pin.setBoard(board);
 		    pin.setPicture(picture);
-		    pin.setNote(note);
+		    pin.setDiscription(note);
 		    pin.setTime(new Date());
 		    pinDAO.addPin(pin);
 		    return ErrorType.NO_ERROR;
@@ -199,7 +199,7 @@ public class PinServiceImpl implements PinService {
 		Pin pin = pinDAO.findPinByPinid(pinid);
 		if(pin == null)
 			return ErrorType.PIN_NOT_EXISTED;
-		pin.setNote(note);
+		pin.setDiscription(note);
 		try{
 			pinDAO.updatePin(pin);
 		}catch(Exception e){
@@ -330,6 +330,32 @@ public class PinServiceImpl implements PinService {
 			return ErrorType.ADD_LIKES_ERROR;
 		}
 		return ErrorType.NO_ERROR;
+	}
+	
+	@Override
+	public ErrorType deleteLikes(int idlikes){
+		Likes likes = pinDAO.findLikesByIdlikes(idlikes);
+		if(likes == null)
+			return ErrorType.LIKES_NOT_EXISTED;
+		try{
+			pinDAO.deleteLikes(likes);
+		}catch(Exception e){
+			e.printStackTrace();
+			return ErrorType.DELETE_ERROR;
+		}
+		return ErrorType.NO_ERROR;
+	}
+	
+	@Override
+	public ArrayList<Likes> findLikesByUsername(String username){
+		ArrayList<Likes> likes = pinDAO.findLikesByUsername(username);
+		return likes;
+	}
+	
+	@Override
+	public ArrayList<Likes> findLikesByPicnum(int picnum){
+		ArrayList<Likes> likes = pinDAO.findLikesByPicnum(picnum);
+		return likes;
 	}
 }
     
