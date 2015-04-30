@@ -357,5 +357,11 @@ public class PinServiceImpl implements PinService {
 		ArrayList<Likes> likes = pinDAO.findLikesByPicnum(picnum);
 		return likes;
 	}
+
+	@Override
+	public ErrorType addPin(int bid, int picnum, String note, int repin) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
     

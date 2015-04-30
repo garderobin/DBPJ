@@ -86,7 +86,7 @@
   			<h4>Sign Up</h4>
    	    </div>
    	    <form action = "enroll" class="form-horizontal" method="post">
-  		<div class="modal-body">
+  			<div class="modal-body">
 			
 			 <div class="control-group">
 			    <label class="control-label" for="inputName">User Name</label>
