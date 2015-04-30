@@ -6,9 +6,9 @@ import com.util.ErrorType;
 
 public interface PinService {
 	
-    public ErrorType addBoard(String username, String bname);
+    public ErrorType addBoard(String username, String bname, String stream);
     public ErrorType deleteBoard(int bid);
-    public ErrorType updateBoard(int bid, String bname);
+    public ErrorType updateBoard(int bid, String bname, String stream);
     public Board findBoardByBid(int bid);
     public ArrayList<Board> findBoardByUsername(String username);
     public Board findBoardByUsernameBname(String username, String bname);    
@@ -18,9 +18,9 @@ public interface PinService {
     public ArrayList<Picture> findPictureByUsername(String username);
     public ArrayList<Picture> findPictureByBid(int bid);
     public ArrayList<Picture> findPictureByLikes(String username);
-    public ErrorType addPin(int bid, int picnum, String note);
+    public ErrorType addPin(int bid, int picnum, String discription);
     public ErrorType deletePin(int pinid);
-    public ErrorType updatePin(int pinid, String note);
+    public ErrorType updatePin(int pinid, int bid, String discription);
     public Pin findPinByPinid(int pinid);
     public ErrorType addFollow(String username, int bid, String stream);
     public ErrorType deleteFollow(int idfollow);
