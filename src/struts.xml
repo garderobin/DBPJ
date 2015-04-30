@@ -24,7 +24,7 @@
 		 -->		
 		<action name="login" class="loginAction">
 			<!-- <result name="success">/index.jsp</result> -->
-			<result name="success">/testUploadForm.html</result>
+			<result name="success">/test.jsp</result>
 			<result name="input">/error.jsp</result>
 			<result name="login">/test.jsp</result>
 		</action>
@@ -41,6 +41,12 @@
 		<action name="enrollAction" class="EnrollAction">
 			<result name="success">/login.jsp</result>
 			<result name="input">/enroll.jsp</result>
+		</action>
+		
+		<action name="addBoard" class="AddBoardAction">
+			<result name="success">/wellcome.jsp</result>
+			<result name="user not exists">/test.jsp</result>
+			<result name="board name exists">/error.jsp</result>
 		</action>
 		
 	</package>	

@@ -101,6 +101,11 @@
 			<ref bean="userService"></ref>
 		</property>
 	</bean>
+	<bean id="AddBoardAction" class="com.action.pin.AddBoardAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>	
 	<!-- 
 	<bean id="userManage" class="dao.UserManage" abstract="false" lazy-init="default"
 		autowire="default" dependency-check="default">

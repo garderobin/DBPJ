@@ -92,9 +92,52 @@
         <input type="submit" class="btn btn-primary">
       </div>
     </form>
+    <form class="standardForm" method="post">
+    			<h1 class="pinFormHeader">Pick a board</h1>
+				<ul>
+					<li class="boardWrapper">
+            			<h3><label>Board</label></h3>
+            			<div>
+                			<button class=" BoardPickerDropdownButton Button DropdownButton Module btn primary rounded" type="button">
+								<span class="downArrow"></span>
+								<div class="BoardLabel Module compact">
+									<span class="nameAndIcons">
+    									<div class="BoardIcons Module pinCreate3"></div>
+    									<div class="name">Select a board</div>
+									</span>
+								</div>
+							</button>
+            			</div>
+       				</li>
+       				<li>
+            			<h3><label for="pinFormDescription">Description</label></h3>
+            			<div>
+                			<div class="Field Module TextField">
+								<textarea id="pinFormDescription" name="description" class="content " placeholder="What's this Pin all about?"></textarea>
+							</div>
+            			</div>
+       	 			</li>
+					<li>
+                		<h3><label for="pinFormLink">Source</label></h3>
+                		<div>
+                    		<input type="url" name="link" id="pinFormLink" value="">
+                		</div>
+            		</li>
+				</ul>
+				<div class="formFooter">
+					<div class="socialShareWrapper"></div>
+					<div class="formFooterButtons">
+						<button class=" Button Module btn cancelButton hasText rounded" type="button">
+							<span class="buttonText">Close</span>
+						</button>
+						<button class="Button Module btn primary repinSmall pinIt rounded disabled" type="submit" disabled="">
+							<em></em>
+							<span class="accessibilityText">Pin it</span>
+						</button>
+        			</div>
+    			</div>
+		</form>
   </div>
 </div>     
-	 
 
- 	
 </html>

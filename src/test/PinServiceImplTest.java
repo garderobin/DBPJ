@@ -39,15 +39,16 @@ public class PinServiceImplTest extends BaseSpringContextCommon{
     @Qualifier("pinService")  
     private PinService pinService;
 	
-	/*
+	
 	@Test
 	public void testAddBoard(){
 		String username = "dongtao";
-		String bname = "cat";
-		ErrorType errortype = pinService.addBoard(username, bname);
+		String bname = "birds";
+		String stream = "pets";
+		ErrorType errortype = pinService.addBoard(username, bname,stream);
 		assertEquals(ErrorType.NO_ERROR, errortype);
 	}
-	
+	/*
 	@Test 
 	public void testDeleteBoard(){
 		int bid = 5;
@@ -168,17 +169,18 @@ public class PinServiceImplTest extends BaseSpringContextCommon{
 		ErrorType error = pinService.deletePin(pinid);
 		assertEquals(ErrorType.NO_ERROR, error);
 	}
-	
+	*/
 	
 	@Test
 	public void testUpdatePin(){
-		int pinid = 1;
+		int pinid = 14;
+		int bid = 3;
 		String note = "556677";
-		ErrorType error = pinService.updatePin(pinid, note);
+		ErrorType error = pinService.updatePin(pinid, bid, note);
 		assertEquals(ErrorType.NO_ERROR, error);
 	}
-	*/
 	
+	/*
     @Test
 	public void testFindPinByPinid(){
 		int pinid = 14;
