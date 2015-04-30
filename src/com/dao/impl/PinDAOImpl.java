@@ -150,6 +150,23 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
+	public Picture findPictureByPinid(int pinid){
+		Session session = sessionFactory.openSession();
+		String hql = "select new Picture(picture.picnum, picture.url, picture.sourceUrl) " +
+				"from Picture picture join picture.pins pin " +
+				"where pin.pinid = '" + pinid + "'";
+		Query query = session.createQuery(hql);
+		List list =  query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return (Picture) list.get(0);
+		}
+	}
+	
+	@Override
 	public ArrayList<Picture> findPictureByUsername(String username){
 		Session session = sessionFactory.openSession();
 		String hql = "select new Picture(picture.picnum, picture.url, picture.sourceUrl) " +

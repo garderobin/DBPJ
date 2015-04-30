@@ -15,6 +15,7 @@ public interface PinDAO {
 	public void deletePicture(Picture picture);
 	public void updatePicture(Picture picture);
 	public Picture findPictureByPicnum(int picnum);
+	public Picture findPictureByPinid(int pinid);
 	public ArrayList<Picture> findPictureByUsername(String username);
 	public ArrayList<Picture> findPictureByBid(int bid);
 	public ArrayList<Picture> findPictureByLikes(String username);	

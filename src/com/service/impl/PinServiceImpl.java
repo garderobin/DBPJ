@@ -34,7 +34,7 @@ public class PinServiceImpl implements PinService {
 	}
 
 	@Override
-	public ErrorType addBoard(String username, String bname) {
+	public ErrorType addBoard(String username, String bname, String stream) {
      	Board board = new Board();
      	User user = this.userDAO.findUserByUsername(username);
      	if(user == null){
@@ -42,6 +42,7 @@ public class PinServiceImpl implements PinService {
      	}
      	board.setUser(user);
 		board.setBname(bname);
+		board.setStream(stream);
 		board.setTime(new Date());
 		Board board1 = this.pinDAO.findBoardByUsernameBname(username, bname);
 		if (board1!=null) {
@@ -69,9 +70,10 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
-	public ErrorType updateBoard(int bid, String bname){
+	public ErrorType updateBoard(int bid, String bname, String stream){
 		Board board = pinDAO.findBoardByBid(bid);
-		board.setBname(bname);		
+		board.setBname(bname);
+		board.setStream(stream);
 		try{
 			pinDAO.updateBoard(board);
 		}catch(Exception e){
@@ -158,7 +160,7 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
-	public ErrorType addPin(int bid, int picnum, String note){
+	public ErrorType addPin(int bid, int picnum, String discription){
 		Pin pin1 = pinDAO.findPinByBidPicnum(bid, picnum);
 		if(pin1 != null){
 			return ErrorType.PIN_EXISTED;
@@ -173,7 +175,7 @@ public class PinServiceImpl implements PinService {
 		    	return ErrorType.PICTURE_NOT_EXISTED;
 		    pin.setBoard(board);
 		    pin.setPicture(picture);
-		    pin.setDiscription(note);
+		    pin.setDiscription(discription);
 		    pin.setTime(new Date());
 		    pinDAO.addPin(pin);
 		    return ErrorType.NO_ERROR;
@@ -195,10 +197,16 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
-	public ErrorType updatePin(int pinid, String note){
+	public ErrorType updatePin(int pinid, int bid, String note){
+		int picnum = pinDAO.findPictureByPinid(pinid).getPicnum();
+		Pin pin1 = pinDAO.findPinByBidPicnum(bid, picnum);
+		if(pin1 != null)
+			return ErrorType.PIN_EXISTED;
 		Pin pin = pinDAO.findPinByPinid(pinid);
 		if(pin == null)
 			return ErrorType.PIN_NOT_EXISTED;
+		Board board = pinDAO.findBoardByBid(bid);
+		pin.setBoard(board);
 		pin.setDiscription(note);
 		try{
 			pinDAO.updatePin(pin);
