@@ -26,11 +26,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script src="../js/bootstrap.js"></script> --%>
  
 <header>
-    <div class=" Header Module" data-component-type="">
-    	<div class="headerBackground" id="headerBackground">
+    <div class=" Header Module" data-component-type="" id="header_module" style="background-color:white">
+    	<div class="headerBackground" id="headerBackground" style="background-color:white">
     	</div>
-    	<div class="headerContainer centeredWithinWrapper" id="headerContainer">
-    		<div class="rightHeaderContent">
+    	<div class="headerContainer centeredWithinWrapper" id="headerContainer" style="background-color:white">
+    		<div class="rightHeaderContent" style="background-color:white">
     			<div class="Module RightHeader" data-component-type="">
     				<button class="Button DropdownButton Module NotificationsConversationsButton btn notifs regular merged rounded" data-element-type=""
     					type="button">
@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				</button>
     			</div>
     		</div>
-    		<div class="leftHeaderContent">
+    		<div class="leftHeaderContent" style="background-color:white">
             	<a class="Button Module NavigateButton btn logoHeader leftRounded rounded" 
                 	data-element-type="" data-force-refresh="1" href="/" type="button">            					
 					<!--<em></em>-->

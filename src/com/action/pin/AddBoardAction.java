@@ -14,7 +14,7 @@ public class AddBoardAction extends ActionSupport {
 	private String stream;
 	private PinService service;
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public String execute() throws Exception {
 		Map session = ActionContext.getContext().getSession();
@@ -28,21 +28,26 @@ public class AddBoardAction extends ActionSupport {
 			return "board name exists";
 		case NO_ERROR:		
 			return SUCCESS;
+		default:
+			return "default";			
 		}		
-		return SUCCESS;
+		
 	}
 
-	public void setPassword(String bname) {
+	public void setBname(String bname) {
 		this.bname = bname;
 	}
-	
-	public void setStream(String stream){
+
+
+	public void setStream(String stream) {
 		this.stream = stream;
 	}
+
 
 	public void setService(PinService service) {
 		this.service = service;
 	}
+
 	
 	
 }

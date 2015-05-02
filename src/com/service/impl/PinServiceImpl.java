@@ -3,8 +3,6 @@ package com.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.hibernate.HibernateException;
-
 import com.bean.*;
 import com.dao.PinDAO;
 import com.dao.UserDAO;
@@ -366,10 +364,34 @@ public class PinServiceImpl implements PinService {
 		return likes;
 	}
 
-	@Override
-	public ErrorType addPin(int bid, int picnum, String note, int repin) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public ErrorType addPin(int bid, int picnum, String note, int repin) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public ArrayList<Pin> findPinByBid(int bid) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int[] userBasicStatistic(String username) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int[] boardBasicStatictis(int bid) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public int[] pinBasicStatistics(int pinid) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
     

@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script src="js/jquery.masonry.min.js"></script>
     <script src="js/modernizr-transitions.js"></script>
 
+
   </head>
   
   <body class="noTouch">

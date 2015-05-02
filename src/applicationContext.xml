@@ -106,6 +106,15 @@
 			<ref bean="pinService"></ref>
 		</property>
 	</bean>	
+	<bean id="QueryBoardAction" class="com.action.pin.QueryBoardAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="fileUploadAction" class="com.action.pin.FileUploadAction" scope="prototype">
+	</bean>
+	<bean id="fileAction" class="com.action.pin.FileAction" scope="prototype">
+	</bean>
 	<!-- 
 	<bean id="userManage" class="dao.UserManage" abstract="false" lazy-init="default"
 		autowire="default" dependency-check="default">
