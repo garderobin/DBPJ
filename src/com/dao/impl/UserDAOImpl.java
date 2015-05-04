@@ -167,6 +167,7 @@ public class UserDAOImpl implements UserDAO {
 		session.close();		
 	}
 	
+	@Override
 	public Friend findFriendByIdfriend(int idfriend){
 		Session session = sessionFactory.openSession();
 		String hql = "from Friend f where (f.idfriend = '" + idfriend + "')";
@@ -181,5 +182,16 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
+	@Override
+	public int countFriendByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Friend friend where friend.user1.username = '" + username + "' or friend.user2.username = '" + username + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
 	
 }

@@ -31,7 +31,7 @@
 		 -->		
 		<action name="login" class="loginAction">
 			<!-- <result name="success">/index.jsp</result> -->
-			<result name="success">/test3.jsp</result>
+			<result name="success">/testUserPage.jsp</result>
 			<result name="input">/error.jsp</result>
 			<result name="login">/test.jsp</result>
 		</action>
@@ -50,12 +50,46 @@
 			<result name="input">/enroll.jsp</result>
 		</action>
 		
-		<action name="addBoard" class="AddBoardAction">
+		<action name="addBoard" class="addBoardAction">
 			<result name="success">/wellcome.jsp</result>
 			<result name="user not exists">/test.jsp</result>
 			<result name="board name exists">/error.jsp</result>
 		</action>
+		<action name="editBoard" class="editBoardAction">
+			<result name="success">/wellcome.jsp</result>
+			<result name="update error">/test.jsp</result>
+			<result name="board name exists">/error.jsp</result>
+			<result name="default">/error.jsp</result>
+		</action>
 		
+		<action name="deleteBoard" class="deleteBoardAction">
+			<result name="success">/wellcome.jsp</result>
+			<result name="delete error">/test.jsp</result>
+			<result name="board not exists">/error.jsp</result>
+			<result name="default">/error.jsp</result>
+		</action>
+		
+		<action name="addPin" class="addPinAction">
+			<result name="success">/wellcome.jsp</result>
+			<result name="input">/test.jsp</result>
+			<result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="editPin" class="editPinAction">
+			<result name="success">/wellcome.jsp</result>
+			<result name="cannot change board">/test.jsp</result>
+			<result name="pin not exists">/test.jsp</result>
+			<result name="update error">/error.jsp</result>
+			<result name="default">/error.jsp</result>
+		</action>
+		
+		<action name="deletePin" class="deletePinAction">
+			<result name="success">/wellcome.jsp</result>
+			<result name="delete picture error">/test.jsp</result>
+			<result name="pin not exists">/test.jsp</result>
+			<result name="delete pin error">/error.jsp</result>
+			<result name="default">/error.jsp</result>
+		</action>
 	</package>	
 	<package name="userAjaxMapping" extends="json-default">
 		<action name="queryBoardsByUsername" class="QueryBoardAction" method="queryBoardsByUsername">
@@ -64,8 +98,104 @@
 					boardList\[\d+\]\.bid,
 					boardList\[\d+\]\.bname,
 					boardList\[\d+\]\.user\.username,
-					boardList\[\d+\]\.stream,
+					boardList\[\d+\]\.info,
+					boardList\[\d+\]\.time					
+				</param>
+			</result>
+		</action>
+		<action name="queryBoardsByStream" class="QueryBoardAction" method="queryBoardsByStream">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					boardList\[\d+\]\.bid,
+					boardList\[\d+\]\.bname,
+					boardList\[\d+\]\.user\.username,
+					boardList\[\d+\]\.info,
 					boardList\[\d+\]\.time
+				</param>
+			</result>
+		</action>
+		<action name="queryBoardsByKeyword" class="QueryBoardAction" method="queryBoardsByKeyword">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					boardList\[\d+\]\.bid,
+					boardList\[\d+\]\.bname,
+					boardList\[\d+\]\.user\.username,
+					boardList\[\d+\]\.info,
+					boardList\[\d+\]\.time
+				</param>
+			</result>
+		</action>
+		<action name="queryBoardsByPicnum" class="QueryBoardAction" method="queryBoardsByPicnum">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					boardList\[\d+\]\.bid,
+					boardList\[\d+\]\.bname,
+					boardList\[\d+\]\.user\.username,
+					boardList\[\d+\]\.info,
+					boardList\[\d+\]\.time
+				</param>
+			</result>
+		</action>
+		<action name="queryBoardByBid" class="QueryBoardAction" method="queryBoardByBid">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					board\.bid,
+					board\.bname,
+					board\.user\.username,
+					board\.info,
+					board\.time,
+					pinCount,
+					followerCount
+				</param>
+			</result>
+		</action>
+		<action name="queryPinSummaryByPinid" class="QueryPinAction" method="queryPinSummaryByPinid">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					pin\.pinid,
+					pin\.board\.bname,
+					pin\.picture\.url,
+					pin\.picture\.sourceUrl,
+					pin\.note,
+					pin\.time,
+					pin\.repin,
+					repinCount,
+					likeCount,
+					commentCount,
+				</param>
+			</result>
+		</action>
+		<action name="queryPinsByBid" class="QueryPinAction" method="queryPinsByBid">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					pinList\[\d+\]\.pinid,
+					pinList\[\d+\]\.board\.bname,
+					pinList\[\d+\]\.picture\.url,
+					pinList\[\d+\]\.picture\.sourceUrl,
+					pinList\[\d+\]\.note,
+					pinList\[\d+\]\.time,
+					pinList\[\d+\]\.repin,					
+					repinCount,
+					likeCount,
+					commentCount,
+				</param>
+			</result>
+		</action>
+		<action name="queryPictureByUsername" class="queryPictureAction" method="queryPictureByUsername">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					picList\[\d+\]\.picnum,
+					picList\[\d+\]\.url,
+					picList\[\d+\]\.sourceUrl
+				</param>
+			</result>
+		</action>
+		<action name="queryPictureByBid" class="queryPictureAction" method="queryPictureByBid">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					picList\[\d+\]\.picnum,
+					picList\[\d+\]\.url,
+					picList\[\d+\]\.sourceUrl
 				</param>
 			</result>
 		</action>
@@ -76,8 +206,13 @@
         </action> -->
         <action name="fileUploadAction" class="fileAction" method="fileUpload">  
             <result type="json" name="success">  
-                <param name="contentType">text/html</param>  
+                <!-- <param name="contentType">text/html</param> -->  
+                <param name="includeProperties">
+					filePath,
+					picnum
+				</param>
             </result>  
         </action>
+        
 	</package>
 </struts>    

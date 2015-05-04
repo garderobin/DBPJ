@@ -37,6 +37,8 @@ public interface UserDAO {
 	
 	public Friend findFriendByIdfriend(int Idfriend);
 	
+	public int countFriendByUsername(String username);
+	
 	//public void addActivatedUser(ActivatedUser user);
 	//public void deleteActivatedUser(ActivatedUser user);
 	//public ActivatedUser findActivatedUserByUsername(String username);

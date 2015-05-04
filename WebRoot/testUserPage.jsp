@@ -67,70 +67,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script src="js/jquery.masonry.min.js"></script>
     <script src="js/modernizr-transitions.js"></script>
         <script>
-    	$(function(){ 
-    		alert("hi");
+    	$(function(){     		
     		$('#headerContainer').width($('#gridItemModule').width());    		
-		}); 
-    	$(window).resize(function() {
-			$('#headerContainer').width($('#gridItemModule').width());
-		});
-		
-		$.ajax({
-			type:'GET',
-			dataType:'json',
-			url:'queryBoardsByUsername.action',
-			success: function(data, textStatus) {
-				var $testDiv = $('#gridItemModule');
-				alert("boardList:" + data.boardList);
-				//$testDiv.children().remove();
-				/* $.each(data.boardList, function(i, item) { */
-				/* var json = jQuery.parseJSON(data.boardList);
-				alert("json: "+ json); */
-				$.each(data.boardList, function() {
-					alert("element!");
-					var $bid  = this.bid;
-					var $bname = this.bname;
-					var $stream = this.stream;
-					var $time = this.time;
-					var $element = $("<div class='item ui-draggable gridSortable'>" + 
+			$.ajax({
+				type:'GET',
+				dataType:'json',
+				url:'queryBoardsByUsername.action',
+				success: function(data, textStatus) {
+					var $testDiv = $('#gridItemModule');
+					$.each(data.boardList, function() {
+						var $bid  = this.bid;
+						var $bname = this.bname;
+						var $info = this.info;
+						var $time = this.time;
+						console.log("bid=" + $bid);
+						var $element = 
+									$("<div class='item ui-draggable gridSortable' id='b_" + $bid + "'>"  + 
 										"<div class='Board Module boardCoverImage draggable noContext'>" +
-										 "<a href='/dongtao090908/perts/' class='boardLinkWrapper' data-element-type='36'>" + 
+										 "<a href='boardDetail.jsp?&bname=" + $bname + "&bid=" + $bid +"&info=" + $info +"' class='boardLinkWrapper' data-element-type='36'>" + 
 											"<div class='boardName'>" + 
 												"<div class='BoardIcons Module pinCreate3'></div>" + $bname + "</div>" + 
         										"<div class='boardCoverWrapper'>" + 
 													"<span class='hoverMask'></span>" + 
-													"<img src='https://s-media-cache-ak0.pinimg.com/216x146/2b/04/df/2b04df3ecc1d94afddff082d139c6f15.jpg' class='boardCover' style='' alt='Perts / my favorite/ by TAO DONG'>" + 
+													"<img id='coverImage" + $bid + "' src='https://s-media-cache-ak0.pinimg.com/216x146/2b/04/df/2b04df3ecc1d94afddff082d139c6f15.jpg' class='boardCover' style='' alt='Perts / my favorite/ by TAO DONG'>" + 
 													"<span class='boardPinCount'>" + 
 														"<div class='Module PinCount'>" + 
-															"<span class='pinIcon'></span>1" + 
+															"<span class='pinIcon' id='pinCount" + $bid + "'></span>" + 
 														"</div>"+
             										"</span>"+
         										"</div>"+
         										"<ul class='boardThumbs'>" + 
             										"<li>" + 
                     									"<span class='hoverMask'></span>" + 
-                    									"<img src='https://s-media-cache-ak0.pinimg.com/75x75/9d/37/7b/9d377b10ce778c4938b3c7e2c63a229a.jpg' class='thumb' style=''>"+
+                    									"<img id='thumbnail" + $bid +"_1' class='thumb' style=''>"+
                 									"</li>"+
             										"<li>"+
 														"<span class='hoverMask'></span>"+
+ 														"<img id='thumbnail" + $bid +"_2' class='thumb' style=''>"+
  													"</li>"+
             										"<li>"+
                     									"<span class='hoverMask'></span>"+
+                    									"<img id='thumbnail" + $bid +"_3' class='thumb' style=''>"+
                 									"</li>"+
         										"</ul>"+
     										"</a>"+
     										"<button class='Button Module ShowModalButton boardEditButton btn hasText rounded' type='button'>"+
 												"<span class='buttonText'>Edit</span>"+
         									"</button>" + 
- 										"</div>");
-					$testDiv.append($element);
-					//alert(element + "!");							
-				});				
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("error!");
-			}
+ 										"</div>");										
+						$testDiv.append($element);
+						$element.bind("onload", getBoardPics($bid)); 	
+					});				
+				}, 
+			});
 		})
+		
+    	$(window).resize(function() {
+			$('#headerContainer').width($('#gridItemModule').width());
+		})		
+			
+		function getBoardPics(bid) {
+			$.ajax({
+				type:'GET',
+				dataType:'json',
+				url:'queryPictureByBid.action',
+				data:{bid:bid},				
+				success: function(data, textStatus) {
+					if (data.picList === null) {
+						$("#pinCount" + bid).text(0);
+					}
+					else {										
+							//var $coverImage = document.getElementById("coverImage" + bid);
+							$("#coverImage" + bid).attr("src", data.picList[0].url);
+							$("#pinCount" + bid).text(data.picList.length);
+							var $li1 = $("#thumbnail" + bid + "_1");
+							var $li2 = $("#thumbnail" + bid + "_2");
+							var $li3 = $("#thumbnail" + bid + "_3");														
+							switch(data.picList.length) {
+							case 1:break;
+							case 3:$li2.attr("src", data.picList[2].url);
+							case 2:$li1.attr("src", data.picList[1].url);break;
+							default: $li3.attr("src", data.picList[3].url);
+									$li2.attr("src", data.picList[2].url);
+									$li1.attr("src", data.picList[1].url);
+									break;
+							}													
+									
+					}
+					
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.error("error!");
+				},
+			});
+		}
 		
     </script>
     

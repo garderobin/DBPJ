@@ -11,10 +11,10 @@
             <generator class="native" />
         </id>
         <property name="url" type="java.lang.String">
-            <column name="URL" length="40" />
+            <column name="URL" length="200" />
         </property>
         <property name="sourceUrl" type="java.lang.String">
-            <column name="sourceURL" length="40" />
+            <column name="sourceURL" length="200" />
         </property>
         <set name="pins" table="Pin" inverse="true">
             <key>

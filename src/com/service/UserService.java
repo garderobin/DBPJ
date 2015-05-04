@@ -18,7 +18,7 @@ public interface UserService {
 
 	public boolean checkFriendshipExist(String user1, String user2);
 	
-	public ErrorType addFriend(String user1, String user2);
+	public int addFriend(String user1, String user2);
 	
 	public ErrorType deleteFriend(String user1, String user2);
 	

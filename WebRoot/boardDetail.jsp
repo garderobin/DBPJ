@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -34,11 +35,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script src="js/common.js"></script>
    	<script src="js/jquery.masonry.min.js"></script>
     <script src="js/modernizr-transitions.js"></script>
-
+    <script type="text/javascript">
+    	
+    
+    </script>
+    	
 
   </head>
   
   <body class="noTouch">
+  <input type="hidden" value=<%= request.getParameter("bid")%>/>
 <div class="App AppBase Module full" data-component-type="17">                       
 <div class="appContent">
     <div class="mainContainer">
@@ -51,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="BoardInvite Module hidden"></div>
 						<div class="BoardHeader Module gridWidth">
 							<div class="boardHeaderWrapper centeredWithinWrapper">
-								<h1 class="boardName">Test</h1>
+								<h1 class="boardName"><%= request.getParameter("bname")%></h1>
     								<p class="description"> </p>
 									<div class="divider"><hr>
         							</div>
@@ -62,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    								<button class="Button Module btn1 hasText movePinsButton rounded" data-element-type="400" type="button"  style="height:30px">
 											<span class="buttonText">Move Pins</span>
 	        							</button>
-										<button class="Button Module ShowModalButton boardEditButton btn1 hasText rounded" type="button" style="height:30px">
+										<button id="editBoardButton" class="Button Module ShowModalButton boardEditButton btn1 hasText rounded" type="button" style="height:30px">
 											<span class="buttonText">Edit Board</span>
 										</button>
 										<button class="Button DropdownButton Module boardSettingsButton btn1 rounded" type="button" style="height:30px">
@@ -76,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<div class="thumbImageWrapper">
 													<img src="https://s-passets-cache-ak0.pinimg.com/images/user/default_60.png" alt="Jasmine Liu" title="More from Jasmine Liu">
 	        									</div>
-												<h4 class="fullname">Jasmine Liu</h4>
+												<h4 class="fullname"><s:property value="#session.username"></s:property></h4>
 												<!-- <div class="fullname Label Module">Jasmine Liu</div> -->
 											</a>
 										</div>

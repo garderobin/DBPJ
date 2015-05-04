@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ErrorType addFriend(String user1, String user2) {
+	public int addFriend(String user1, String user2) {
 		Friend friend = new Friend();
 		User u1 = this.userDAO.findUserByUsername(user1);
 		User u2 = this.userDAO.findUserByUsername(user2);
@@ -76,9 +76,9 @@ public class UserServiceImpl implements UserService {
 		Friend friendship = this.userDAO.findFriendship(user1, user2);
 		if (friendship == null) {
 			this.userDAO.addFriend(friend);
-			return ErrorType.NO_ERROR;			
+			return friend.getIdfriend();			
 		}
-		return ErrorType.FRIENDSHIP_EXISTED;				
+		return ErrorType.FRIENDSHIP_EXISTED.compareTo(ErrorType.NO_ERROR);				
 	}
     
 	//OK:

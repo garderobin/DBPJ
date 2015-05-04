@@ -40,14 +40,14 @@ public class PinServiceImplTest extends BaseSpringContextCommon{
     private PinService pinService;
 	
 	
-	@Test
-	public void testAddBoard(){
-		String username = "dongtao";
-		String bname = "birds";
-		String stream = "pets";
-		ErrorType errortype = pinService.addBoard(username, bname,stream);
-		assertEquals(ErrorType.NO_ERROR, errortype);
-	}
+//	@Test
+//	public void testAddBoard(){
+//		String username = "dongtao";
+//		String bname = "birds";
+//		String stream = "pets";
+//		ErrorType errortype = pinService.addBoard(username, bname,stream);
+//		assertEquals(ErrorType.NO_ERROR, errortype);
+//	}
 	/*
 	@Test 
 	public void testDeleteBoard(){
@@ -188,7 +188,7 @@ public class PinServiceImplTest extends BaseSpringContextCommon{
 		if(pin == null)
 			assertEquals(null, pin);
 		else
-			assertEquals("556677", pin.getDiscription());
+			assertEquals("556677", pin.getNote());
 	}
 	
 	/*

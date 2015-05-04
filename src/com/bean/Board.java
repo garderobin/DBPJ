@@ -8,7 +8,7 @@ public class Board {
 	private int bid;
 	private User user;
 	private String bname;
-	private String stream;
+	private String info;
 	private Date time;
 	private Set<Pin> pins = new HashSet<Pin>(0);
 	private Set<Follow> follows = new HashSet<Follow>(0);
@@ -56,12 +56,12 @@ public class Board {
 	
 	
 
-	public String getStream() {
-		return stream;
+	public String getInfo() {
+		return info;
 	}
 
-	public void setStream(String stream) {
-		this.stream = stream;
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 	public Date getTime() {

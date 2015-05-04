@@ -8,7 +8,7 @@ public class Pin {
 	private int pinid;
 	private Board board;
 	private Picture picture;
-	private String discription;
+	private String note;
 	private Date time;
 	private int repin;
 	private Set<Comment> comments = 
@@ -17,18 +17,18 @@ public class Pin {
 	public Pin(){
 		
 	}
-	public Pin(int pinid, Board board, Picture picture, String discription, Date time, int repin){
+	public Pin(int pinid, Board board, Picture picture, String note, Date time, int repin){
 		this.pinid = pinid;
 		this.board = board;
 		this.picture = picture;
-		this.discription = discription;
+		this.note = note;
 		this.time = time;
 		this.repin = repin;
 	}
-	public Pin(Board board, Picture picture, String discription, Date time, int repin){
+	public Pin(Board board, Picture picture, String note, Date time, int repin){
 		this.board = board;
 		this.picture = picture;
-		this.discription = discription;
+		this.note = note;
 		this.time = time;
 		this.repin = repin;
 	}
@@ -55,11 +55,11 @@ public class Pin {
 		this.picture = picture;
 	}
 
-	public String getDiscription() {
-		return discription;
+	public String getNote() {
+		return note;
 	}
-	public void setDiscription(String discription) {
-		this.discription = discription;
+	public void setNote(String note) {
+		this.note = note;
 	}
 	public Date getTime() {
 		return time;

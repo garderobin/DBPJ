@@ -16,8 +16,8 @@
         <many-to-one name="picture" class="com.bean.Picture" fetch="select">
             <column name="picnum" not-null="true" />
         </many-to-one>
-        <property name="discription" type="java.lang.String">
-            <column name="discription" length="40" />
+        <property name="note" type="java.lang.String">
+            <column name="note" length="40" />
         </property>
         <property name="time" type="java.sql.Timestamp">
             <column name="time" length="0" not-null="true" />

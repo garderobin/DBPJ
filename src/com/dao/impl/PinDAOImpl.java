@@ -1,6 +1,8 @@
 package com.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -24,8 +26,6 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
-	@SuppressWarnings("rawtypes")
-	
 	public void addBoard(Board board){
 		Session session = sessionFactory.openSession();
 		session.save(board);
@@ -99,6 +99,58 @@ public class PinDAOImpl implements PinDAO{
 		Session session = sessionFactory.openSession();
 		String hql = "select new Board(board.bid, board.user, board.bname, board.time) from Board board join board.follows follow "
 				+ "where (follow.user.username = '" + username + "')";
+		Query query = session.createQuery(hql);
+		ArrayList<Board> list = (ArrayList<Board>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
+	public ArrayList<Board> findBoardByStream(String stream){
+		Session session = sessionFactory.openSession();
+		String hql = "from Board board where board.stream = '" + stream + "'";
+		Query query = session.createQuery(hql);
+		ArrayList<Board> list = (ArrayList<Board>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
+	public ArrayList<Board> findBoardByKeyword(String keyword){
+		Session session = sessionFactory.openSession();
+		String hql = "from Board board where board.user.username like ? or board.bname like ? " +
+				"or board.stream like ?";
+		Query query = session.createQuery(hql);
+		query.setString(0,"%"+keyword+"%");
+		query.setString(1,"%"+keyword+"%");
+		query.setString(2,"%"+keyword+"%");
+		ArrayList<Board> list = (ArrayList<Board>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
+	public ArrayList<Board> findBoardByPicnum(int picnum){
+		Session session = sessionFactory.openSession();
+		//String hql = "select new Board(board.bid, board.user.username, board.bname, board.stream, board.time) " +
+		//		"from Board board join board.pins pin1 " +
+		//		"where pin1.pinid in (select pin2.pinid from Picture picture join picture.pins pin2 where picture.picnum = '" + picnum + "'";
+		String hql = "select pin.board from Picture picture join picture.pins pin where picture.picnum = '" + picnum + "'";
 		Query query = session.createQuery(hql);
 		ArrayList<Board> list = (ArrayList<Board>) query.list();
 		session.close();
@@ -266,6 +318,38 @@ public class PinDAOImpl implements PinDAO{
 		}
 		else{
 			return (Pin) list.get(0);
+		}
+	}
+	
+	@Override
+	public ArrayList<Pin> findPinByBid(int bid){
+		Session session = sessionFactory.openSession();
+		String hql = "from Pin pin where pin.board.bid = '" + bid + "'";
+		Query query = session.createQuery(hql);
+		ArrayList<Pin> list = (ArrayList<Pin>) query.list();
+		session.close();
+		if(list.isEmpty()){
+			return null;
+		}
+		else{
+			return list;
+		}
+	}
+	
+	@Override
+	public ArrayList<Pin> takePin(int pinid){
+		Session session = sessionFactory.openSession();
+		String hql = "from Pin pin where pin.pinid < '" + pinid + "' order by pin.pinid desc";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+        query.setMaxResults(30);
+		ArrayList<Pin> list = (ArrayList<Pin>) query.list();
+		session.close();
+		if(list.isEmpty()){
+			return null;
+		}
+		else{
+			return list;
 		}
 	}
 	
@@ -469,7 +553,7 @@ public class PinDAOImpl implements PinDAO{
 	@Override
 	public ArrayList<Likes> findLikesByUsername(String username){
 		Session session = sessionFactory.openSession();
-		String hql = "from Likes likes where likes.user.username = '" + username + "'";
+		String hql = "from User user join user.likes likes where user.username = '" + username + "'";
 		Query query = session.createQuery(hql);
 		ArrayList<Likes> list = (ArrayList<Likes>) query.list();
 		session.close();
@@ -495,5 +579,120 @@ public class PinDAOImpl implements PinDAO{
 			return list;
 		}
 	}
-
+	
+	@Override
+	public int countBoardByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Board board where board.user.username = '" + username + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public int countPinByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Board board join board.pins pin where board.user.username = '" + username + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public int countLikesByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Likes likes where likes.user.username = '" + username + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public int countPinByBid(int bid){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Pin pin where pin.board.bid = '" + bid + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public int countFollowByBid(int bid){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Follow follow where follow.board.bid = '" + bid + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public int countRepinByPinid(int pinid){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Pin pin where pin.repin = '" + pinid + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public int countLikesByPinid(int pinid){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) " +
+				"from Picture picture1 join picture1.likes likes" +
+				" where picture1.picnum in (select picture2.picnum from Picture picture2 join picture2.pins pin where pin.pinid = '" + pinid + "')";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public int countCommentByPinid(int pinid){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Pin pin join pin.comments comment where pin.pinid = '" + pinid + "'";
+		//String hql = "select count(*) from User user join user.boards board where user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        //int n = ((Number) query.iterate().next()).intValue();
+		int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public ArrayList<Pin> findPinByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "select new Pin(pin.pinid, pin.board, pin.picture, pin.discription, pin.time, pin.repin) " +
+				"from Board board join board.pins pin " +
+				"where board.user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+		ArrayList<Pin> list = (ArrayList<Pin>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+    
 }

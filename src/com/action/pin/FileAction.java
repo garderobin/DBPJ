@@ -2,29 +2,14 @@ package com.action.pin;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 
-
-
-
-
-
-
-//import java.io.FileInputStream;
-//import java.io.FileOutputStream;
-//import java.io.InputStream;
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.service.PinService;
 
 public class FileAction extends ActionSupport{
 
@@ -32,19 +17,23 @@ public class FileAction extends ActionSupport{
 	private File file; 
 	private String filePath;
 	private String fileFileName;
+	private int picnum;
+	private PinService pinService;
 
 	@Transactional
 	public String fileUpload() {
-		//String path = ServletActionContext.getServletContext().getRealPath("/images/");
-		String path = "/Users/jasmineliu/Development/Data/pinterest/";		
-		File ff = new File(path); // ���������������������������,���������������������������������
+		String path = ServletActionContext.getServletContext().getRealPath("/");
+		//String path = "/Users/jasmineliu/Development/Data/pinterest/";	
+		String uploadPath = "images/data/";
+		path = path + uploadPath;
+		File ff = new File(path); 
 		if (!ff.exists()) {
 			ff.mkdir();
 		}
 		try {
 			if (this.file != null) {
 				File f = this.getFile();
-				String fileName = java.util.UUID.randomUUID().toString(); // ������������+UUID���������������������
+				String fileName = java.util.UUID.randomUUID().toString(); 
 				String fileType = fileFileName.substring(fileFileName.lastIndexOf("."));
 				String name = fileName + fileType;		
 				BufferedImage image = ImageIO.read(f);				
@@ -52,10 +41,14 @@ public class FileAction extends ActionSupport{
 //				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> fileType = " + fileType  +  "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 //				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> filepath = " + filePath  +  "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 				ImageIO.write(image, fileType.substring(1), new File(filePath));
+				filePath = uploadPath + name;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		picnum = pinService.addPicture(filePath, "Uploaded by user");
+		
 		return SUCCESS;
 	}
 
@@ -83,7 +76,17 @@ public class FileAction extends ActionSupport{
 		this.filePath = filePath;
 	}
 
+	public void setPinService(PinService pinService) {
+		this.pinService = pinService;
+	}
 
+	public int getPicnum() {
+		return picnum;
+	}
+
+	public void setPicnum(int picnum) {
+		this.picnum = picnum;
+	}
 	
 
 }

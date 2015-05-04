@@ -43,14 +43,14 @@ $(function(){
 //		}
 //	})
     
-    $('#file').fileupload({
-    	url:'fileUploadAction.action',
-    	dataType:'json',
-    	done:function(e, data) {
-    		alert('file uploaded!');
-    		console.log("file uploaded");
-    	}
-    });
+//    $('#file').fileupload({
+//    	url:'fileUploadAction.action',
+//    	dataType:'json',
+//    	done:function(e, data) {
+//    		alert('file uploaded!');
+//    		console.log("file uploaded");
+//    	}
+//    });
 //    $('#file').uploadifive({  
 //    	//'auto' : false,   //取消自动上传   
 //    	'uploadScript' : 'fileUploadAction.action', //处理上传文件Action路径   
