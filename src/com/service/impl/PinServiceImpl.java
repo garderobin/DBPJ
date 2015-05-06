@@ -2,6 +2,7 @@ package com.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 import com.bean.Board;
 import com.bean.Comment;
 import com.bean.Follow;
@@ -12,8 +13,10 @@ import com.bean.User;
 import com.dao.PinDAO;
 import com.dao.UserDAO;
 import com.service.PinService;
+import com.util.BoardStat;
 import com.util.ErrorType;
 import com.util.PinStat;
+import com.util.UserStat;
 
 public class PinServiceImpl implements PinService {
 	
@@ -258,20 +261,24 @@ public class PinServiceImpl implements PinService {
 	
 	@Override
 	public ErrorType updatePin(int pinid, int bid, String note){
+		System.out.println(">>>>>>>>>Enter updatePin(" + pinid + ", " + bid + ", " + note);
 		int picnum = pinDAO.findPictureByPinid(pinid).getPicnum();
-		Pin pin1 = pinDAO.findPinByBidPicnum(bid, picnum);
-		if(pin1 != null)
-			return ErrorType.PIN_EXISTED;
+//		Pin pin1 = pinDAO.findPinByBidPicnum(bid, picnum);
+//		if(pin1 != null)
+//			return ErrorType.PIN_EXISTED;
 		Pin pin = pinDAO.findPinByPinid(pinid);
 		if(pin == null)
 			return ErrorType.PIN_NOT_EXISTED;
 		Board board = pinDAO.findBoardByBid(bid);
 		pin.setBoard(board);
 		pin.setNote(note);
+		System.out.println(">>>>>>>>new pin: pinid = " + pin.getPinid() + 
+				"\tbid = " + pin.getBoard().getBid() + "\tnote = " + pin.getNote());
+		//System.exit(0);
 		try{
 			pinDAO.updatePin(pin);
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 			return ErrorType.UPDATE_ERROR;
 		}
 		return ErrorType.NO_ERROR;
@@ -465,27 +472,43 @@ public class PinServiceImpl implements PinService {
 	}
 	*/
 	
-	@Override
-	public int[] userBasicStatistic(String username){
-		int[] i = {0,0,0,0};
-		i[0] = pinDAO.countBoardByUsername(username);
-		i[1] = pinDAO.countPinByUsername(username);
-		i[2] = pinDAO.countLikesByUsername(username);
-		i[3] = userDAO.countFriendByUsername(username);
-		return i;
-	}
+//	@Override
+//	public int[] userBasicStatistic(String username){
+//		int[] i = {0,0,0,0};
+//		i[0] = pinDAO.countBoardByUsername(username);
+//		i[1] = pinDAO.countPinByUsername(username);
+//		i[2] = pinDAO.countLikesByUsername(username);
+//		i[3] = userDAO.countFriendByUsername(username);
+//		return i;
+//	}
 	
 	@Override
-	public int[] boardBasicStatistic(int bid){
-		int[] i = {0,0};
-		i[0] = pinDAO.countPinByBid(bid);
-		i[1] = pinDAO.countFollowByBid(bid);
-		return i;
+	public UserStat userBasicStatistic(String username) {	
+		int bc = pinDAO.countBoardByUsername(username);
+		int pc = pinDAO.countPinByUsername(username);
+		int lc = pinDAO.countLikesByUsername(username);
+		int frc = userDAO.countFriendByUsername(username);
+		int foc = pinDAO.countFollowingByUsername(username);
+		return new UserStat(bc, pc, lc, frc, foc);
+	}
+	
+//	@Override
+//	public int[] boardBasicStatistic(int bid){
+//		int[] i = {0,0};
+//		i[0] = pinDAO.countPinByBid(bid);
+//		i[1] = pinDAO.countFollowByBid(bid);
+//		return i;
+//	}
+	
+	@Override
+	public BoardStat boardBasicStatistic(int bid){
+		return new BoardStat(bid, pinDAO.countPinByBid(bid), pinDAO.countFollowByBid(bid));		
 	}
 	
 	@Override
 	public PinStat pinBasicStatistic(int pinid){
-		return new PinStat(pinDAO.countRepinByPinid(pinid),
+		return new PinStat(pinid,
+				pinDAO.countRepinByPinid(pinid),
 				pinDAO.countLikesByPinid(pinid),
 				pinDAO.countCommentByPinid(pinid));
 	}

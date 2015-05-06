@@ -52,6 +52,7 @@ public class QueryPinAction extends ActionSupport {
 //		repinCount = pinStat[0];
 //		likeCount = pinStat[1];
 //		commentCount = pinStat[2];
+		System.out.println(">>>>>>>>>>>>>>>>>> repin count: " + pinStat.getRepinCount());
 		return SUCCESS;
 	}
 	
@@ -61,7 +62,7 @@ public class QueryPinAction extends ActionSupport {
 	public String queryPinsByBid() {
 		this.pinList = this.service.findPinByBid(bid);
 		if (pinList != null && pinList.size()>0)  {	
-			this.service.pinStatListByPinList(pinList);
+			pinStatList = this.service.pinStatListByPinList(pinList);
 			return SUCCESS;
 		} 
 		addFieldError("message", "The board is now empty! Please add a pin to it.");
@@ -70,9 +71,18 @@ public class QueryPinAction extends ActionSupport {
 	
 	
 	@Transactional
-	public String queryLatestPins() {
-		pinList = service.takePin(pinid);
-		return SUCCESS;
+	public String queryLatestPinSummaries() {
+		if(lastPinid==0) {
+			lastPinid = Integer.MAX_VALUE;
+		}
+		pinList = service.takePin(lastPinid);
+		if (pinList != null && pinList.size()>0)  {	
+			pinStatList = this.service.pinStatListByPinList(pinList);
+			lastPinid = pinList.get(0).getPinid();
+			return SUCCESS;
+		} 
+		addFieldError("message", "The board is now empty! Please add a pin to it.");
+		return INPUT;
 	}
 	
 	

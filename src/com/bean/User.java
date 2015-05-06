@@ -15,6 +15,8 @@ public class User {
 	private Set<Follow> follows = new HashSet<Follow>(0);
 	private Set<Friend> friendsForUser1 = new HashSet<Friend>(0);
 	private Set<Friend> friendsForUser2 = new HashSet<Friend>(0);
+	private Set<Request> requestsForAnsweror = new HashSet<Request>(0);
+	private Set<Request> requestsForInvitor = new HashSet<Request>(0);
 
 	
 	public User() {
@@ -108,6 +110,24 @@ public class User {
 		this.friendsForUser2 = friendsForUser2;
 	}
 
+	public Set<Request> getRequestsForAnsweror() {
+		return requestsForAnsweror;
+	}
+
+	public void setRequestsForAnsweror(Set<Request> requestsForAnsweror) {
+		this.requestsForAnsweror = requestsForAnsweror;
+	}
+
+	public Set<Request> getRequestsForInvitor() {
+		return requestsForInvitor;
+	}
+
+	public void setRequestsForInvitor(Set<Request> requestsForInvitor) {
+		this.requestsForInvitor = requestsForInvitor;
+	}
+
 	
+	
+
 	
 }

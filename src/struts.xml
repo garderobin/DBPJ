@@ -4,12 +4,16 @@
 	<constant name="struts.objectFactory" value="spring"></constant>
 	<constant name="struts.devMode" value="false" />
 	<package name="user"  extends="struts-default">
-		<result-types>
+		<global-results>
+			<result name="error">/error.jsp</result>
+			<result name="input">/error.jsp</result>
+		</global-results>
+		<!-- <result-types>
         	<result-type name="json" class="org.apache.struts2.json.JSONResult"/>
     	</result-types>
     	<interceptors>
         	<interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
-    	</interceptors>
+    	</interceptors> -->
 	
 		<!--  -->
 		<!-- 
@@ -31,7 +35,7 @@
 		 -->		
 		<action name="login" class="loginAction">
 			<!-- <result name="success">/index.jsp</result> -->
-			<result name="success">/testUserPage.jsp</result>
+			<result name="success">/index.jsp</result>
 			<result name="input">/error.jsp</result>
 			<result name="login">/test.jsp</result>
 		</action>
@@ -61,7 +65,26 @@
 			<result name="board name exists">/error.jsp</result>
 			<result name="default">/error.jsp</result>
 		</action>
-		
+		<action name="queryBoardByBid" class="queryBoardAction" method="queryBoardByBid">
+			<result name="success" type="redirect">
+				<param name="location">boardDetail.jsp</param>	
+				<param name="bname">${bname}</param>
+				<param name="bid">${bid}</param>
+				<param name="username">${username}</param>
+				<param name="info">${info}</param>					
+				<param name="pinCount">${pinCount}</param>
+				<param name="followerCount">${followerCount}</param>
+				<!-- <param name="includeProperties">
+					board\.bid,
+					board\.bname,
+					board\.user\.username,
+					board\.info,
+					board\.time,
+					boardStat\.pinCount,
+					boardStat\.followerCount
+				</param> 
+ -->			</result>
+		</action>
 		<action name="deleteBoard" class="deleteBoardAction">
 			<result name="success">/wellcome.jsp</result>
 			<result name="delete error">/test.jsp</result>
@@ -76,11 +99,18 @@
 		</action>
 		
 		<action name="editPin" class="editPinAction">
-			<result name="success">/wellcome.jsp</result>
-			<result name="cannot change board">/test.jsp</result>
-			<result name="pin not exists">/test.jsp</result>
+			<!-- <result name="success" type="redirect">
+				<param name="location">/boardDetail.jsp?bid=${bid}</param>			
+			</result> -->
+			<result name="success" type="redirectAction">
+				<!-- queryBoardByBid.action?bid=${bid} -->
+				<param name="actionName">queryBoardByBid</param>	
+				<param name="bid">${bid}</param>		
+			</result>
+			<!-- <result name="cannot change board">/error.jsp</result>
+			<result name="pin not exists">/error.jsp</result>
 			<result name="update error">/error.jsp</result>
-			<result name="default">/error.jsp</result>
+			<result name="default">/error.jsp</result> -->
 		</action>
 		
 		<action name="deletePin" class="deletePinAction">
@@ -92,7 +122,7 @@
 		</action>
 	</package>	
 	<package name="userAjaxMapping" extends="json-default">
-		<action name="queryBoardsByUsername" class="QueryBoardAction" method="queryBoardsByUsername">
+		<action name="queryBoardsByUsername" class="queryBoardAction" method="queryBoardsByUsername">
 			<result name="success" type="json">
 				<param name="includeProperties">
 					boardList\[\d+\]\.bid,
@@ -103,7 +133,7 @@
 				</param>
 			</result>
 		</action>
-		<action name="queryBoardsByStream" class="QueryBoardAction" method="queryBoardsByStream">
+		<action name="queryBoardsByStream" class="queryBoardAction" method="queryBoardsByStream">
 			<result name="success" type="json">
 				<param name="includeProperties">
 					boardList\[\d+\]\.bid,
@@ -114,7 +144,7 @@
 				</param>
 			</result>
 		</action>
-		<action name="queryBoardsByKeyword" class="QueryBoardAction" method="queryBoardsByKeyword">
+		<action name="queryBoardsByKeyword" class="queryBoardAction" method="queryBoardsByKeyword">
 			<result name="success" type="json">
 				<param name="includeProperties">
 					boardList\[\d+\]\.bid,
@@ -125,7 +155,7 @@
 				</param>
 			</result>
 		</action>
-		<action name="queryBoardsByPicnum" class="QueryBoardAction" method="queryBoardsByPicnum">
+		<action name="queryBoardsByPicnum" class="queryBoardAction" method="queryBoardsByPicnum">
 			<result name="success" type="json">
 				<param name="includeProperties">
 					boardList\[\d+\]\.bid,
@@ -136,48 +166,61 @@
 				</param>
 			</result>
 		</action>
-		<action name="queryBoardByBid" class="QueryBoardAction" method="queryBoardByBid">
-			<result name="success" type="json">
-				<param name="includeProperties">
-					board\.bid,
-					board\.bname,
-					board\.user\.username,
-					board\.info,
-					board\.time,
-					pinCount,
-					followerCount
-				</param>
-			</result>
-		</action>
-		<action name="queryPinSummaryByPinid" class="QueryPinAction" method="queryPinSummaryByPinid">
+		<action name="queryPinSummaryByPinid" class="queryPinAction" method="queryPinSummaryByPinid">
 			<result name="success" type="json">
 				<param name="includeProperties">
 					pin\.pinid,
 					pin\.board\.bname,
+					pin\.picture\.picnum,
 					pin\.picture\.url,
 					pin\.picture\.sourceUrl,
 					pin\.note,
 					pin\.time,
 					pin\.repin,
-					repinCount,
-					likeCount,
-					commentCount,
+					pin\.board\.user\.username,
+					pinStat\.repinCount,
+					pinStat\.likeCount,
+					pinStat\.commentCount,
 				</param>
 			</result>
+			<result name="input" type="json">/error.jsp</result>
 		</action>
-		<action name="queryPinsByBid" class="QueryPinAction" method="queryPinsByBid">
+		<action name="queryPinsByBid" class="queryPinAction" method="queryPinsByBid">
 			<result name="success" type="json">
 				<param name="includeProperties">
 					pinList\[\d+\]\.pinid,
 					pinList\[\d+\]\.board\.bname,
+					pinList\[\d+\]\.board\.bid,
+					pinList\[\d+\]\.board\.info,
 					pinList\[\d+\]\.picture\.url,
 					pinList\[\d+\]\.picture\.sourceUrl,
+					pinList\[\d+\]\.board\.user\.username,
 					pinList\[\d+\]\.note,
 					pinList\[\d+\]\.time,
 					pinList\[\d+\]\.repin,					
-					repinCount,
-					likeCount,
-					commentCount,
+					pinStatList\[\d+\]\.repinCount,
+					pinStatList\[\d+\]\.likeCount,
+					pinStatList\[\d+\]\.pinid
+				</param>
+			</result>
+		</action>
+		<action name="queryLatestPinSummaries" class="queryPinAction" method="queryLatestPinSummaries">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					pinList\[\d+\]\.pinid,
+					pinList\[\d+\]\.board\.bname,
+					pinList\[\d+\]\.board\.bid,
+					pinList\[\d+\]\.board\.info,
+					pinList\[\d+\]\.picture\.url,
+					pinList\[\d+\]\.picture\.sourceUrl,
+					pinList\[\d+\]\.board\.user\.username,
+					pinList\[\d+\]\.note,
+					pinList\[\d+\]\.time,
+					pinList\[\d+\]\.repin,					
+					pinStatList\[\d+\]\.repinCount,
+					pinStatList\[\d+\]\.likeCount,
+					pinStatList\[\d+\]\.pinid,
+					lastPinid
 				</param>
 			</result>
 		</action>
@@ -210,6 +253,28 @@
                 <param name="includeProperties">
 					filePath,
 					picnum
+				</param>
+            </result>  
+        </action>
+        <action name="queryUserStatistic" class="queryStatAction" method="queryUserStatistic">  
+            <result type="json" name="success">  
+                <!-- <param name="contentType">text/html</param> -->  
+                <param name="includeProperties">
+					userStat\.boardCount,
+					userStat\.pinCount,
+					userStat\.likeCount,
+					userStat\.friendCount,
+					userStat\.followingCount
+				</param>
+            </result>  
+        </action>
+        <action name="queryBoardStatistic" class="queryBoardAction" method="queryBoardStatistic">  
+            <result type="json" name="success">  
+                <!-- <param name="contentType">text/html</param> -->  
+                <param name="includeProperties">
+					boardStat\.bid,
+					boardStat\.pinCount,
+					boardStat\.followerCount
 				</param>
             </result>  
         </action>

@@ -9,6 +9,7 @@ import com.bean.Board;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.service.PinService;
+import com.util.BoardStat;
 
 public class QueryBoardAction extends ActionSupport {
 
@@ -18,17 +19,19 @@ public class QueryBoardAction extends ActionSupport {
 	private static final long serialVersionUID = 1102697508491177891L;
 	private PinService service;
 	private int bid;
+	private String username;
+	private String bname;
+	private String stream;
 	private String info;
 	private String keyword;
-	private int picnum;
-	
+	private int picnum;		
 	
 	private Board board;
 	private ArrayList<Board> boardList;
-	
+	private BoardStat boardStat;
 	private int pinCount;
 	private int followerCount;
-	private String stream;
+	
 	
 	
 //	@Override
@@ -39,16 +42,22 @@ public class QueryBoardAction extends ActionSupport {
 	
 	@Transactional
 	public String queryBoardByBid() {		
-		this.board = this.service.findBoardByBid(bid);
-		if (this.board!=null) {
-			pinCount = board.getPins().size();
-			followerCount = board.getFollows().size();
+		setBoard(this.service.findBoardByBid(bid));
+		if (this.board!=null) {			
+			setBoardStat(service.boardBasicStatistic(bid));
 			return SUCCESS;
 			
 		}
 		else
 			return "No board";		
 	}
+	
+	@Transactional
+	public String queryBoardStatistic() {
+		setBoardStat(service.boardBasicStatistic(bid));
+		return SUCCESS;
+	}
+
 	
 	@SuppressWarnings("rawtypes")
 	@Transactional
@@ -128,6 +137,7 @@ public class QueryBoardAction extends ActionSupport {
 	
 	
 	
+	
 	public ArrayList<Board> getBoardList() {
 		return boardList;
 	}
@@ -174,6 +184,64 @@ public class QueryBoardAction extends ActionSupport {
 
 	public void setBoard(Board board) {
 		this.board = board;
+		this.bname = board.getBname();
+		this.info = board.getInfo();
+		this.username = board.getUser().getUsername();
+	}
+
+
+	public BoardStat getBoardStat() {
+		return boardStat;
+	}
+
+	public void setBoardStat(BoardStat boardStat) {
+		this.boardStat = boardStat;
+		this.followerCount = boardStat.getFollowerCount();
+		this.pinCount = boardStat.getPinCount();
+	}
+
+	public int getBid() {
+		return bid;
+	}
+
+	public void setBid(int bid) {
+		this.bid = bid;
+	}
+
+	public String getStream() {
+		return stream;
+	}
+
+	public void setStream(String stream) {
+		this.stream = stream;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public PinService getService() {
+		return service;
+	}
+
+	public void setBoardList(ArrayList<Board> boardList) {
+		this.boardList = boardList;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getBname() {
+		return bname;
+	}
+
+	public void setBname(String bname) {
+		this.bname = bname;
 	}
 
 	public int getPinCount() {
@@ -192,4 +260,5 @@ public class QueryBoardAction extends ActionSupport {
 		this.followerCount = followerCount;
 	}
 
+	
 }

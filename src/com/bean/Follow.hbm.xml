@@ -9,12 +9,12 @@
         <id name="idfollow" type="java.lang.Integer">
             <column name="idfollow" />
             <generator class="identity" />
-        </id>
-        <many-to-one name="board" class="com.bean.Board" fetch="select">
-            <column name="bid" />
-        </many-to-one>
-        <many-to-one name="user" class="com.bean.User" fetch="select">
+        </id>     
+        <many-to-one name="user" class="com.bean.User" fetch="select"  lazy="false">
             <column name="username" length="20" />
+        </many-to-one>
+        <many-to-one name="board" class="com.bean.Board" fetch="select" lazy="false">
+            <column name="bid" />
         </many-to-one>
         <property name="stream" type="java.lang.String">
             <column name="stream" length="20" />

@@ -23,18 +23,173 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="css/dbcommon.css" rel="stylesheet" type="text/css">
    	<script src="js/jquery.min.js"></script>
    	<script src="js/bootstrap.js"></script>
-   	<script src="js/common.js"></script>
+   	<%-- <script src="js/common.js"></script> --%>
    	<script src="js/jquery.masonry.min.js"></script>
     <script src="js/modernizr-transitions.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+    		var $lastPinid = $("#lastPinid").val();
+    		$.ajax({
+				type:"GET",
+				dataType:"json",
+				url:'queryLatestPinSummaries.action',
+				data:{lastPinid:$lastPinid},
+				success: function(data, textStatus) {
+					$lastPinid = data.lastPinid;
+					var $container = $("#masonryContainer");
+					$container.children().remove();
+					$.each(data.pinList, function()
+					{
+						var $pinid = this.pinid;
+						var $url = this.picture.url; console.log(this);
+						var $note = this.note;
+						/* var $rc = this.repinCount;
+						var $lc = this.likeCount; */
+						var $bname = this.board.bname;
+						var $bid = this.board.bid;
+						//var $author = this.board.user.username;
+						var $element = $(
+"<div class='masonryItem  ui-draggable ui-draggable-disabled ui-state-disabled' aria-disabled='true' style='margin-bottom: 10px;'>" + 
+    "<div class='Module Pin summary' data-component-type='0'>" + 
+        "<div class='pinWrapper'>" + 
+            "<div class='bulkEditPinWrapper'></div>" + 
+            "<div class='pinImageActionButtonWrapper'>" + 
+                "<div class='repinSendButtonWrapper'>" + 
+                    "<button class='Button Module ShowModalButton btn primary primaryOnHover repinSmall rounded' data-element-type='0' type='button'" + 
+                    	"style='height:33px'>" +
+                        "<span class='glyphicon glyphicon-pushpin'></span>" +
+                        "<span class='buttonText'>Pin it</span>" +
+                    "</button>" +
+                    "<button class='Button DropdownButton Module btn hasText rounded sendSmall sendPinGrid' data-element-type='98' type='button'" +
+                    	"style='height:33px'>" +
+                        "<span class='glyphicon glyphicon-send'></span>" +
+                        "<span class='buttonText'>Send</span>" +
+                    "</button>" +
+                "</div>" +
+                "<div class='likeEditButtonWrapper'>" +                                                                            
+                    "<button class='Button LikeButton Module PinLikeButton btn likeSmall rounded' data-element-type='1' data-source-interest-id='945391946569'" +
+                   "data-text-like='Like' data-text-unlike='Unlike' type='button'  style='height:33px'>" +
+                        "<span class='glyphicon glyphicon-heart-empty'></span>" +
+                    "</button>" +
+                "</div>" +
+                "<a class='Button Module NavigateButton borderless hasText pinNavLink navLinkOverlay' data-element-type='162' " +
+                    "href='http://havsandlabs.wordpress.com/havanese/' rel='nofollow' type='button'>" +        
+                    "<em class='glyphicon glyphicon-leaf' style='color:white'></em>" +
+                    "<span class='buttonText'>Learn more at havsandlabs.wordpress.com</span>" +        
+                "</a>" +                                                                                                       
+                "<div class='pinHolder'>" +
+                    //"<a href='/pinDetail.jsp?pinid=" + $pinid +"&url=" + $url + "&author=" + $author + "' class='pinImageWrapper draggable' data-element-type='35' style='background: #5a1321;'>" +
+                      "<a href='pinDetail.jsp?pinid=" + $pinid + "&bid=" + $bid + "&bname=" + $bname + "'class='pinImageWrapper draggable' data-element-type='35' style='background: #5a1321;'>" +                  
+                        "<div class='pinDomain'>rosasenaturezas.tumblr.com></div>" +
+                        "<div class='fadeContainer'>" +
+                            "<div class='pinImageDim'>" +
+                                "<div class='dimOverlay'></div>" +
+                                "<div class='dimGradient'></div>" +
+                            "</div>" +
+                            "<div class='Image Module pinUiImage'>" +
+                                "<div>" +
+                                    "<img id='img_" + $pinid + "'src='" + $url + "' class='pinImg fullBleed loaded fade' style='' onload='' alt=''>" +
+                                "</div>" +
+                            "</div>" +
+          				"</div>" +
+                    "</a>" +
+                "</div>" +
+            "</div>" +
 
+            "<div class='pinMeta '>" +
+                "<p class='pinDescription'></p>" +
+                "<div class='Module SocialIconsCounts'>" +
+                    "<div class='pinSocialMeta'>" +
+                    "<a class='socialItem' href='/pin/338895940687224815/repins/' data-element-type='174'>" +
+                        "<em class='glyphicon glyphicon-share-alt'></em><em></em>" +
+                        "<em class='socialMetaCount repinCountSmall' id='rcem_" + $pinid + "'></em>" +
+                    "</a>" +
+                    "<a class='socialItem likes' href='/pin/338895940687224815/likes/' data-element-type='175'>" +
+                        "<em class='glyphicon glyphicon-heart'></em><em></em>" +
+                        "<em class='socialMetaCount likeCountSmall' id='lcem_" + $pinid+  "'></em>" +
+                    "</a>" +
+                    "</div>" +
+                "</div>" +
+            "</div>" +
+
+            "<div class='pinCredits'>" +
+                "<div class='creditItem '>" +
+                    "<a href='boardDetail.jsp?bname=" + $bname + "&bid=" + $bid + "&info=" + this.info + "'>" +
+                        "<div class='Image Module creditImg'>" +
+                            "<div>" +
+                                "<img src='https://s-media-cache-ak0.pinimg.com/30x30/55/6f/9a/556f9afacbd32e1528c3b4d068324b59.jpg' style='' alt='Dresses' data-src='https://s-media-cache-ak0.pinimg.com/30x30/55/6f/9a/556f9afacbd32e1528c3b4d068324b59.jpg'>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class='creditName'>Found in</div> " +
+                        "<div class='creditTitle' id='bid_" + $bid + "'>" + $bname + "</div>" +
+                    "</a>" +
+                "</div>" +
+            "</div>" 
+						);											
+						$container.append($element);
+						/* $element.bind("click", itemChoose)	 */											
+					});	
+					
+					$.each(data.pinStatList, function(){
+						var $pinid = this.pinid;
+						var $rc = this.repinCount;
+						var $lc = this.likeCount;
+						$("#rcem_" + $pinid).text(($rc)>0 ? $rc : "");
+						$("#lcem_" + $pinid).text(($lc)>0 ? $rc : "");
+					});	
+					
+					$container.imagesLoaded( function(){
+						$container.masonry({
+					        itemSelector : '.masonryItem',
+					        columnWidth:236,
+					        gutterWidth:10,
+					        isFitWidth:true
+				//        	isAnimated:true
+			      		});	
+					});			
+					$('#headerContainer').width($('#gridItemModule').width());	
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.error("index take pins error!");
+				},
+			});
+			
+			//$('#masonryContainer').imagesLoaded( function(){
+		    	
+		    //});
+		
+		//    $('#headerContainer').width($('#header_module').width());
+		
+		   /*  $('#masonrySmall').imagesLoaded( function(){
+		    	$('#masonrySmall').masonry({
+		        itemSelector : '.masonrySmallItem',
+		        columnWidth:70,
+		        gutterWidth:2,
+		        isFitWidth:true
+		      });
+		    }); */
+		    
+		    $("#addPinMenuButton").click(function(){
+		        $("#addPinMenuContent").slideToggle();
+		    });
+    	
+    	})
+    	
+		function showCreatePinForm(bid, pic, note) {
+			alert('showCreatePinForm!');
+		}
+		    	
+    </script>
+	
   </head>  
   <body>
   	<jsp:include page="./modules/header.jsp" />
-	<jsp:include page="./modules/footer.jsp"/>
+	<jsp:include page="./modules/footer.jsp"/>	
+	<input type="hidden" name="lastPinid" id="lastPinid"/>
 	<div class="appContent">
 		<div class="mainContainer" style="background-color:#e9e9e9">
 			<div class="Module Nags centeredWithinWrapper" style="height:54px"></div>
-			<div class="HomePage Module">
+			<div class="HomePage Module" style="min-height:624px">
 				<div class="AuthHomePage Module">
 					<div class="HeroBasicWrapper Module"></div>
 					<div class="Grid Module hasFooter" style="background-color:#e9e9e9">

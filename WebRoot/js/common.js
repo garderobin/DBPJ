@@ -4,11 +4,6 @@ $(document).ready(function(){
     });
 });
 
-//$('#masonryContainer').masonry({
-//	columnWidth: 236,
-//	itemSelector: '.masonryItem',
-//	gotter: 10
-//})
 
 $(function(){
 

@@ -679,6 +679,16 @@ public class PinDAOImpl implements PinDAO{
 	}
 	
 	@Override
+	public int countFollowingByUsername(String username) {
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Follow follow where follow.user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+        int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
 	public ArrayList<Pin> findPinByUsername(String username){
 		Session session = sessionFactory.openSession();
 		String hql = "select new Pin(pin.pinid, pin.board, pin.picture, pin.discription, pin.time, pin.repin) " +

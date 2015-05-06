@@ -15,7 +15,7 @@ public class EditPinAction extends ActionSupport {
 	private int bid;
 	private int picnum;
 	private String note;
-	private Date time;
+	//private Date time;
 	private PinService service;
     
 
@@ -58,17 +58,6 @@ public class EditPinAction extends ActionSupport {
 		this.note = note;
 	}
 
-
-	public Date getTime() {
-		return time;
-	}
-
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
-
-
 	public PinService getService() {
 		return service;
 	}
@@ -81,6 +70,7 @@ public class EditPinAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		System.out.println(">>>>>>>> Enter action!<<<<<<<<<<");
 		switch(this.service.updatePin(pinid, bid, note)) {
 		case PIN_EXISTED:
 			addFieldError("message", "Can not get into the destination board");

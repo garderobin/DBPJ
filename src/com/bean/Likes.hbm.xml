@@ -10,10 +10,10 @@
             <column name="idlikes" />
             <generator class="identity" />
         </id>
-        <many-to-one name="user" class="com.bean.User" fetch="select">
+        <many-to-one name="user" class="com.bean.User" fetch="select"  lazy="false">
             <column name="username" length="20" />
         </many-to-one>
-        <many-to-one name="picture" class="com.bean.Picture" fetch="select">
+        <many-to-one name="picture" class="com.bean.Picture" fetch="select"  lazy="false">
             <column name="picnum" />
         </many-to-one>
         <property name="time" type="java.sql.Timestamp">

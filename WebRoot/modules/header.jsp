@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <span class="glyphicon glyphicon-bell" style="font-size: 22px; color:gray"></span>
     				</button>
     				<button class="Module UserNavigateButton merged" data-element-type=""
-    					type="button">
+    					type="button" onclick="location.href='userPage.jsp'">
     					<div class="usernameLink">
     						<div class="Image Module profileImage">
     							<div class="heightContainer">
@@ -59,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		</div>
     		<div class="leftHeaderContent" style="background-color:white">
             	<a class="Button Module NavigateButton btn logoHeader leftRounded rounded" 
-                	data-element-type="" data-force-refresh="1" href="/" type="button">            					
+                	data-element-type="" data-force-refresh="1" href="index.jsp" type="button">            					
 					<!--<em></em>-->
                     <span class="accessibilityText">Home</span>                    
                     <span class="glyphicon glyphicon-search" style="font-size:22px; color:gray"></span>                    

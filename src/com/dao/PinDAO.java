@@ -1,5 +1,6 @@
 package com.dao;
 import java.util.ArrayList;
+
 import com.bean.*;
 
 public interface PinDAO {
@@ -60,4 +61,5 @@ public interface PinDAO {
 	public int countRepinByPinid(int pinid);
 	public int countLikesByPinid(int pinid);
 	public int countCommentByPinid(int pinid);
+	public int countFollowingByUsername(String username);
 }

@@ -37,7 +37,8 @@
 				<value>com/bean/Picture.hbm.xml</value>
 				<value>com/bean/Pin.hbm.xml</value>
 				<value>com/bean/Likes.hbm.xml</value>
-				<value>com/bean/Comment.hbm.xml</value>					
+				<value>com/bean/Comment.hbm.xml</value>	
+				<value>com/bean/Request.hbm.xml</value>				
 				
 			</list>
 			 
@@ -106,7 +107,7 @@
 			<ref bean="pinService"></ref>
 		</property>
 	</bean>	
-	<bean id="QueryBoardAction" class="com.action.pin.QueryBoardAction" scope="prototype">
+	<bean id="queryBoardAction" class="com.action.pin.QueryBoardAction" scope="prototype">
 		<property name="service">
 			<ref bean="pinService"></ref>
 		</property>
@@ -143,7 +144,7 @@
 			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="editPinAction" class="com.action.pin.EditBoardAction" scope="prototype">
+	<bean id="editPinAction" class="com.action.pin.EditPinAction" scope="prototype">
 		<property name="service">
 			<ref bean="pinService"></ref>
 		</property>
@@ -152,6 +153,19 @@
 		<property name="service">
 			<ref bean="pinService"></ref>
 		</property>
+	</bean>
+	<bean id="queryStatAction" class="com.action.pin.QueryStatAction" scope="prototype">
+		<property name="pinService">
+			<ref bean="pinService"></ref>
+		</property>
+		<property name="userService">
+			<ref bean="userService"></ref>
+		</property>
+	</bean>
+	<bean id="queryPinAction" class="com.action.pin.QueryPinAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>		
 	</bean>
 	<!-- 
 	<bean id="userManage" class="dao.UserManage" abstract="false" lazy-init="default"

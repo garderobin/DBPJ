@@ -29,6 +29,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="css/bundle-desktop-main_db38bc94.css" rel="stylesheet" type="text/css">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/dbcommon.css" rel="stylesheet" type="text/css">
+	<link href="css/bundle-desktop-1_a3436a78.css" rel="stylesheet" type="text/css">
+	<link href="css/bundle-desktop-2_994eb744.css" rel="stylesheet" type="text/css"> 
+	<link href="css/bundle-desktop-2_5c6c6f50.css" rel="stylesheet" type="text/css"> 
+	<link href="css/bundle-desktop-2_442c9884.css" rel="stylesheet" type="text/css">
+	<!-- <link href="css/bundle-desktop-1_7e764a10.css" rel="stylesheet" type="text/css"> -->
+    
    	<script src="https://s-media-cache-ak0.pinimg.com/assets/js/dns.js" async="" defer=""></script>	
    	<script src="js/jquery.min.js"></script>
    	<script src="js/bootstrap.js"></script>
@@ -36,15 +42,168 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script src="js/jquery.masonry.min.js"></script>
     <script src="js/modernizr-transitions.js"></script>
     <script type="text/javascript">
+    $(function(){
     	
+    	var $bid = $("#bid").val(); 
+    	var $isAuthor = ($("#currentUser").text() === $("#author").text());
+    	console.log("isAuthor: " + $isAuthor);
+    	if ($isAuthor) {
+    		$("#boardInfoBarWrapper").load("/modules/authorBoardButtons.html");
+    	} else {
+    		$("#boardInfoBarWrapper").load("/modules/visitorBoardButtons.html");
+    	}
+    	//setOperationBar($("#currentUser").text(), $("#author").text());
+    	/* $.ajax({
+			type:'GET',
+			dataType:'json',
+			url:'queryBoardStatistic.action',
+			data:{username:$("#usernameSpan").text()},
+			success: function(data, textStatus) {
+				var $stat = data.boardStat;
+				$("#pinCountSpan").text($stat.pinCount);
+				$("#followerCountSpan").text($stat.followerCount);
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {					console.error("stat error!");
+			},
+		}); */
+			
+    	$.ajax({
+			type:'GET',
+			dataType:'json',
+			url:'queryPinsByBid.action',
+			data:{bid:$bid},
+			success: function(data, textStatus) {
+				var $container = $("#masonryContainer");
+				$container.children().remove();
+				$.each(data.pinList, function() {
+					var $pinid = this.pinid;
+					var $url = this.picture.url; console.log(this);
+					var $note = this.note;
+					var $bname = this.board.bname;
+					var $bid = this.board.bid;
+					var $element = $("<div class='masonryItem  ui-draggable ui-draggable-disabled ui-state-disabled' aria-disabled='true' style='margin-bottom: 10px;'>" + 
+    "<div class='Module Pin summary' data-component-type='0'>" + 
+        "<div class='pinWrapper'>" + 
+            "<div class='bulkEditPinWrapper'></div>" + 
+            "<div class='pinImageActionButtonWrapper'>" + 
+                "<div class='repinSendButtonWrapper'>" + 
+                    "<button class='Button Module ShowModalButton btn primary primaryOnHover repinSmall rounded' data-element-type='0' type='button'" + 
+                    	"style='height:33px'>" +
+                        "<span class='glyphicon glyphicon-pushpin'></span>" +
+                        "<span class='buttonText'>Pin it</span>" +
+                    "</button>" +
+                    "<button class='Button DropdownButton Module btn hasText rounded sendSmall sendPinGrid' data-element-type='98' type='button'" +
+                    	"style='height:33px'>" +
+                        "<span class='glyphicon glyphicon-send'></span>" +
+                        "<span class='buttonText'>Send</span>" +
+                    "</button>" +
+                "</div>" +
+                "<div class='likeEditButtonWrapper'>" +                                                                            
+                    "<button class='Button LikeButton Module PinLikeButton btn likeSmall rounded' data-element-type='1' data-source-interest-id='945391946569'" +
+                   "data-text-like='Like' data-text-unlike='Unlike' type='button'  style='height:33px'>" +
+                        "<span class='glyphicon glyphicon-heart-empty'></span>" +
+                    "</button>" +
+                "</div>" +
+                "<a class='Button Module NavigateButton borderless hasText pinNavLink navLinkOverlay' data-element-type='162' " +
+                    "href='http://havsandlabs.wordpress.com/havanese/' rel='nofollow' type='button'>" +        
+                    "<em class='glyphicon glyphicon-leaf' style='color:white'></em>" +
+                    "<span class='buttonText'>Learn more at havsandlabs.wordpress.com</span>" +        
+                "</a>" +                                                                                                       
+                "<div class='pinHolder'>" +
+                    //"<a href='/pinDetail.jsp?pinid=" + $pinid +"&url=" + $url + "&author=" + $author + "' class='pinImageWrapper draggable' data-element-type='35' style='background: #5a1321;'>" +
+                      "<a href='pinDetail.jsp?pinid=" + $pinid + "&bid=" + $bid + "&bname=" + $bname + "'class='pinImageWrapper draggable' data-element-type='35' style='background: #5a1321;'>" +                  
+                        "<div class='pinDomain'>rosasenaturezas.tumblr.com></div>" +
+                        "<div class='fadeContainer'>" +
+                            "<div class='pinImageDim'>" +
+                                "<div class='dimOverlay'></div>" +
+                                "<div class='dimGradient'></div>" +
+                            "</div>" +
+                            "<div class='Image Module pinUiImage'>" +
+                                "<div>" +
+                                    "<img id='img_" + $pinid + "'src='" + $url + "' class='pinImg fullBleed loaded fade' style='' onload='' alt=''>" +
+                                "</div>" +
+                            "</div>" +
+          				"</div>" +
+                    "</a>" +
+                "</div>" +
+            "</div>" +
+
+            "<div class='pinMeta '>" +
+                "<p class='pinDescription'></p>" +
+                "<div class='Module SocialIconsCounts'>" +
+                    "<div class='pinSocialMeta'>" +
+                    "<a class='socialItem' href='/pin/338895940687224815/repins/' data-element-type='174'>" +
+                        "<em class='glyphicon glyphicon-share-alt'></em><em></em>" +
+                        "<em class='socialMetaCount repinCountSmall' id='rcem_" + $pinid + "'></em>" +
+                    "</a>" +
+                    "<a class='socialItem likes' href='/pin/338895940687224815/likes/' data-element-type='175'>" +
+                        "<em class='glyphicon glyphicon-heart'></em><em></em>" +
+                        "<em class='socialMetaCount likeCountSmall' id='lcem_" + $pinid+  "'></em>" +
+                    "</a>" +
+                    "</div>" +
+                "</div>" +
+            "</div>" +
+
+            "<div class='pinCredits'>" +
+                "<div class='creditItem '>" +
+                    "<a href='boardDetail.jsp?bname=" + $bname + "&bid=" + $bid + "&info=" + this.info + "'>" +
+                        "<div class='Image Module creditImg'>" +
+                            "<div>" +
+                                "<img src='https://s-media-cache-ak0.pinimg.com/30x30/55/6f/9a/556f9afacbd32e1528c3b4d068324b59.jpg' style='' alt='Dresses' data-src='https://s-media-cache-ak0.pinimg.com/30x30/55/6f/9a/556f9afacbd32e1528c3b4d068324b59.jpg'>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class='creditName'>Found in</div> " +
+                        "<div class='creditTitle' id='bid_" + $bid + "'>" + $bname + "</div>" +
+                    "</a>" +
+                "</div>" +
+            "</div>" 											
+					);
+					$container.append($element);
+				});
+				
+				$.each(data.pinStatList, function() {
+					var $pinid = this.pinid;
+					var $rc = this.repinCount;
+					var $lc = this.likeCount;
+					$("#rcem_" + $pinid).text(($rc)>0 ? $rc : "");
+					$("#lcem_" + $pinid).text(($lc)>0 ? $rc : "");					
+				});		
+										
+				$container.imagesLoaded( function(){
+					$container.masonry({
+						itemSelector : '.masonryItem',
+					    columnWidth:236,
+					    gutterWidth:10,
+					    isFitWidth:true
+					});
+				});
+				
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.error("queryPinsByBid error!");
+			},
+		});
+    })
     
+    /* function setOperationBar(cuser, author) {
+    	if (cuser == author) {
+    		$(".IsAuthor").css("display", "none");
+    		$(".NotAuthor").css("display", "block");
+    	} else {
+    		$(".IsAuthor").css("display", "block");
+    		$(".NotAuthor").css("display", "none");
+    	}
+    }  */   
     </script>
     	
 
   </head>
   
   <body class="noTouch">
-  <input type="hidden" value=<%= request.getParameter("bid")%>/>
+  	<jsp:include page="./modules/header.jsp" />
+	<jsp:include page="./modules/footer.jsp"/>
+  	<input type="hidden" name="bid" id="bid" value=<%= request.getParameter("bid")%>>
+  	<div id="currentUser" style="display:none"><s:property value='#session.username'></s:property></div>
 <div class="App AppBase Module full" data-component-type="17">                       
 <div class="appContent">
     <div class="mainContainer">
@@ -57,24 +216,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="BoardInvite Module hidden"></div>
 						<div class="BoardHeader Module gridWidth">
 							<div class="boardHeaderWrapper centeredWithinWrapper">
-								<h1 class="boardName"><%= request.getParameter("bname")%></h1>
-    								<p class="description"> </p>
+								<h1 class="boardName"><%= request.getParameter("bname") %></h1>
+    								<p class="description"><%= request.getParameter("info") %></p>
 									<div class="divider"><hr>
         							</div>
     						</div>
 							<div class="BoardInfoBar Module boardHeaderBackground" data-component-type="69" style="padding-left:25px; padding-right:25px">
-								<div class="infoBarWrapper gridWidth centeredWithinWrapper" style="margin-top:-10px">
-	    							<div class="boardButtons" style="height:30px;">
-	    								<button class="Button Module btn1 hasText movePinsButton rounded" data-element-type="400" type="button"  style="height:30px">
+								<div id="boardInfoBarWrapper" class="infoBarWrapper gridWidth centeredWithinWrapper">				
+	    							<%-- <div class="boardButtons" style="height:30px;">
+	    								<button class="IsAuthor Button Module btn1 hasText movePinsButton rounded" data-element-type="400" type="button"  style="height:30px; display:none">
 											<span class="buttonText">Move Pins</span>
 	        							</button>
-										<button id="editBoardButton" class="Button Module ShowModalButton boardEditButton btn1 hasText rounded" type="button" style="height:30px">
+										<button id="editBoardButton" class="IsAuthor Button Module ShowModalButton boardEditButton btn1 hasText rounded" type="button" style="height:30px; display:none">
 											<span class="buttonText">Edit Board</span>
-										</button>
-										<button class="Button DropdownButton Module boardSettingsButton btn1 rounded" type="button" style="height:30px">
-											<em></em>
-											<span class="accessibilityText">Board Menu</span>
-										</button>
+										</button>										
 									</div>
 									<div class="collaborators  showName">
 	        							<div class="Module User hasText inline small thumbUserInfo">
@@ -82,25 +237,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<div class="thumbImageWrapper">
 													<img src="https://s-passets-cache-ak0.pinimg.com/images/user/default_60.png" alt="Jasmine Liu" title="More from Jasmine Liu">
 	        									</div>
-												<h4 class="fullname"><s:property value="#session.username"></s:property></h4>
+												<h4 class="fullname" id="author"><%= request.getParameter("username") %></h4>
 												<!-- <div class="fullname Label Module">Jasmine Liu</div> -->
 											</a>
 										</div>
-	 									<button class="Button Module ShowModalButton boardAddCollaboratorsButton borderless primary" type="button">
+	 									<button class="Button Module ShowModalButton boardAddCollaboratorsButton borderless primary" type="button"
+	 										style="background-image:url('images/addFriend.png'); background-size: 30px 30px; background-position:0 0">
 											<div class="Label Module">Invite</div>
 										</button>
-									</div>
+									</div> --%>
 									<h2 class="smallBoardName centeredWithinWrapper" style="opacity: 0; transform: translate(0px, 0px);">Test</h2>
 									<div class="pinsAndFollowerCount " style="transform: translate(0px, 0px);">
 	            						<ul>
 	                						<li>
-												<span class="value">5</span> <span class="label">Pins</span>
+												<span class="value" id="pinCountSpan"><%= request.getParameter("pinCount") %></span> 
+												<span class="label">Pins</span>
 	    									</li>
 											<li>
 	                        					<button class="Button Module ShowModalButton borderless followerCount hasText" type="button">
 													<em></em>
 													<span class="buttonText">
-														<span class="value">0</span> 
+														<span class="value" id="followerCountSpan"><%=request.getParameter("followerCount") %></span> 
 														<span class="label">Followers</span>
 													</span>        
 												</button>
@@ -153,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<div class="hoverMask"></div>
 															<div class="Image Module pinUiImage" style="width: 236px">
 																<div class="heightContainer" style="padding-bottom: 75.0000000%">
-																	<img src="https://s-media-cache-ak0.pinimg.com/474x/fa/cb/88/facb888b13d3655ac510f3202429ca50.jpg" class="pinImg fullBleed loaded fade" style="" onload="P.lazy.onImageLoad(this)" alt="Neon Hot Pink and Grey Chevron Dog Collar by JazzyJDesigns on Etsy, $18.00  www.jazzyjdesigns.com Jazzy J Designs">
+																	<img src="https://s-media-cache-ak0.pinimg.com/474x/fa/cb/88/facb888b13d3655ac510f3202429ca50.jpg" class="pinImg fullBleed loaded fade" style="" onload="" alt="Neon Hot Pink and Grey Chevron Dog Collar by JazzyJDesigns on Etsy, $18.00  www.jazzyjdesigns.com Jazzy J Designs">
 																</div>
 															</div>
 														</div>
@@ -240,7 +397,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<div class="hoverMask"></div>
 															<div class="Image Module pinUiImage" style="width: 236px">
 																<div class="heightContainer" style="padding-bottom: 75.0000000%">
-																	<img src="https://s-media-cache-ak0.pinimg.com/474x/23/0c/b3/230cb3583baa4be227754dff15ca560d.jpg" class="pinImg fullBleed loaded fade" style="" onload="/*P.lazy.onImageLoad(this)*/" alt="test2">
+																	<img src="https://s-media-cache-ak0.pinimg.com/474x/23/0c/b3/230cb3583baa4be227754dff15ca560d.jpg" class="pinImg fullBleed loaded fade" style="" onload="" alt="test2">
 																</div>
 															</div>                        
                     									</div>                
@@ -630,7 +787,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     
 
-    <img src="https://s-media-cache-ak0.pinimg.com/474x/53/d8/38/53d838633c0479d13326e9238fb4f839.jpg" class="pinImg fullBleed loaded fade" style="" onload="P.lazy.onImageLoad(this)" alt="test1">
+    <img src="https://s-media-cache-ak0.pinimg.com/474x/53/d8/38/53d838633c0479d13326e9238fb4f839.jpg" class="pinImg fullBleed loaded fade" style="" onload="" alt="test1">
 
 </div>
 </div>
@@ -827,7 +984,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<div class="hoverMask"></div>
 															<div class="Image Module pinUiImage" style="width: 236px">
 																<div class="heightContainer" style="padding-bottom: 75.0000000%">
-																	<img src="https://s-media-cache-ak0.pinimg.com/474x/fa/cb/88/facb888b13d3655ac510f3202429ca50.jpg" class="pinImg fullBleed loaded fade" style="" onload="P.lazy.onImageLoad(this)" alt="Neon Hot Pink and Grey Chevron Dog Collar by JazzyJDesigns on Etsy, $18.00  www.jazzyjdesigns.com Jazzy J Designs">
+																	<img src="https://s-media-cache-ak0.pinimg.com/474x/fa/cb/88/facb888b13d3655ac510f3202429ca50.jpg" class="pinImg fullBleed loaded fade" style="" onload="" alt="Neon Hot Pink and Grey Chevron Dog Collar by JazzyJDesigns on Etsy, $18.00  www.jazzyjdesigns.com Jazzy J Designs">
 																</div>
 															</div>
 														</div>
@@ -916,7 +1073,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 															<div class="hoverMask"></div>
 															<div class="Image Module pinUiImage" style="width: 236px">
 																<div class="heightContainer" style="padding-bottom: 75.0000000%">
-																	<img src="https://s-media-cache-ak0.pinimg.com/474x/fa/cb/88/facb888b13d3655ac510f3202429ca50.jpg" class="pinImg fullBleed loaded fade" style="" onload="P.lazy.onImageLoad(this)" alt="Neon Hot Pink and Grey Chevron Dog Collar by JazzyJDesigns on Etsy, $18.00  www.jazzyjdesigns.com Jazzy J Designs">
+																	<img src="https://s-media-cache-ak0.pinimg.com/474x/fa/cb/88/facb888b13d3655ac510f3202429ca50.jpg" class="pinImg fullBleed loaded fade" style="" onload="" alt="Neon Hot Pink and Grey Chevron Dog Collar by JazzyJDesigns on Etsy, $18.00  www.jazzyjdesigns.com Jazzy J Designs">
 																</div>
 															</div>
 														</div>

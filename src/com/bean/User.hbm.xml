@@ -19,6 +19,12 @@
         <property name="time" type="java.sql.Timestamp">
             <column name="time" length="0" not-null="true" />
         </property>
+        <set name="requestsForInvitor" inverse="true">
+            <key>
+                <column name="invitor" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.bean.Request" />
+        </set>
         <set name="comments" inverse="true">
             <key>
                 <column name="username" length="20" not-null="true" />
@@ -48,6 +54,12 @@
                 <column name="username" length="20" />
             </key>
             <one-to-many class="com.bean.Likes" />
+        </set>
+        <set name="requestsForAnsweror" inverse="true">
+            <key>
+                <column name="answeror" length="20" not-null="true" />
+            </key>
+            <one-to-many class="com.bean.Request" />
         </set>
         <set name="boards" inverse="true">
             <key>

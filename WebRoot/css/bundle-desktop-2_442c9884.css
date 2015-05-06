@@ -292,12 +292,12 @@
 .Button.boardAddCollaboratorsButton {
     width: 30px;
     height: 30px;
-    background: url('/webapp/style/sprites/webapp-common-above_the_fold-1x.20428f0e.png') -172px 0px no-repeat;
+    background: url('/images/pinterestInfo.png') -172px 0px no-repeat;
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
     .Button.boardAddCollaboratorsButton {
-        background-image: url('/webapp/style/sprites/webapp-common-above_the_fold-2x.9215c909.png');
+        background-image: url('/images/pinterestInfo.png');
         background-position: -167px 0px;
         background-size: 214px 199px;
     }

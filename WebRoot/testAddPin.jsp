@@ -65,15 +65,15 @@
             			<h3 style="width:130px"><label>Board</label></h3>            			
             			<div class="dropdown"  style="margin-left:-90px;">
                 			<button class=" BoardPickerDropdownButton Button DropdownButton Module btn primary rounded dropdown-toggle" type="button"
-                			 id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true"">
+                			 id="addPinPickBoardButton" data-toggle="dropdown" aria-expanded="true">
 								<%-- <span class="downArrow"></span> --%>
 								<div class="BoardLabel Module compact">
 									<span class="nameAndIcons">
-    									<div class="name"style="float:right;min-width:290px;" id="selectSpan">Select a board</div>
+    									<div class="name" style="float:right;min-width:290px;" id="selectSpan">Select a board</div>
 									</span>
 								</div>
 							</button>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="selectBoard" style="position:relative;float:left;width:318px"></ul>
+							<ul class="dropdown-menu selectBoard" role="menu" aria-labelledby="addPinPickBoardButton" id="selectBoard" style="position:relative;float:left;width:318px"></ul>
             			</div>
        				</li>
        				<li style="width:500px">
@@ -134,11 +134,11 @@
 	         }
   	    });
   	    
-  	    $('#selectBoard').click(getBoardList($("#username").val())); 
+  	    $("#addPinPickBoardButton").click(getBoardListForAddPin()); 
   	     	    
 	})
 	
-	function getBoardList(bid) {
+	function getBoardListForAddPin() {		
 		$.ajax({
 			type:"GET",
 			dataType:"json",

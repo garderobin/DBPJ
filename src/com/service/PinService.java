@@ -1,9 +1,12 @@
 package com.service;
 
 import java.util.ArrayList;
+
 import com.bean.*;
+import com.util.BoardStat;
 import com.util.ErrorType;
 import com.util.PinStat;
+import com.util.UserStat;
 public interface PinService {
 	
 	/* Board */
@@ -61,16 +64,16 @@ public interface PinService {
      * 			int[2]: num of likes
      * 			int[3]: num of friends
      */
-    public int[] userBasicStatistic(String username);
-    
+    //public int[] userBasicStatistic(String username);
+    public UserStat userBasicStatistic(String username);
     /**
      * 
      * @param bid
      * @return	int[0]: num of pins
      * 			int[0]: num of followers
      */
-    public int[] boardBasicStatistic(int bid);
-    
+    //public int[] boardBasicStatistic(int bid);
+    public BoardStat boardBasicStatistic(int bid);
     /**
      * 
      * @param pinid
@@ -78,8 +81,7 @@ public interface PinService {
      * 			int[1]: num of likes
      *          int[2]: num of comments
      */
-    //public int[] pinBasicStatistic(int pinid);
-    
+    //public int[] pinBasicStatistic(int pinid);    
     public PinStat pinBasicStatistic(int pinid);
     
     public ArrayList<PinStat> pinStatListByPinList(ArrayList<Pin> pinList);

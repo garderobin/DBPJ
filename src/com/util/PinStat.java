@@ -1,6 +1,7 @@
 package com.util;
 
 public class PinStat {
+	private int pinid;
 	private int repinCount;
 	private int likeCount;
 	private int commentCount;
@@ -9,7 +10,8 @@ public class PinStat {
 		
 	}
 	
-	public PinStat(int repinCount, int likeCount, int commentCount) {
+	public PinStat(int pinid, int repinCount, int likeCount, int commentCount) {
+		this.pinid = pinid;
 		this.repinCount = repinCount;
 		this.likeCount = likeCount;
 		this.commentCount = commentCount;
@@ -32,6 +34,14 @@ public class PinStat {
 	}
 	public void setCommentCount(int commentCount) {
 		this.commentCount = commentCount;
+	}
+
+	public int getPinid() {
+		return pinid;
+	}
+
+	public void setPinid(int pinid) {
+		this.pinid = pinid;
 	}
 	
 	

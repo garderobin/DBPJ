@@ -68,7 +68,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="js/modernizr-transitions.js"></script>
         <script>
     	$(function(){     		
-    		$('#headerContainer').width($('#gridItemModule').width());    		
+    		 
+    		   		
+			$.ajax({
+				type:'GET',
+				dataType:'json',
+				url:'queryUserStatistic.action',
+				data:{username:$("#usernameSpan").text()},
+				success: function(data, textStatus) {
+					var $stat = data.userStat;
+					$("#boardCountSpan").text($stat.boardCount);
+					$("#pinCountSpan").text($stat.pinCount);
+					$("#likeCountSpan").text($stat.likeCount);
+					$("#friendCountSpan").text($stat.friendCount);
+					$("#followingCountSpan").text($stat.followingCount);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.error("stat error!");
+				},
+			});
+			
 			$.ajax({
 				type:'GET',
 				dataType:'json',
@@ -76,6 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				success: function(data, textStatus) {
 					var $testDiv = $('#gridItemModule');
 					$.each(data.boardList, function() {
+						//console.log(this);
 						var $bid  = this.bid;
 						var $bname = this.bname;
 						var $info = this.info;
@@ -120,6 +140,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					});				
 				}, 
 			});
+			
+			$('#headerContainer').width($('#gridItemModule').width());
 		})
 		
     	$(window).resize(function() {
@@ -187,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         						<div class="fixedHeaderImage">
 													<img src="https://s-passets-cache-ak0.pinimg.com/images/user/default_140.png" style="" alt="TAO DONG">
 												</div>
-                        						<div class="fixedHeaderName" itemprop="name"><s:property value="#session.username"></s:property></div>
+                        						<div class="fixedHeaderName" itemprop="name" id="usernameSpan"><s:property value="#session.username"></s:property></div>
                     						</div>
                     						<div class="buttons">
 												<button class="Button Module btn hasText movePinsButton rounded" data-element-type="400" type="button">
@@ -228,30 +250,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         							<li>
 										<a href="/dongtao090908/boards/" class="active">
 											<div class="BoardCount Module">
-												<span class="value">2</span> <span class="label">Boards</span>
+												<span class="value" id="boardCountSpan">2</span> <span class="label">Boards</span>
 											</div>
             							</a>
         							</li>
         							<li>
 										<a href="/dongtao090908/pins/" class="">
-											<span class="value">2</span> <span class="label">Pins</span>
+											<span class="value" id="pinCountSpan">2</span> <span class="label">Pins</span>
 										</a>
         							</li>
         							<li>
 										<a href="/dongtao090908/likes/" class="">
-											<span class="value">1</span> <span class="label">Like</span>
+											<span class="value" id="likeCountSpan">1</span> <span class="label">Like</span>
 										</a>
         							</li>
         							<li>
 										<a href="/dongtao090908/followers/" class="">
 											<div class="FollowerCount Module">
-												<span class="value">0</span> <span class="label">Followers</span>
+												<span class="value" id="friendCountSpan">0</span> <span class="label">Friends</span>
 											</div>
             							</a>
         							</li>
         							<li>
 										<a href="/dongtao090908/following/" class="">
-											<span class="value">5</span> <span class="label">Following</span>
+											<span class="value" id="followingCountSpan">5</span> <span class="label">Following</span>
 										</a>
        						 		</li>
     							</ul>

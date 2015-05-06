@@ -142,11 +142,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
-	//test
-	
-	
-	
-	
+
 	@Override
 	public void deleteFriendByUsernames(String username1, String username2) {
 		Session session = sessionFactory.openSession();
@@ -193,5 +189,7 @@ public class UserDAOImpl implements UserDAO {
 		session.close();
 		return n;
 	}
+	
+	
 	
 }

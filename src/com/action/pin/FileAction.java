@@ -22,10 +22,10 @@ public class FileAction extends ActionSupport{
 
 	@Transactional
 	public String fileUpload() {
-		String path = ServletActionContext.getServletContext().getRealPath("/");
-		//String path = "/Users/jasmineliu/Development/Data/pinterest/";	
-		String uploadPath = "images/data/";
-		path = path + uploadPath;
+		//String path = ServletActionContext.getServletContext().getRealPath("/");
+		String path = "/Users/jasmineliu/Development/Data/pinterest/";	
+//		String uploadPath = "userphotos/";
+//		path = path + uploadPath;
 		File ff = new File(path); 
 		if (!ff.exists()) {
 			ff.mkdir();
@@ -38,10 +38,13 @@ public class FileAction extends ActionSupport{
 				String name = fileName + fileType;		
 				BufferedImage image = ImageIO.read(f);				
 				filePath = path + name;
-//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> fileType = " + fileType  +  "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-//				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> filepath = " + filePath  +  "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> fileType = " + fileType  +  "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> store path = " + filePath  +  "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 				ImageIO.write(image, fileType.substring(1), new File(filePath));
+				String uploadPath = "userphotos/";
 				filePath = uploadPath + name;
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>> visit path = " + filePath  +  "<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

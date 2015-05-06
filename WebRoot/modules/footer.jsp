@@ -35,10 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="navbar-right Module Dropdown PositionModule positionModuleFixed positionFixed defaultCaret active positionModuleElement positionRight slide-in">
         <span class="positionModuleCaret" style="top:173px;"></span>
         <div class="AddPin Module isDropdown" data-component-type="">
-        	<button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" >
+        	<button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" 
+        		onclick="">
         		<em class="glyphicon glyphicon-cloud-upload" style="color:gray;font-size:20px"></em>
         		<!-- <em></em>  -->
-            	<span class="buttonText">Upload a Pin</span>
+            	<span class="buttonText"><a href="testAddPin.jsp">Upload a Pin</a></span>
             </button>
             <button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" >
             	<em class="glyphicon glyphicon-globe" style="color:gray;font-size:20px"></em>
