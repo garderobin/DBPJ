@@ -24,7 +24,7 @@ public class PinServiceImpl implements PinService {
 	
 	private UserDAO userDAO;	
 
-	
+
 
 	public PinDAO getPinDAO() {
 		return pinDAO;
@@ -34,8 +34,6 @@ public class PinServiceImpl implements PinService {
 		this.pinDAO = pinDAO;
 	}
 
-	
-	
 	public UserDAO getUserDAO() {
 		return userDAO;
 	}
@@ -131,6 +129,12 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
+	public ArrayList<Board> findBoardByInfo(String info){
+		ArrayList<Board> boards = pinDAO.findBoardByInfo(info);
+		return boards;
+	}
+	
+	@Override
 	public ArrayList<Board> findBoardByKeyword(String keyword){
 		ArrayList<Board> boards = pinDAO.findBoardByKeyword(keyword);
 		return boards;
@@ -212,10 +216,10 @@ public class PinServiceImpl implements PinService {
 	@Override
 	public int addPin(int bid, int picnum, String discription, int repin){
 		Pin pin1 = pinDAO.findPinByBidPicnum(bid, picnum);
-		if(pin1 != null){
-			return ErrorType.PIN_EXISTED.compareTo(ErrorType.NO_ERROR);
-		}
-		else{
+//		if(pin1 != null){
+//			//return ErrorType.PIN_EXISTED.compareTo(ErrorType.NO_ERROR);
+//		}
+//		else{
 		    Pin pin = new Pin();
 		    Board board = pinDAO.findBoardByBid(bid);
 		    if(board == null)
@@ -230,7 +234,7 @@ public class PinServiceImpl implements PinService {
 		    pin.setTime(new Date());
 		    pinDAO.addPin(pin);
 		    return pin.getPinid();
-		}		
+	//	}		
 	}
 	
 	@Override
@@ -347,7 +351,7 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
-	public int addComment(String username, int pinid, String comment){
+	public int addComment(String username, int pinid, String content){
 		User user = userDAO.findUserByUsername(username);
 		if(user == null)
 			return ErrorType.USER_NOT_EXIST.compareTo(ErrorType.NO_ERROR);
@@ -357,7 +361,7 @@ public class PinServiceImpl implements PinService {
 		Comment comment1 = new Comment();
 		comment1.setUser(user);
 		comment1.setPin(pin);
-		comment1.setComment(comment);
+		comment1.setContent(content);
 		comment1.setTime(new Date());
 		try{
 			pinDAO.addComment(comment1);
@@ -421,6 +425,20 @@ public class PinServiceImpl implements PinService {
 	@Override
 	public ErrorType deleteLikes(int idlikes){
 		Likes likes = pinDAO.findLikesByIdlikes(idlikes);
+		if(likes == null)
+			return ErrorType.LIKES_NOT_EXISTED;
+		try{
+			pinDAO.deleteLikes(likes);
+		}catch(Exception e){
+			e.printStackTrace();
+			return ErrorType.DELETE_ERROR;
+		}
+		return ErrorType.NO_ERROR;
+	}
+	
+	@Override
+	public ErrorType deleteLikesByUsernamePicnum(String username, int picnum){
+		Likes likes = pinDAO.findLikesByUsernamePicnum(username, picnum);
 		if(likes == null)
 			return ErrorType.LIKES_NOT_EXISTED;
 		try{
@@ -506,23 +524,83 @@ public class PinServiceImpl implements PinService {
 	}
 	
 	@Override
-	public PinStat pinBasicStatistic(int pinid){
+	public PinStat pinBasicStatistic(String username, int pinid){
+		Pin pin = pinDAO.findPinByPinid(pinid);
+		Likes likes = pinDAO.findLikesByUsernamePicnum(username, pin.getPicture().getPicnum());
+		String liked = (likes==null) ? "Unlike":"Like";
 		return new PinStat(pinid,
 				pinDAO.countRepinByPinid(pinid),
 				pinDAO.countLikesByPinid(pinid),
-				pinDAO.countCommentByPinid(pinid));
+				pinDAO.countCommentByPinid(pinid),
+				liked
+				);
 	}
 
 	@Override
-	public ArrayList<PinStat> pinStatListByPinList(ArrayList<Pin> pinList) {
+	public ArrayList<PinStat> pinStatListByPinList(String username, ArrayList<Pin> pinList) {
 		ArrayList<PinStat> stats = new ArrayList<PinStat>();
 		int len = pinList.size();
 		for (int i = 0; i < len; i++) {
-			stats.add(pinBasicStatistic(pinList.get(i).getPinid()));
+			stats.add(pinBasicStatistic(username, pinList.get(i).getPinid()));
 		}
 		return stats;
 	}
+	
+	@Override
+	public ArrayList<User> findUserByLikes(int picnum){
+		ArrayList<User> users = pinDAO.findUserByLikes(picnum);
+		return users;
+	}
+	
+	@Override
+	public ArrayList<String> findStreamByUsername(String username){
+		ArrayList<String> streams = pinDAO.findStreamByUsername(username);
+		return streams;
+	}
+	
+	@Override
+	public ErrorType updateFollow(String username, int bid, String stream){
+		Follow follow = pinDAO.findFollowByUsernameBid(username, bid);
+		if(follow==null)
+			return ErrorType.FOLLOW_NOT_EXISTED;
+		follow.setStream(stream);
+		try{
+			pinDAO.updateFollow(follow);
+		}catch(Exception e){
+			e.printStackTrace();
+			return ErrorType.UPDATE_ERROR;
+		}
+		return ErrorType.NO_ERROR;		
+	}
+	
+	@Override
+	public ErrorType changeFollowStream(String username, String oldstream, String stream){
+		try{
+			pinDAO.changeFollowStream(username, oldstream, stream);
+		}catch(Exception e){
+			e.printStackTrace();
+			return ErrorType.UPDATE_ERROR;
+		}
+		return ErrorType.NO_ERROR;
+	}
 
+	@Override
+	public Follow findFollowByUsernameBid(String username, int bid){
+		Follow follow = pinDAO.findFollowByUsernameBid(username, bid);
+		return follow;
+	}
+	
+	@Override
+	public ArrayList<Pin> takePinByBidOrder(){
+		ArrayList<Pin> pins = pinDAO.takePinByBidOrder();
+		return pins;
+	}
+
+	@Override
+	public ArrayList<Pin> findPinByTag(String tag){
+		ArrayList<Pin> pinlist = pinDAO.findPinByTag(tag);
+		return pinlist;
+	}
 	
 }
     

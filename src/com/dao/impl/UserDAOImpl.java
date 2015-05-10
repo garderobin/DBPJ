@@ -7,7 +7,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.bean.Board;
 import com.bean.Friend;
+import com.bean.Request;
 import com.bean.User;
 import com.dao.UserDAO;
 
@@ -16,6 +18,8 @@ public class UserDAOImpl implements UserDAO {
 	private SessionFactory sessionFactory;
 	
 	
+	
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -106,6 +110,23 @@ public class UserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public ArrayList<User> findUserByKeyword(String keyword){
+		Session session = sessionFactory.openSession();
+		String hql = "from User user where user.username like ?";
+		Query query = session.createQuery(hql);
+		query.setString(0,"%"+keyword+"%");
+		ArrayList<User> list = (ArrayList<User>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	
+	@Override
 	public void addFriend(Friend friend) {
 		Session session = sessionFactory.openSession();
 		session.save(friend);
@@ -142,7 +163,11 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 	
-
+	//test
+	
+	
+	
+	
 	@Override
 	public void deleteFriendByUsernames(String username1, String username2) {
 		Session session = sessionFactory.openSession();
@@ -190,6 +215,82 @@ public class UserDAOImpl implements UserDAO {
 		return n;
 	}
 	
+	@Override
+	public void addRequest(Request request){
+		Session session = sessionFactory.openSession();
+		session.save(request);
+		session.flush();
+		session.close();
+	}
 	
+	@Override
+	public void deleteRequest(Request request){
+		Session session = sessionFactory.openSession();
+		session.delete(request);
+		session.flush();
+		session.close();
+	}
 	
+	@Override
+	public void updateRequest(Request request){
+		Session session = sessionFactory.openSession();
+		session.update(request);
+		session.flush();
+		session.close();
+	}
+	
+	@Override
+	public ArrayList<Request> findRequestByInvitor(String invitor){
+		Session session = sessionFactory.openSession();
+		String hql = "from Request request where request.invitor.username = '" + invitor + "'";		
+		Query query = session.createQuery(hql);
+		ArrayList<Request> list = (ArrayList<Request>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return  list;
+		}
+	}
+	
+	@Override
+	public ArrayList<Request> findRequestByAnsweror(String answeror){
+		Session session = sessionFactory.openSession();
+		String hql = "from Request request where request.answeror.username = '" + answeror + "'";		
+		Query query = session.createQuery(hql);
+		ArrayList<Request> list = (ArrayList<Request>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return  list;
+		}
+	}
+	
+	@Override
+	public int countRequestByAnsweror(String answeror){
+		Session session = sessionFactory.openSession();
+		String hql = "select count(*) from Request request where request.answeror.username = '" + answeror + "'";
+		Query query = session.createQuery(hql);
+        int n = ((Number) query.uniqueResult()).intValue();
+		session.close();
+		return n;
+	}
+	
+	@Override
+	public Request findRequestByInvitorAnsweror(String invitor, String answeror){
+		Session session = sessionFactory.openSession();
+		String hql = "from Request request where request.answeror.username = '" + answeror + "' and request.invitor.username = '" + invitor + "'";		
+		Query query = session.createQuery(hql);
+		List list = query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return  (Request) list.get(0);
+		}
+	}
 }

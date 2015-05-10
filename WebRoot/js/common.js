@@ -71,3 +71,5 @@ function showCreatePinForm(bid, pic, note) {
 }
 
 
+
+

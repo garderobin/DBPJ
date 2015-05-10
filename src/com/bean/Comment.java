@@ -7,67 +7,60 @@ public class Comment{
 	private int cid;
 	private User user ;
 	private Pin pin;
-	private String comment;
+	private String content;
 	private Date time;
 	
 	
     public Comment(){
     	
     }
-    public Comment(int cid, User user, Pin pin, String comment, Date time){
+    public Comment(int cid, User user, Pin pin, String content, Date time){
     	this.cid = cid;
     	this.user = user;
     	this.pin = pin;
-    	this.comment = comment;
+    	this.content = content;
     	this.time = time;
     }
-    public Comment(User user, Pin pin, String comment, Date time){
+    public Comment(User user, Pin pin, String content, Date time){
     	this.user = user;
     	this.pin = pin;
-    	this.comment = comment;
+    	this.content = content;
     	this.time = time;
     }
+
+	
 
 	public int getCid() {
 		return cid;
 	}
-
 	public void setCid(int cid) {
 		this.cid = cid;
 	}
-
 	public User getUser() {
 		return user;
 	}
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 	public Pin getPin() {
 		return pin;
 	}
-
 	public void setPin(Pin pin) {
 		this.pin = pin;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getContent() {
+		return content;
 	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setContent(String content) {
+		this.content = content;
 	}
-
 	public Date getTime() {
 		return time;
 	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

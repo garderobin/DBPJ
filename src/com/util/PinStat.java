@@ -5,6 +5,8 @@ public class PinStat {
 	private int repinCount;
 	private int likeCount;
 	private int commentCount;
+	private String isLikedByCurUser;
+	
 	
 	public PinStat() {
 		
@@ -15,6 +17,15 @@ public class PinStat {
 		this.repinCount = repinCount;
 		this.likeCount = likeCount;
 		this.commentCount = commentCount;
+		this.isLikedByCurUser = "Unlike";
+	}
+	
+	public PinStat(int pinid, int repinCount, int likeCount, int commentCount, String isLikedByCurUser) {
+		this.pinid = pinid;
+		this.repinCount = repinCount;
+		this.likeCount = likeCount;
+		this.commentCount = commentCount;
+		this.isLikedByCurUser = isLikedByCurUser;
 	}
 	
 	public int getRepinCount() {
@@ -43,6 +54,14 @@ public class PinStat {
 	public void setPinid(int pinid) {
 		this.pinid = pinid;
 	}
+
+	public String getIsLikedByCurUser() {
+		return isLikedByCurUser;
+	}
+
+	public void setIsLikedByCurUser(String isLikedByCurUser) {
+		this.isLikedByCurUser = isLikedByCurUser;
+	}	
 	
 	
 }

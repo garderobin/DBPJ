@@ -14,7 +14,7 @@ public class ModifyUserInfoAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = -6532572051152947101L;
 	private UserService service;
-	private String username;
+	private User user;
 	private String old_password;
 	private String email;
 	private String password;
@@ -25,11 +25,12 @@ public class ModifyUserInfoAction extends ActionSupport {
 	public void setService(UserService service) {
 		this.service = service;
 	}
-	public String getUsername() {
-		return username;
+	
+	public User getUser() {
+		return user;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getOld_password() {
 		return old_password;
@@ -59,7 +60,19 @@ public class ModifyUserInfoAction extends ActionSupport {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String execute() throws Exception {
-		return null;
+		Map session = ActionContext.getContext().getSession();
+		String username = session.get("username").toString();
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setEmail(email);
+		switch(this.service.update(user)) {
+		case UPDATE_ERROR:
+			return "error";
+		case NO_ERROR:		
+			return SUCCESS;
+		default:
+			return "default";		
+		}		
 	}
 	
 }

@@ -23,9 +23,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="css/dbcommon.css" rel="stylesheet" type="text/css">
    	<script src="js/jquery.min.js"></script>
    	<script src="js/bootstrap.js"></script>
-   	<%-- <script src="js/common.js"></script> --%>
-   	<script src="js/jquery.masonry.min.js"></script>
-    <script src="js/modernizr-transitions.js"></script>
+   	 <%-- <script src="js/common.js"></script> --%>
+   	<%-- <script src="js/jquery.masonry.min.js"></script>
+    <script src="js/modernizr-transitions.js"></script> --%>
+    <script src="js/imagesUploaded.min.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
     <script type="text/javascript">
     	$(function(){
     		var $lastPinid = $("#lastPinid").val();
@@ -39,23 +41,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var $container = $("#masonryContainer");
 					$container.children().remove();
 					$.each(data.pinList, function()
-					{
+					{				
 						var $pinid = this.pinid;
-						var $url = this.picture.url; console.log(this);
+						var $url = this.picture.url; 
 						var $note = this.note;
-						/* var $rc = this.repinCount;
-						var $lc = this.likeCount; */
+						var $picnum = this.picture.picnum;
 						var $bname = this.board.bname;
 						var $bid = this.board.bid;
 						//var $author = this.board.user.username;
 						var $element = $(
 "<div class='masonryItem  ui-draggable ui-draggable-disabled ui-state-disabled' aria-disabled='true' style='margin-bottom: 10px;'>" + 
+   " <p class='picsort' style='display:none'> " + $picnum + "</p>"+
     "<div class='Module Pin summary' data-component-type='0'>" + 
         "<div class='pinWrapper'>" + 
             "<div class='bulkEditPinWrapper'></div>" + 
             "<div class='pinImageActionButtonWrapper'>" + 
                 "<div class='repinSendButtonWrapper'>" + 
-                    "<button class='Button Module ShowModalButton btn primary primaryOnHover repinSmall rounded' data-element-type='0' type='button'" + 
+                    "<button id='repin_" + $pinid + "' class='repinButton Button Module ShowModalButton btn primary primaryOnHover repinSmall rounded' data-element-type='0' type='button'" + 
                     	"style='height:33px'>" +
                         "<span class='glyphicon glyphicon-pushpin'></span>" +
                         "<span class='buttonText'>Pin it</span>" +
@@ -66,16 +68,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         "<span class='buttonText'>Send</span>" +
                     "</button>" +
                 "</div>" +
-                "<div class='likeEditButtonWrapper'>" +                                                                            
+                "<div class='likeEditButtonWrapper Unlike pinItem_" + $pinid +"' id='lw_" + $picnum + "'>" +                                                                            
                     "<button class='Button LikeButton Module PinLikeButton btn likeSmall rounded' data-element-type='1' data-source-interest-id='945391946569'" +
                    "data-text-like='Like' data-text-unlike='Unlike' type='button'  style='height:33px'>" +
-                        "<span class='glyphicon glyphicon-heart-empty'></span>" +
+                        "<span class='glyphicon glyphicon-heart-empty hs_" + $pinid + "' id='hs_" + $picnum + "'></span>" +
                     "</button>" +
                 "</div>" +
                 "<a class='Button Module NavigateButton borderless hasText pinNavLink navLinkOverlay' data-element-type='162' " +
                     "href='http://havsandlabs.wordpress.com/havanese/' rel='nofollow' type='button'>" +        
                     "<em class='glyphicon glyphicon-leaf' style='color:white'></em>" +
-                    "<span class='buttonText'>Learn more at havsandlabs.wordpress.com</span>" +        
+                    "<span class='buttonText'>" + $note + "</span>" +        
                 "</a>" +                                                                                                       
                 "<div class='pinHolder'>" +
                     //"<a href='/pinDetail.jsp?pinid=" + $pinid +"&url=" + $url + "&author=" + $author + "' class='pinImageWrapper draggable' data-element-type='35' style='background: #5a1321;'>" +
@@ -88,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             "</div>" +
                             "<div class='Image Module pinUiImage'>" +
                                 "<div>" +
-                                    "<img id='img_" + $pinid + "'src='" + $url + "' class='pinImg fullBleed loaded fade' style='' onload='' alt=''>" +
+                                    "<img id='img_" + $picnum + "'src='" + $url + "' class='pinImg fullBleed loaded fade' style='' onload='' alt=''>" +
                                 "</div>" +
                             "</div>" +
           				"</div>" +
@@ -100,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 "<p class='pinDescription'></p>" +
                 "<div class='Module SocialIconsCounts'>" +
                     "<div class='pinSocialMeta'>" +
-                    "<a class='socialItem' href='/pin/338895940687224815/repins/' data-element-type='174'>" +
+                    "<a class='socialItem' href='repin.jsp' data-element-type='174'>" +
                         "<em class='glyphicon glyphicon-share-alt'></em><em></em>" +
                         "<em class='socialMetaCount repinCountSmall' id='rcem_" + $pinid + "'></em>" +
                     "</a>" +
@@ -125,20 +127,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     "</a>" +
                 "</div>" +
             "</div>" 
-						);											
+						);					
+						//$("#repin_" + $pinid).bind("click", function(){
+											
 						$container.append($element);
-						/* $element.bind("click", itemChoose)	 */											
+						//console.log( $("#repin_"+$pinid).text() );
+						
+						$("#repin_"+$pinid).bind("click", function(){	
+							var repin = (this.id).substr(6);
+							window.location.href="repin.jsp?picnum=" + $picnum + "&repin=" + $pinid + "&url=" + $url + "&note=";
+							/* $.ajax({
+								type:"GET",
+								dataType:"json",
+								url:'repin.action',
+								data:{picnum:$picnum, repin:$pinid, note:$note },
+								success: function(data, textStatus) {
+									alert("Repin complete!");
+								},
+								error: function(XMLHttpRequest, textStatus, errorThrown) {
+									console.error("repin error!");
+								},
+							}); */
+						});	
+						//$("#lw_" + $picnum).bind("click", itemChoose($picnum));
+						$("#lw_" + $picnum).bind("click", itemChoose);										
 					});	
 					
 					$.each(data.pinStatList, function(){
+						//console.log(this);
 						var $pinid = this.pinid;
 						var $rc = this.repinCount;
 						var $lc = this.likeCount;
+						var $isLiked = this.isLikedByCurUser;					
 						$("#rcem_" + $pinid).text(($rc)>0 ? $rc : "");
 						$("#lcem_" + $pinid).text(($lc)>0 ? $rc : "");
+						
+						//console.log($isLiked);
+						if ($isLiked == "Like") {							
+							$("div.pinItem_" + $pinid).removeClass("Unlike");
+							$("div.pinItem_" + $pinid).addClass("Like");
+							var $heartSpan = $(".hs_" + $pinid);
+							$heartSpan.removeClass("glyphicon-heart-empty");
+							$heartSpan.addClass("glyphicon-heart");
+							$heartSpan.css("color", "red");					
+						} 
+						
 					});	
 					
-					$container.imagesLoaded( function(){
+					/* $container.imagesLoaded( function(){
 						$container.masonry({
 					        itemSelector : '.masonryItem',
 					        columnWidth:236,
@@ -146,7 +182,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        isFitWidth:true
 				//        	isAnimated:true
 			      		});	
-					});			
+					});  */
+					/* var $container2 = $('#masonryContainer').imagesLoaded( function() {
+  						$container2.isotope({ */
+					$container.imagesLoaded( function(){
+					$container.isotope({ 
+					        itemSelector : '.masonryItem',
+					        masonry: {
+ 							columnWidth:236,
+					        gutter:10,
+					        isFitWidth:true
+				//        	isAnimated:true
+							}
+							//sortBy: '.picsort',	  
+			      		});
+			      	}); 				
 					$('#headerContainer').width($('#gridItemModule').width());	
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -154,30 +204,102 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				},
 			});
 			
-			//$('#masonryContainer').imagesLoaded( function(){
-		    	
-		    //});
-		
-		//    $('#headerContainer').width($('#header_module').width());
-		
-		   /*  $('#masonrySmall').imagesLoaded( function(){
-		    	$('#masonrySmall').masonry({
-		        itemSelector : '.masonrySmallItem',
-		        columnWidth:70,
-		        gutterWidth:2,
-		        isFitWidth:true
-		      });
-		    }); */
-		    
+			/* $.ajax({
+				type:"GET",
+				dataType:"json",
+				url:'queryLatestPinSummaries.action',
+				data:{lastPinid:$lastPinid},
+				success: function(data, textStatus) {
+					
+				},
+			}); */
+
 		    $("#addPinMenuButton").click(function(){
 		        $("#addPinMenuContent").slideToggle();
 		    });
     	
     	})
     	
+    	$(window).resize(function() {
+			$('#headerContainer').width($('#headerBackground').width());
+		})
+    	
 		function showCreatePinForm(bid, pic, note) {
 			alert('showCreatePinForm!');
 		}
+		
+		//function itemChoose(picnum) {		
+		function itemChoose() {
+			$id = this.id;
+			$picnum = ($id + "").substr(3);
+			//console.log("itemChoose: picnum = " + $picnum);
+			var $ifLiked = $(this).hasClass("Like");
+			if ($ifLiked) {
+				$.ajax({
+					type:"GET",
+					dataType:"json",
+					url:'deleteLikes.action',
+					data:{picnum:$picnum},
+					success: function(data, textStatus) {					
+						var $heartSpan = $("#hs_" + $picnum);
+						$heartSpan.removeClass("glyphicon-heart");
+						$heartSpan.addClass("glyphicon-heart-empty");
+						$heartSpan.css("color", "gray");
+						this.removeClass("Like");
+						this.addClass("Unlike");
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						console.error("delete likes error!");
+					},
+				});
+			} else {
+				$.ajax({
+					type:"GET",
+					dataType:"json",
+					url:'addLikes.action',
+					data:{picnum:$picnum},
+					success: function(data, textStatus) {
+						var $heartSpan = $("#hs_" + $picnum);
+						$heartSpan.removeClass("glyphicon-heart-empty");
+						$heartSpan.addClass("glyphicon-heart");
+						$heartSpan.css("color", "red");
+						$("#lw_" + $picnum).removeClass("Unlike");
+						$("#lw_" + $picnum).addClass("Like");
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						console.error("add likes error!");
+					},
+				});
+			}
+			
+		}
+		
+		
+		function pictureFirst() {
+			//alert("picture First");
+			$("#sortListDiv").modal("hide");
+			//var $container = $('#container').imagesLoaded( function() {
+			  $("#masonryContainer").isotope({
+			    itemSelector : '.masonryItem',
+			    getSortData: {
+      				picsort: function( itemElem ) {
+				        var $weight = $( itemElem ).find('.picsort').text();
+				        return parseInt( $weight.replace( /[\(\)]/g, '') );
+				        },
+				},      
+				masonry: {
+ 					columnWidth:236,
+					gutter:10,
+					isFitWidth:true
+				},
+				sortBy : 'picsort',
+				sortAscending : false	        
+				
+			  });
+			//}); 
+		}
+		
+		
 		    	
     </script>
 	

@@ -62,4 +62,11 @@ public interface PinDAO {
 	public int countLikesByPinid(int pinid);
 	public int countCommentByPinid(int pinid);
 	public int countFollowingByUsername(String username);
+	public ArrayList<User> findUserByLikes(int picnum);
+	public ArrayList<String> findStreamByUsername(String username);
+	public void changeFollowStream(String username, String oldstream,
+			String stream);
+	public ArrayList<Board> findBoardByInfo(String info);
+	public ArrayList<Pin> takePinByBidOrder();
+	public ArrayList<Pin> findPinByTag(String tag);
 }

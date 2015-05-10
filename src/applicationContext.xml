@@ -120,12 +120,12 @@
 		</property>
 	</bean>
 	<bean id="addFollowAction" class="com.action.pin.AddFollowAction" scope="prototype">
-		<property name="pinService">
+		<property name="service">
 			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="addFriendAction" class="com.action.pin.AddFriendAction" scope="prototype">
-		<property name="userService">
+	<bean id="addFriendAction" class="com.action.user.AddFriendAction" scope="prototype">
+		<property name="service">
 			<ref bean="userService"></ref>
 		</property>
 	</bean>
@@ -149,11 +149,6 @@
 			<ref bean="pinService"></ref>
 		</property>
 	</bean>
-	<bean id="deletePinAction" class="com.action.pin.DeletePinAction" scope="prototype">
-		<property name="service">
-			<ref bean="pinService"></ref>
-		</property>
-	</bean>
 	<bean id="queryStatAction" class="com.action.pin.QueryStatAction" scope="prototype">
 		<property name="pinService">
 			<ref bean="pinService"></ref>
@@ -166,6 +161,66 @@
 		<property name="service">
 			<ref bean="pinService"></ref>
 		</property>		
+	</bean>
+	<bean id="deleteFollowAction" class="com.action.pin.DeleteFollowAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="deletePinAction" class="com.action.pin.DeletePinAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="addCommentAction" class="com.action.pin.AddCommentAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="deleteCommentAction" class="com.action.pin.DeleteCommentAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="addLikesAction" class="com.action.pin.AddLikesAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="deleteLikesAction" class="com.action.pin.DeleteLikesAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="queryCommentByPinidAction" class="com.action.pin.QueryCommentByPinidAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="queryAction" class="com.action.pin.QueryAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="friendQueryAction" class="com.action.user.FriendQueryAction" scope="prototype">
+		<property name="service">
+			<ref bean="userService"></ref>
+		</property>
+	</bean>
+	<bean id="repinAction" class="com.action.pin.RepinAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="takePinByBidOrderAction" class="com.action.pin.TakePinByBidAction" scope="prototype">
+		<property name="service">
+			<ref bean="pinService"></ref>
+		</property>
+	</bean>
+	<bean id="answerorRequestAction" class="com.action.user.AnswerorRequestAction" scope="prototype">
+		<property name="service">
+			<ref bean="userService"></ref>
+		</property>
 	</bean>
 	<!-- 
 	<bean id="userManage" class="dao.UserManage" abstract="false" lazy-init="default"

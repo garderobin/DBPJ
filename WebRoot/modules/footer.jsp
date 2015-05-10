@@ -36,16 +36,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <span class="positionModuleCaret" style="top:173px;"></span>
         <div class="AddPin Module isDropdown" data-component-type="">
         	<button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" 
-        		onclick="">
+        		onclick="location.href='testAddPin.jsp'">
         		<em class="glyphicon glyphicon-cloud-upload" style="color:gray;font-size:20px"></em>
         		<!-- <em></em>  -->
-            	<span class="buttonText"><a href="testAddPin.jsp">Upload a Pin</a></span>
+            	<span class="buttonText">Upload a Pin</a></span>
             </button>
-            <button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" >
+            <button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" 
+            	onclick="location.href='addPinFromWeb.jsp'">
             	<em class="glyphicon glyphicon-globe" style="color:gray;font-size:20px"></em>
             	<span class="buttonText">Pin from a website</span>
             </button>
-            <button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" >
+            <button type="button" class="Button Module ShowModalButton borderless hasText pinUpload addPinDropdown" 
+				onclick="location.href='createBoard.jsp'">
             	<em class="glyphicon glyphicon-blackboard" style="color:gray;font-size:20px"></em>
             	<span class="buttonText">Create a board</span>
             </button>

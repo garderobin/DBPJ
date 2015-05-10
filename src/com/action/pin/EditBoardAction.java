@@ -18,7 +18,6 @@ public class EditBoardAction extends ActionSupport {
 	private String info;
 	private PinService service;
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public String execute() throws Exception {
 		switch(this.service.updateBoard(bid, bname, info)) {

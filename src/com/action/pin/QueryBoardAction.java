@@ -62,8 +62,12 @@ public class QueryBoardAction extends ActionSupport {
 	@SuppressWarnings("rawtypes")
 	@Transactional
 	public String queryBoardsByUsername() {		
-		Map session = ActionContext.getContext().getSession();
-		String username = session.get("username").toString();
+//		Map session = ActionContext.getContext().getSession();
+//		String username = session.get("username").toString();
+		if (username == null) {
+			Map session = ActionContext.getContext().getSession();
+			username = session.get("username").toString();
+		}
 		this.boardList = this.service.findBoardByUsername(username);
 		// For test
 		Board b;

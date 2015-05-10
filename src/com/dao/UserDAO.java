@@ -14,6 +14,8 @@ public interface UserDAO {
 	
 	public User findUserByUsername(String username);	
 	
+	public ArrayList<User> findUserByKeyword(String keyword);
+	
 	//Before insertion , check whether the friendship already exists.
 	public void addFriend(Friend friend);
 	
@@ -39,8 +41,14 @@ public interface UserDAO {
 	
 	public int countFriendByUsername(String username);
 	
-	//public void addActivatedUser(ActivatedUser user);
-	//public void deleteActivatedUser(ActivatedUser user);
-	//public ActivatedUser findActivatedUserByUsername(String username);
+	public void addRequest(Request request);
+	public void deleteRequest(Request request);
+	public void updateRequest(Request request);
+	public ArrayList<Request> findRequestByInvitor(String invitor);
+	public ArrayList<Request> findRequestByAnsweror(String answeror);
+	public int countRequestByAnsweror(String answeror);
+	public Request findRequestByInvitorAnsweror(String invitor, String answeror);
+	
+
 	
 }

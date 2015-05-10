@@ -14,13 +14,14 @@ public class RepinAction extends ActionSupport {
 	private String note;
 	private int pinid;
 	private int repin;
+	private int newPinid;
 	private PinService service;
 
 
 	@Override
 	public String execute() throws Exception {
-		int pinid = this.service.addPin(bid, picnum, note, repin);
-		if (pinid < 0) {
+		newPinid = this.service.addPin(bid, picnum, note, repin);
+		if (newPinid < 0) {
 			return INPUT;
 		}
 		return SUCCESS;		
@@ -54,6 +55,16 @@ public class RepinAction extends ActionSupport {
 	
 	public void setRepin(int repin) {
 		this.repin = repin;
+	}
+
+
+	public int getNewPinid() {
+		return newPinid;
+	}
+
+
+	public void setNewPinid(int newPinid) {
+		this.newPinid = newPinid;
 	}
 
 

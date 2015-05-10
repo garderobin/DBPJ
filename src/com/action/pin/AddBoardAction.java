@@ -12,6 +12,7 @@ public class AddBoardAction extends ActionSupport {
 	private static final long serialVersionUID = -8048334825837552668L;
 	private String bname;
 	private String info;
+	private int bid;
 	private PinService service;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -35,8 +36,9 @@ public class AddBoardAction extends ActionSupport {
 			    return "default";		
 		    }
 		}
-		else{
-			return String.valueOf(i);
+		else{		
+			//return String.valueOf(i);
+			return SUCCESS;
 		}				
 	}
 
@@ -55,6 +57,18 @@ public class AddBoardAction extends ActionSupport {
 
 	public void setService(PinService service) {
 		this.service = service;
+	}
+
+
+
+	public int getBid() {
+		return bid;
+	}
+
+
+
+	public void setBid(int bid) {
+		this.bid = bid;
 	}
 
 

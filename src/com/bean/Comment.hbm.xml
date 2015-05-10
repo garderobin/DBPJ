@@ -16,8 +16,8 @@
         <many-to-one name="pin" class="com.bean.Pin" fetch="select"  lazy="false">
             <column name="pinid" not-null="true" />
         </many-to-one>
-        <property name="comment" type="java.lang.String">
-            <column name="comment" length="100" not-null="true" />
+        <property name="content" type="java.lang.String">
+            <column name="content" length="100" not-null="true" />
         </property>
         <property name="time" type="java.sql.Timestamp">
             <column name="time" length="0" not-null="true" />

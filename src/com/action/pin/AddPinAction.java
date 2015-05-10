@@ -14,6 +14,7 @@ public class AddPinAction extends ActionSupport {
 	private String note;
 	private int pinid;
 	private PinService service;
+	
 
 
 	@Override

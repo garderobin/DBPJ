@@ -113,7 +113,22 @@ public class PinDAOImpl implements PinDAO{
 	@Override
 	public ArrayList<Board> findBoardByStream(String stream){
 		Session session = sessionFactory.openSession();
-		String hql = "from Board board where board.stream = '" + stream + "'";
+		String hql = "select follow.board from Follow follow where follow.stream = '" + stream + "'";
+		Query query = session.createQuery(hql);
+		ArrayList<Board> list = (ArrayList<Board>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
+	public ArrayList<Board> findBoardByInfo(String info){
+		Session session = sessionFactory.openSession();
+		String hql = "from Board board where board.info = '" + info + "'";
 		Query query = session.createQuery(hql);
 		ArrayList<Board> list = (ArrayList<Board>) query.list();
 		session.close();
@@ -302,7 +317,8 @@ public class PinDAOImpl implements PinDAO{
 			return  null;
 		}
 		else {
-			return (Pin) list.get(0);
+			Pin pin = (Pin) list.get(0);
+			return pin;
 		}
 	}
 	
@@ -695,6 +711,79 @@ public class PinDAOImpl implements PinDAO{
 				"from Board board join board.pins pin " +
 				"where board.user.username = '" + username + "'";
 		Query query = session.createQuery(hql);
+		ArrayList<Pin> list = (ArrayList<Pin>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+
+
+	@Override
+	public ArrayList<String> findStreamByUsername(String username){
+		Session session = sessionFactory.openSession();
+		String hql = "select distinct follow.stream from Follow follow where follow.user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+		ArrayList<String> list = (ArrayList<String>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+
+	@Override
+	public void changeFollowStream(String username, String oldstream, String stream){
+		Session session = sessionFactory.openSession();
+		String hql = "update Follow follow set follow.stream = '" + stream + "' where follow.stream = '" + oldstream + "' and follow.user.username = '" + username + "'";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+		session.close();
+	}
+	
+	@Override
+	public ArrayList<User> findUserByLikes(int picnum){
+		Session session = sessionFactory.openSession();
+		String hql = "select likes.user from Likes likes where likes.picture.picnum = '" + picnum + "'";
+		Query query = session.createQuery(hql);
+		ArrayList<User> list = (ArrayList<User>) query.list();
+		session.close();
+		if (list.isEmpty()) {
+			return  null;
+		}
+		else {
+			return list;
+		}
+	}
+	
+	@Override
+	public ArrayList<Pin> takePinByBidOrder(){
+		Session session = sessionFactory.openSession();
+		String hql = "from Pin pin order by pin.board.bid";
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+        query.setMaxResults(30);
+		ArrayList<Pin> list = (ArrayList<Pin>) query.list();
+		session.close();
+		if(list.isEmpty()){
+			return null;
+		}
+		else{
+			return list;
+		}
+	}
+
+	@Override
+	public ArrayList<Pin> findPinByTag(String tag){
+		Session session = sessionFactory.openSession();
+		String hql = "from Pin pin where pin.note like ?";
+		Query query = session.createQuery(hql);
+		query.setString(0,"%"+tag+"%");
 		ArrayList<Pin> list = (ArrayList<Pin>) query.list();
 		session.close();
 		if (list.isEmpty()) {

@@ -17,9 +17,7 @@ public class AddFollowAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = -6625438860588318525L;
 	private PinService service;
-	private Follow follow;
 	private String stream;
-	private Date time;
 	private int bid;
 	private int idfollow;
 
@@ -35,48 +33,51 @@ public class AddFollowAction extends ActionSupport {
 		}
 		return SUCCESS;		
 	}
-	
+
+
 	public PinService getService() {
 		return service;
 	}
+
+
 	public void setService(PinService service) {
 		this.service = service;
 	}
-	public Follow getFollow() {
-		return follow;
-	}
-	public void setFollow(Follow follow) {
-		this.follow = follow;
-	}
+
+
 	public String getStream() {
 		return stream;
 	}
+
+
 	public void setStream(String stream) {
 		this.stream = stream;
 	}
-	public Date getTime() {
-		return time;
-	}
-	public void setTime(Date time) {
-		this.time = time;
-	}
+
+
 	public int getBid() {
 		return bid;
 	}
+
+
 	public void setBid(int bid) {
 		this.bid = bid;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+
 
 	public int getIdfollow() {
 		return idfollow;
 	}
 
+
 	public void setIdfollow(int idfollow) {
 		this.idfollow = idfollow;
 	}
+
+
+
+	
+
 	
 	
 }

@@ -41,17 +41,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	<script src="js/common.js"></script>
    	<script src="js/jquery.masonry.min.js"></script>
     <script src="js/modernizr-transitions.js"></script>
+    <script src="js/jquery.form.min.js"></script>
     <script type="text/javascript">
+    function editBoard(){
+  			document.getElementById("editboardform").style.display="block";
+  			//$("#editboardform").css("margin-top:-300px");
+  		} 
+  		
+  		function saveChange(){
+  			document.editboardform.action="editBoard";
+  			document.editboardform.submit();
+  		} 
+  		function deleteBoard(){
+  			document.editboardform.action="deleteBoard";
+  			document.editboardform.submit();
+  		}
     $(function(){
     	
     	var $bid = $("#bid").val(); 
-    	var $isAuthor = ($("#currentUser").text() === $("#author").text());
-    	console.log("isAuthor: " + $isAuthor);
-    	if ($isAuthor) {
-    		$("#boardInfoBarWrapper").load("/modules/authorBoardButtons.html");
+    	/* var $isAuthor = ($("#curUser").text() === $("#username").val());
+    	//$("#boardInfoBarWrapper").load("modules/authorBoardButtons.jsp");
+    	$("#author").text("abcd");
+    	var $curUser = $("#curUser").text();
+    	var $author = $("#username").val();
+    	console.log("isAuthor: " + $isAuthor + "; curUser = " + $curUser + "; username = " + $author);
+    	 *//*if ($isAuthor) {
+    		$("#boardInfoBarWrapper").load("modules/authorBoardButtons.jsp");
     	} else {
-    		$("#boardInfoBarWrapper").load("/modules/visitorBoardButtons.html");
-    	}
+    		$("#boardInfoBarWrapper").load("modules/visitorBoardButtons.html");
+    	} */
     	//setOperationBar($("#currentUser").text(), $("#author").text());
     	/* $.ajax({
 			type:'GET',
@@ -66,6 +84,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			error: function(XMLHttpRequest, textStatus, errorThrown) {					console.error("stat error!");
 			},
 		}); */
+		
+		$.ajax({
+			type:'GET',
+			dataType:'json',
+			url:'queryBoardByBidJson.action',
+			data:{bid:$bid},
+			success: function(data, textStatus) {
+				$author = data.board.user.username;
+				$curUser = $("#curUser").text();
+				$("#author").text($curUser);
+				var $isAuthor = ($curUser === $author);
+				console.log("isAuthor: " + $isAuthor + "; curUser = " + $curUser + "; username = " + $author);
+    					
+				if (!$isAuthor) {
+					$(".boardButtons").children().remove();
+					$visitorBoardButtons = $(
+"<form id='addFollowForm' method='GET' action='addFollow.action'><button class='NotAuthor BoardFollowButton Button FollowButton Module boardFollowUnfollowButton btn hasText notNavigatable primary rounded' type='submit'>"+ 
+	"<span class='buttonText'>Follow board</span></button><em></em>" +
+"<input type='text' name='stream' placeholder='(Stream)'></form>"					
+					);
+					$(".boardButtons").append($visitorBoardButtons);
+					$("#addFollowForm").ajaxForm({
+						url: 'addFollow.action',
+						type: 'GET',
+						dataType: 'json',
+						data:{bid:$bid},
+						success: function(data, textStatus) {
+							alert("Add follow success!");//TODO
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							console.error("addFollow error!");
+						},
+						input: function(data, textStatus) {
+							console.error("errorcode:" + data.idfollow);
+						},
+					});
+				}    	
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.error("queryBoardByBidJson error!");
+			},
+		});
+		
+		
 			
     	$.ajax({
 			type:'GET',
@@ -81,6 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					var $note = this.note;
 					var $bname = this.board.bname;
 					var $bid = this.board.bid;
+					
 					var $element = $("<div class='masonryItem  ui-draggable ui-draggable-disabled ui-state-disabled' aria-disabled='true' style='margin-bottom: 10px;'>" + 
     "<div class='Module Pin summary' data-component-type='0'>" + 
         "<div class='pinWrapper'>" + 
@@ -159,6 +222,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             "</div>" 											
 					);
 					$container.append($element);
+					//$container.imagesLoaded( function(){
+					$container.masonry({
+						itemSelector : ".masonryItem",
+					    columnWidth:236,
+					    gutterWidth:10,
+					    isFitWidth:true
+					});
+				//});
 				});
 				
 				$.each(data.pinStatList, function() {
@@ -170,7 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});		
 										
 				$container.imagesLoaded( function(){
-					$container.masonry({
+					$("#masonryContainer").masonry({
 						itemSelector : '.masonryItem',
 					    columnWidth:236,
 					    gutterWidth:10,
@@ -185,6 +256,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
     })
     
+    $(window).resize(function() {
+			$('#headerContainer').width($('#headerBackground').width());
+		})
     /* function setOperationBar(cuser, author) {
     	if (cuser == author) {
     		$(".IsAuthor").css("display", "none");
@@ -202,8 +276,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body class="noTouch">
   	<jsp:include page="./modules/header.jsp" />
 	<jsp:include page="./modules/footer.jsp"/>
-  	<input type="hidden" name="bid" id="bid" value=<%= request.getParameter("bid")%>>
-  	<div id="currentUser" style="display:none"><s:property value='#session.username'></s:property></div>
+  	
+  	<div id="curUser" style="display:none"><s:property value='#session.username'></s:property></div>
+  	<input type="hidden" id="username" value=<%= request.getParameter("username")%>>
 <div class="App AppBase Module full" data-component-type="17">                       
 <div class="appContent">
     <div class="mainContainer">
@@ -223,11 +298,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     						</div>
 							<div class="BoardInfoBar Module boardHeaderBackground" data-component-type="69" style="padding-left:25px; padding-right:25px">
 								<div id="boardInfoBarWrapper" class="infoBarWrapper gridWidth centeredWithinWrapper">				
-	    							<%-- <div class="boardButtons" style="height:30px;">
-	    								<button class="IsAuthor Button Module btn1 hasText movePinsButton rounded" data-element-type="400" type="button"  style="height:30px; display:none">
+	    							<div class="boardButtons" style="height:30px;">
+	    								<button class="IsAuthor Button Module btn1 hasText movePinsButton rounded" data-element-type="400" type="button"  style="height:30px; ">
 											<span class="buttonText">Move Pins</span>
 	        							</button>
-										<button id="editBoardButton" class="IsAuthor Button Module ShowModalButton boardEditButton btn1 hasText rounded" type="button" style="height:30px; display:none">
+										<button id="editBoardButton" onclick="editBoard()" class="IsAuthor Button Module ShowModalButton boardEditButton btn1 hasText rounded" type="button" style="height:30px; ">
 											<span class="buttonText">Edit Board</span>
 										</button>										
 									</div>
@@ -245,19 +320,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 										style="background-image:url('images/addFriend.png'); background-size: 30px 30px; background-position:0 0">
 											<div class="Label Module">Invite</div>
 										</button>
-									</div> --%>
+									</div>
 									<h2 class="smallBoardName centeredWithinWrapper" style="opacity: 0; transform: translate(0px, 0px);">Test</h2>
 									<div class="pinsAndFollowerCount " style="transform: translate(0px, 0px);">
 	            						<ul>
 	                						<li>
-												<span class="value" id="pinCountSpan"><%= request.getParameter("pinCount") %></span> 
+												<span class="value" id="pinCountSpan">7</span> 
 												<span class="label">Pins</span>
 	    									</li>
 											<li>
 	                        					<button class="Button Module ShowModalButton borderless followerCount hasText" type="button">
 													<em></em>
 													<span class="buttonText">
-														<span class="value" id="followerCountSpan"><%=request.getParameter("followerCount") %></span> 
+														<span class="value" id="followerCountSpan">0</span> 
 														<span class="label">Followers</span>
 													</span>        
 												</button>
@@ -1132,7 +1207,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 
-
+<form class="standardForm" id="editboardform" name="editboardform" method="post" action="" style="display:none" >    
+    			<h1 class="createTitle">
+       				 Edit Board
+    			</h1>
+    			<input type="hidden" name="bid" id="bid" value=<%= request.getParameter("bid")%>>
+    			<ul>        
+            		<li>
+                		<h3><label for="boardEditName" class="hasError">Name</label></h3>                
+               	    	<div>
+                    		<input id="boardEditName" name="bname" type="text" autofocus="" value=<%= request.getParameter("bname") %> >
+                		</div>
+           	    	</li>  
+           	    	<li class="Wrapper">
+                		<h3><label for="boardInfo">Description</label></h3>
+                		<div>
+                    		<textarea id="boardInfo" name="info" ></textarea>
+                		</div>
+            		</li>         
+    			</ul>   
+    		<div class="formFooter">
+				<div class="formFooterDelete" style="float:left;" >
+                	<button class="Button Module btn deleteBoardButton hasText rounded" type="button" onclick="deleteBoard()">
+						<span class="buttonText">Delete Board</span>
+        			</button>
+            	</div>
+				<div class="formFooterButtons" style="float:right;" >
+            		<button class=" Button Module btn cancelButton hasText rounded" type="button">
+						<span class="buttonText">Cancel</span>
+        			</button>
+					<button class="Button Module btn hasText primary rounded saveBoardButton" type="button" onclick="saveChange()">
+						<span class="buttonText">Save Changes</span>
+					</button>
+        		</div>
+				
+			</div>
+			</form>
 <div class="gridError">
     <button class="Button btn1 rounded large">
         <span>Whoops! Something went wrong.</span> Try again.
@@ -1177,6 +1287,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>   -->
 </div>          
 
+			
 <div id="at-view" class="at-view" style="display: none;"><ul id="at-view-ul"></ul>
 </div>
 </body>

@@ -18,6 +18,7 @@ public interface PinService {
     public ArrayList<Board> findBoardByUsername(String username);
     public Board findBoardByUsernameBname(String username, String bname);    
     public ArrayList<Board> findBoardByStream(String stream);
+    public ArrayList<Board> findBoardByInfo(String info);
     public ArrayList<Board> findBoardByKeyword(String keyword);
     public ArrayList<Board> findBoardByPicnum(int picnum);
     
@@ -45,7 +46,7 @@ public interface PinService {
     public ArrayList<Board> findBoardByFollow(String username);
     
     /* Comment */
-    public int addComment(String username, int pinid, String comment);
+    public int addComment(String username, int pinid, String content);
     public ErrorType deleteComment(int cid);
     public ArrayList<Comment> findCommentByUsername(String username);
     public ArrayList<Comment> findCommentByPinid(int pinid);
@@ -82,8 +83,21 @@ public interface PinService {
      *          int[2]: num of comments
      */
     //public int[] pinBasicStatistic(int pinid);    
-    public PinStat pinBasicStatistic(int pinid);
+    //public PinStat pinBasicStatistic(int pinid);
     
-    public ArrayList<PinStat> pinStatListByPinList(ArrayList<Pin> pinList);
-    
+    //public ArrayList<PinStat> pinStatListByPinList(ArrayList<Pin> pinList);
+	public ErrorType deleteLikesByUsernamePicnum(String username, int picnum);
+	public PinStat pinBasicStatistic(String username, int pinid);
+	public ArrayList<PinStat> pinStatListByPinList(String username,
+			ArrayList<Pin> pinList);
+	
+	public ArrayList<User> findUserByLikes(int picnum);
+	public ArrayList<String> findStreamByUsername(String username);
+	public ErrorType updateFollow(String username, int bid, String stream);
+	public Follow findFollowByUsernameBid(String username, int bid);
+	public ErrorType changeFollowStream(String username, String oldstream,
+			String stream);
+	public ArrayList<Pin> takePinByBidOrder();
+	public ArrayList<Pin> findPinByTag(String tag);
+	
 }

@@ -12,7 +12,7 @@
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>My JSP 'index.jsp' starting page</title>
+		<title>Upload A Pin</title>
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
@@ -48,12 +48,13 @@
 			
 		<!-- </div> -->
 				
-    			<h1 class="pinFormHeader">Pick a board</h1>
+    			<h1 class="pinFormHeader">Upload A Pin</h1>
     			<input id="file_upload" type="file" name="file"
 				style="position: absolute; right:0px; top: 0px; font-family: Arial; margin: 0px; padding: 0px; cursor: pointer; opacity: 0;
 				max-height:32px;min-width:150px; border-top-left-radius:3px;border-bottom-right-radius:3px"/>
 				<!-- <div id="tip-queue"></div> -->
-				<div class="uploaderProgress" id="tip-queue" style="float:right;min-width:300px"></div>
+				
+    			<div class="uploaderProgress" id="tip-queue" style="float:right;min-width:300px"></div>
     			<div class="Module PinPreview" 
     				style="float:right;margin-right:20px;overflow-x:hidden; overflow-y:hidden;position:relative;
     				margin-bottom:0px;margin-left:0px;margin-top:15px;max-width:180px;max-height:250px;
@@ -88,7 +89,7 @@
 					<li style="width:500px">
                 		<h3 style="width:130px"><label for="pinFormLink">Source</label></h3>
                 		<div>
-                    		<input type="url" name="link" id="pinFormLink" value=""  style="float:right; min-width:320px;">
+                    		<input type="url" name="sourceUrl" id="sourceUrl"  style="float:right; min-width:320px;">
                 		</div>
             		</li>
 				</ul>

@@ -68,13 +68,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="js/modernizr-transitions.js"></script>
         <script>
     	$(function(){     		
-    		 
-    		   		
+    		var $username = $("#usernameSpan").text();
 			$.ajax({
 				type:'GET',
 				dataType:'json',
 				url:'queryUserStatistic.action',
-				data:{username:$("#usernameSpan").text()},
+				data:{username:$username},
 				success: function(data, textStatus) {
 					var $stat = data.userStat;
 					$("#boardCountSpan").text($stat.boardCount);
@@ -91,7 +90,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			$.ajax({
 				type:'GET',
 				dataType:'json',
+				url:'queryFriendExist.action',
+				data:{friendOfCurUser:$username},
+				success: function(data, textStatus) {
+					console.log("queryFriend :" + data.friendExist);
+					if (data.friendExist == 1) {
+						$("#inviteFriendButton").css("display", "none");	
+						$("#inviteFriendButton").css("visibility", "false");
+						$("#inviteFriendButton").hide();
+					}
+					$("#inviteFriendButton").bind("click", inviteFriend);
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.error("stat error!");
+				},
+			});
+			
+			
+			$.ajax({
+				type:'GET',
+				dataType:'json',
 				url:'queryBoardsByUsername.action',
+				data:{username:$username},
 				success: function(data, textStatus) {
 					var $testDiv = $('#gridItemModule');
 					$.each(data.boardList, function() {
@@ -142,6 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			
 			$('#headerContainer').width($('#gridItemModule').width());
+			
 		})
 		
     	$(window).resize(function() {
@@ -184,11 +205,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		}
 		
+		function inviteFriend() {
+			var $username = $("#usernameSpan").text();
+			alert("invite: " + $username);
+			$.ajax({
+				type:'GET',
+				dataType:'json',
+				//url:'addFriend.action',
+				url:'addRequest.action',
+				data:{friendname:$username},				
+				success: function(data, textStatus) {
+					if (data.idfriend>0) {
+						alert("Add friend request sent！");
+					}					
+				},
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					console.error("error!");
+				},
+			});
+		}
+		
     </script>
     
     <jsp:include page="./modules/header.jsp" />
 	<body class="noTouch" data-pinterest-extension-installed="cr1.37">
-		
+	<input type="hidden" name="curUser" id="curUser" value=<s:property value="#session.username"></s:property>>	
 		
 		
 		<div class="App AppBase Module full" data-component-type="17">
@@ -209,20 +250,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         						<div class="fixedHeaderImage">
 													<img src="https://s-passets-cache-ak0.pinimg.com/images/user/default_140.png" style="" alt="TAO DONG">
 												</div>
-                        						<div class="fixedHeaderName" itemprop="name" id="usernameSpan"><s:property value="#session.username"></s:property></div>
+                        						<div class="fixedHeaderName" itemprop="name" id="usernameSpan"><%= request.getParameter("username")%></div>
                     						</div>
-                    						<div class="buttons">
-												<button class="Button Module btn hasText movePinsButton rounded" data-element-type="400" type="button">
-													<span class="buttonText">Move Pins</span>
-												</button>
-												<button class="Button Module ShowModalButton btn editProfile hasText primary rounded" type="button">
-													<span class="buttonText">Edit Profile</span>
-        										</button>
-												<button class="Button DropdownButton Module btn rounded userProfileMenu" data-element-type="57" type="button">
-													<em></em>
-													<span class="accessibilityText">User Menu</span>
-												</button>
-											</div>
+                    						
                 						</div>
                 						<div class="divider centeredWithinWrapper gridWidth">
                     						<hr>
@@ -231,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             						<div class="profileInfo">
                 						<div class="aboutBar">
                     						<div class="about">
-												<h1 class="name"><s:property value="#session.username"></s:property></h1>
+												<h1 class="name authorName"><%= request.getParameter("username")%></h1>
 												<div class="iconsLinksEtc">
         											<ul></ul>
     											</div>
@@ -276,19 +306,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<span class="value" id="followingCountSpan">5</span> <span class="label">Following</span>
 										</a>
        						 		</li>
+       						 		
     							</ul>
 							</div>
+							<button id="inviteFriendButton" class="Button Module ShowModalButton boardAddCollaboratorsButton borderless primary" type="button"
+	 										style="float:right; margin-right:20px;margin-top:15px;width: 100px;background-image:url('images/addFriend.png'); background-size: 30px 30px; background-position:0 0">
+											<div class="Label Module">Invite</div>
+										</button>
 						</div>
 						<div class="Module UserProfileContent">
 							<div class="Module UserBoards ownProfile">
 								<div class="Grid Module" style="background-color:#eee">
 									<div class="GridItems Module centeredWithinWrapper fixedHeightLayout padItems ui-sortable" id="gridItemModule">
-										<div class="item activeItem ui-draggable ui-draggable-disabled ui-state-disabled" aria-disabled="true">
-											<a class="BoardCreateRep ModalTrigger Module" href="#">
-												<i></i>
-												<span>Create a board</span>
-											</a>
-										</div>										
+																			
  									</div>
  								</div>
 							</div>

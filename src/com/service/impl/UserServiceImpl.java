@@ -15,13 +15,8 @@ public class UserServiceImpl implements UserService {
 
 	private UserDAO userDAO;
 
-	public UserDAO getUserDAO()
-	{
-		return userDAO;
-	}
 
-	public void setUserDAO(UserDAO userDAO)
-	{
+	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 
@@ -32,9 +27,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(User user)
+	public ErrorType update(User user)
 	{
-		this.userDAO.updateUser(user);
+		try {
+			this.userDAO.updateUser(user);
+		} catch (HibernateException he) {
+			return ErrorType.DELETE_ERROR;
+		} 
+		return ErrorType.NO_ERROR;
+
 	}
 
 	@Override
@@ -67,6 +68,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public ArrayList<User> findUserByKeyword(String keyword){
+		ArrayList<User> users = userDAO.findUserByKeyword(keyword);
+		return users;
+	}
+	
+	@Override
 	public int addFriend(String user1, String user2) {
 		Friend friend = new Friend();
 		User u1 = this.userDAO.findUserByUsername(user1);
@@ -84,6 +91,9 @@ public class UserServiceImpl implements UserService {
 	//OK:
 	@Override
 	public ErrorType deleteFriend(String user1, String user2) {
+		Friend friend = userDAO.findFriendship(user1, user2);
+		if(friend==null)
+			return ErrorType.FRIEND_NOT_EXISTED;
 		try {
 			this.userDAO.deleteFriendByUsernames(user1,user2);
 		} catch (HibernateException he) {
@@ -95,6 +105,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean checkFriendshipExist(String user1, String user2) {
 		return (this.userDAO.findFriendship(user1, user2) != null);
+	}
+	
+	@Override
+	public int countFriendByUsername(String username){
+		int i = userDAO.countFriendByUsername(username);
+		return i;
 	}
 	
 	@Override
@@ -110,6 +126,77 @@ public class UserServiceImpl implements UserService {
 			return ErrorType.NO_ERROR;
 		}
 		return ErrorType.USERNAME_EXISTED;
+	}
+	
+	@Override
+	public ErrorType addRequest(String invitor, String answeror){
+		Request request = new Request();
+		User u1 = this.userDAO.findUserByUsername(invitor);
+		if(u1 == null)
+			return ErrorType.USER_NOT_EXIST;
+		
+		User u2 = this.userDAO.findUserByUsername(answeror);
+		if(u2 == null)
+			return ErrorType.USER_NOT_EXIST;
+		
+		Request request1 = this.userDAO.findRequestByInvitorAnsweror(invitor, answeror);
+		if(request1 != null)
+			return ErrorType.REQUEST_EXISTED;
+		
+		request.setInvitor(u1);
+		request.setAnsweror(u2);
+		request.setTime(new Date());
+		
+		try {
+			this.userDAO.addRequest(request);
+			return ErrorType.NO_ERROR;
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			return ErrorType.ADD_REQUEST_ERROR;
+		} //addFriend and Delete Friend use two different error-handling methods.
+
+		
+
+			
+	}
+	
+	@Override
+	public ErrorType deleteRequest(String invitor, String answeror){
+		Request request = userDAO.findRequestByInvitorAnsweror(invitor, answeror);
+		if(request == null)
+			return ErrorType.REQUEST_NOT_EXISTED;
+		else{
+			try {
+				this.userDAO.deleteRequest(request);
+			} catch (HibernateException he) {
+				return ErrorType.DELETE_ERROR;
+			} 
+			return ErrorType.NO_ERROR;
+		}
+	}
+	
+	@Override
+	public ArrayList<Request> findRequestByInvitor(String invitor){
+		ArrayList<Request> requests = userDAO.findRequestByInvitor(invitor);
+		return requests;
+	}
+	
+	@Override
+	public ArrayList<Request> findRequestByAnsweror(String answeror){
+		ArrayList<Request> requests = userDAO.findRequestByAnsweror(answeror);
+		return requests;
+	}
+	
+	@Override
+	public int countRequestByAnsweror(String answeror){
+		int i = userDAO.countRequestByAnsweror(answeror);
+		return i;
+	}
+	
+	@Override
+	public Request findRequestByInvitorAnsweror(String invitor, String answeror){
+		Request request = userDAO.findRequestByInvitorAnsweror(invitor, answeror);
+		return request;
 	}
 
 }
